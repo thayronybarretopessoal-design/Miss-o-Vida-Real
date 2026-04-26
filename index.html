@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Missão Real">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Missão Real</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111;
+  --surface2: #161616;
+  --border: #1e1e1e;
+  --accent: #c8a84b;
+  --accent-dim: rgba(200,168,75,0.12);
+  --accent2: #4b7ec8;
+  --accent2-dim: rgba(75,126,200,0.12);
+  --green: #4bc87e;
+  --green-dim: rgba(75,200,126,0.1);
+  --red: #c84b4b;
+  --red-dim: rgba(200,75,75,0.1);
+  --text: #e8e4dc;
+  --muted: #4a4a4a;
+  --muted2: #666;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: calc(60px + var(--safe-bottom));
+  padding-top: var(--safe-top);
+}
+
+/* ─── NAV BAR ─── */
+.navbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,0.97);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px;
+  gap: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--muted2);
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-btn.active { color: var(--accent); }
+.nav-btn svg { width: 20px; height: 20px; }
+
+/* ─── PAGES ─── */
+.page { display: none; padding: 0 0 1rem; }
+.page.active { display: block; }
+
+/* ─── HEADER ─── */
+.page-header {
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(200,168,75,0.025) 40px, rgba(200,168,75,0.025) 41px);
+  pointer-events: none;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--text);
+}
+.page-title span { color: var(--accent); }
+.page-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  padding: 1rem 1.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── TIMELINE BLOCKS ─── */
+.block {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.7rem 1.25rem;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+  position: relative;
+}
+.block:active { background: rgba(255,255,255,0.02); }
+.block.gold { border-left-color: var(--accent); background: var(--accent-dim); }
+.block.blue { border-left-color: var(--accent2); background: var(--accent2-dim); }
+.block.green { border-left-color: var(--green); background: var(--green-dim); }
+.block.red { border-left-color: var(--red); background: var(--red-dim); }
+
+.block-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  min-width: 38px;
+  padding-top: 2px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.block-body {}
+.block-title {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 1px;
+}
+.block-desc {
+  font-size: 11.5px;
+  color: var(--muted2);
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 1.25rem;
+}
+
+/* ─── CHECKLIST ─── */
+.check-list { padding: 0 1.25rem; }
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.check-item:last-child { border-bottom: none; }
+
+.check-box {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--muted);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  background: transparent;
+}
+.check-item.done .check-box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.check-box svg { display: none; }
+.check-item.done .check-box svg { display: block; }
+
+.check-label {
+  font-size: 13.5px;
+  color: var(--text);
+  flex: 1;
+  transition: color 0.2s;
+}
+.check-item.done .check-label {
+  color: var(--muted2);
+  text-decoration: line-through;
+}
+
+.check-progress {
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.progress-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
+}
+.progress-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  min-width: 32px;
+  text-align: right;
+}
+
+.reset-btn {
+  display: block;
+  margin: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  width: calc(100% - 2.5rem);
+  transition: all 0.2s;
+}
+.reset-btn:active { border-color: var(--accent); color: var(--accent); }
+
+/* ─── METAS ─── */
+.metas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+}
+.meta-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+}
+.meta-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 4px;
+}
+.meta-card-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.meta-card-sub {
+  font-size: 10px;
+  color: var(--muted2);
+  margin-top: 2px;
+}
+
+/* ─── REGRAS ─── */
+.regras { padding: 0 1.25rem; }
+.regra {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.regra:last-child { border-bottom: none; }
+.regra-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  color: var(--accent);
+  min-width: 22px;
+  line-height: 1.1;
+}
+.regra-text { font-size: 12.5px; color: var(--text); line-height: 1.6; }
+
+/* ─── PROJETO ─── */
+.projeto-header {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin: 0 1.25rem;
+  border-radius: 4px;
+}
+.projeto-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  border-radius: 2px;
+}
+.projeto-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.7; }
+.projeto-day {
+  margin: 0 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--red-dim);
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.projeto-day strong { color: var(--accent); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; }
+
+/* ─── NOTAS ─── */
+.obs-area {
+  margin: 0 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.75rem;
+}
+.obs-area textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text);
+  resize: none;
+  line-height: 1.7;
+  min-height: 160px;
+}
+.obs-area textarea::placeholder { color: var(--muted); }
+.obs-save {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.obs-save:active { background: var(--accent); color: black; }
+
+.quote-box {
+  margin: 1rem 1.25rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 2px solid var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted2);
+  font-style: italic;
+  line-height: 1.7;
+  background: var(--accent-dim);
+}
+
+/* ─── SAVED TOAST ─── */
+.toast {
+  position: fixed;
+  top: calc(var(--safe-top) + 1rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: var(--accent);
+  color: black;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 2px;
+  z-index: 999;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast">Salvo ✓</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ROTINA -->
+<!-- ══════════════════════════════════════ -->
+<div class="page active" id="page-rotina">
+  <div class="page-header">
+    <div class="page-title">ROTINA <span>DIÁRIA</span></div>
+    <div class="page-sub">05:00 → 22:00 · Meta R$110/dia · Seg→Sex</div>
+  </div>
+
+  <!-- TABS SEG-SEX / SAB / DOM -->
+  <div style="display:flex; border-bottom:1px solid var(--border); padding:0 1.25rem; gap:1rem;">
+    <button class="day-tab active" onclick="showDay('segfex')" id="tab-segfex" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid var(--accent); color:var(--accent); cursor:pointer;">SEG → SEX</button>
+    <button class="day-tab" onclick="showDay('sabado')" id="tab-sabado" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid transparent; color:var(--muted2); cursor:pointer;">SÁBADO</button>
+    <button class="day-tab" onclick="showDay('domingo')" id="tab-domingo" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid transparent; color:var(--muted2); cursor:pointer;">DOMINGO</button>
+  </div>
+
+  <!-- SEG-SEX -->
+  <div id="day-segfex">
+    <div class="section-label">Manhã</div>
+    <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar</div><div class="block-desc">Levanta já. Banho frio. 1 copo d'água. Sem celular.</div></div></div>
+    <div class="block gold"><div class="block-time">05:15</div><div class="block-body"><div class="block-title">🙏 Oração</div><div class="block-desc">Gratidão, intenção, foco. Momento sagrado.</div></div></div>
+    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino na Praça</div><div class="block-desc">Caminhada · Flexões · Barras · Carreirinhas</div></div></div>
+    <div class="block"><div class="block-time">07:00</div><div class="block-body"><div class="block-title">🏠 Casa & Família</div><div class="block-desc">Filha. Família. Lar. Presença total.</div></div></div>
+    <div class="block"><div class="block-time">08:00</div><div class="block-body"><div class="block-title">👔 Preparar + Sair</div><div class="block-desc">Arruma. 08:30 porta fechada.</div></div></div>
+    <div class="divider"></div>
+    <div class="section-label">Curso</div>
+    <div class="block blue"><div class="block-time">09:00</div><div class="block-body"><div class="block-title">📚 Curso</div><div class="block-desc">Presença total. Absorver. Anotar. Até 12:00.</div></div></div>
+    <div class="divider"></div>
+    <div class="section-label">Trabalho</div>
+    <div class="block gold"><div class="block-time">12:01</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 1</div><div class="block-desc">Foco na meta. Eficiência. Até 14:00.</div></div></div>
+    <div class="block"><div class="block-time">14:00</div><div class="block-body"><div class="block-title">🍽️ Almoço + Descanso</div><div class="block-desc">Casa. Comer. Família. Recuperar.</div></div></div>
+    <div class="block gold"><div class="block-time">17:00</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 2</div><div class="block-desc">Fechar os R$110. Até 19:00. Sem extensão.</div></div></div>
+    <div class="divider"></div>
+    <div class="section-label">Noite</div>
+    <div class="block"><div class="block-time">19:00</div><div class="block-body"><div class="block-title">🚿 Banho</div><div class="block-desc">Lava o dia. Transição para modo estudo.</div></div></div>
+    <div class="block blue"><div class="block-time">19:30</div><div class="block-body"><div class="block-title">📝 Questões do Curso</div><div class="block-desc">Revisar o que foi visto de manhã. Fixar.</div></div></div>
+    <div class="block"><div class="block-time">21:30</div><div class="block-body"><div class="block-title">📖 Leitura</div><div class="block-desc">Filosofia · Estoicismo · Autodesenv. Desligar tela.</div></div></div>
+    <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Sem negociação. 7h = performance máxima.</div></div></div>
+  </div>
+
+  <!-- SÁBADO -->
+  <div id="day-sabado" style="display:none">
+    <div class="section-label">Manhã</div>
+    <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">Mesma base. Disciplina não tem fim de semana.</div></div></div>
+    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino na Praça</div><div class="block-desc">1x por mês: praia + calçadão 🏖️</div></div></div>
+    <div class="block gold"><div class="block-time">07:00</div><div class="block-body"><div class="block-title">🚗 Rodando</div><div class="block-desc">Turno único. Meta parcial. Até 11:00.</div></div></div>
+    <div class="divider"></div>
+    <div class="section-label">Tarde livre</div>
+    <div class="block blue"><div class="block-time">11:00</div><div class="block-body"><div class="block-title">📚 Revisão + Questões</div><div class="block-desc">Aprofundar o conteúdo da semana.</div></div></div>
+    <div class="block red"><div class="block-time">——</div><div class="block-body"><div class="block-title">🎥 PROJETO PESSOAL</div><div class="block-desc">Bloco sagrado. Instagram + YouTube. Gravar · Escrever · Planejar. Nunca pular.</div></div></div>
+    <div class="block"><div class="block-time">——</div><div class="block-body"><div class="block-title">🏠 Família</div><div class="block-desc">Presente. Filha. Coisas do lar.</div></div></div>
+    <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Mesma hora. Sempre.</div></div></div>
+  </div>
+
+  <!-- DOMINGO -->
+  <div id="day-domingo" style="display:none">
+    <div class="section-label">Manhã</div>
+    <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">A base nunca muda.</div></div></div>
+    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino</div><div class="block-desc">Praça ou caminhada leve.</div></div></div>
+    <div class="block blue"><div class="block-time">Manhã</div><div class="block-body"><div class="block-title">🧠 Simulado</div><div class="block-desc">Treino de prova em condições reais.</div></div></div>
+    <div class="divider"></div>
+    <div class="section-label">Tarde</div>
+    <div class="block"><div class="block-time">Tarde</div><div class="block-body"><div class="block-title">📅 Planejar a Semana</div><div class="block-desc">Organizar · Revisar metas · Próximos passos.</div></div></div>
+    <div class="block"><div class="block-time">——</div><div class="block-body"><div class="block-title">🏠 Família</div><div class="block-desc">Presença plena. Recuperar. Descanso ativo.</div></div></div>
+    <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Amanhã começa de novo. Mais forte.</div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CHECKLIST -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-check">
+  <div class="page-header">
+    <div class="page-title">CHECK<span>LIST</span></div>
+    <div class="page-sub" id="check-date">Hoje · Marcando o progresso</div>
+  </div>
+
+  <div class="check-progress">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text" id="progress-text">0/9</div>
+  </div>
+
+  <div class="check-list" id="check-list"></div>
+
+  <button class="reset-btn" onclick="resetChecks()">↺ Resetar checklist do dia</button>
+
+  <div class="quote-box">"A vitória favorece aquele que tem tudo em ordem." — Polibio</div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: METAS -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-metas">
+  <div class="page-header">
+    <div class="page-title">METAS & <span>REGRAS</span></div>
+    <div class="page-sub">O que mede, melhora</div>
+  </div>
+
+  <div class="section-label">Marcadores</div>
+  <div class="metas-grid">
+    <div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$110</div><div class="meta-card-sub">seg→sex</div></div>
+    <div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">7h</div><div class="meta-card-sub">22:00 → 05:00</div></div>
+    <div class="meta-card"><div class="meta-card-label">Praia</div><div class="meta-card-value">1×</div><div class="meta-card-sub">por mês</div></div>
+    <div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div>
+    <div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">6×</div><div class="meta-card-sub">por semana</div></div>
+    <div class="meta-card"><div class="meta-card-label">Redes</div><div class="meta-card-value">0</div><div class="meta-card-sub">divagação</div></div>
+  </div>
+
+  <div class="section-label">Regras</div>
+  <div class="regras">
+    <div class="regra"><div class="regra-num">I</div><div class="regra-text">Redes sociais são o inimigo do foco. Acesse só com propósito definido.</div></div>
+    <div class="regra"><div class="regra-num">II</div><div class="regra-text">A rotina não negocia. Nos primeiros dias é difícil — depois é identidade.</div></div>
+    <div class="regra"><div class="regra-num">III</div><div class="regra-text">O projeto do sábado é sagrado. Um dia por semana. Nunca pular.</div></div>
+    <div class="regra"><div class="regra-num">IV</div><div class="regra-text">Família é pilar. Quando estiver em casa, esteja de verdade.</div></div>
+    <div class="regra"><div class="regra-num">V</div><div class="regra-text">Não viralize. Ajude. Fale o que é real. O que você viveu.</div></div>
+    <div class="regra"><div class="regra-num">VI</div><div class="regra-text">22:00 é hora de dormir. Sem exceção. Amanhã começa às 05:00.</div></div>
+  </div>
+
+  <div class="section-label">Projeto de Vida</div>
+  <div class="projeto-header">
+    <div class="projeto-tags">
+      <span class="tag">Instagram</span>
+      <span class="tag">YouTube</span>
+      <span class="tag">Estoicismo</span>
+      <span class="tag">Superação</span>
+      <span class="tag">Masculinidade</span>
+      <span class="tag">Alta Performance</span>
+    </div>
+    <div class="projeto-desc">
+      Conta nova. Zero conhecido. Sem performance — autenticidade.<br>
+      Voltado ao homem que quer crescer, que caiu e quer se levantar.<br>
+      Filosofia aplicada à vida real.
+    </div>
+  </div>
+  <div style="height:0.75rem"></div>
+  <div class="projeto-day">
+    <strong>🎥 DIA SAGRADO: SÁBADO</strong><br>
+    Gravar · Escrever · Planejar conteúdo.<br>
+    Sem falhar. Sem adiar. A missão não espera.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: NOTAS -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-notas">
+  <div class="page-header">
+    <div class="page-title">NOTAS & <span>REFLEXÕES</span></div>
+    <div class="page-sub">O que é anotado, é lembrado</div>
+  </div>
+
+  <div class="section-label">Observações do dia</div>
+  <div class="obs-area">
+    <textarea id="obs-text" placeholder="Escreve aqui... reflexões, ajustes na rotina, conquistas, dificuldades, ideias pro projeto, o que quiser guardar..."></textarea>
+    <button class="obs-save" onclick="saveNotes()">Salvar anotações</button>
+  </div>
+
+  <div class="section-label" style="margin-top:0.75rem">Idéias pro projeto</div>
+  <div class="obs-area">
+    <textarea id="projeto-text" placeholder="Temas pra gravar, títulos, roteiros, insights... qualquer faísca que aparecer..."></textarea>
+    <button class="obs-save" onclick="saveProjectNotes()">Salvar ideias</button>
+  </div>
+
+  <div class="quote-box">"Escreve isto: que são felizes aqueles que se contentam com o que têm." — Marco Aurélio</div>
+</div>
+
+<!-- ─── NAV BAR ─── -->
+<nav class="navbar">
+  <button class="nav-btn active" id="nav-rotina" onclick="showPage('rotina')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="22"/></svg>
+    Rotina
+  </button>
+  <button class="nav-btn" id="nav-check" onclick="showPage('check')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Check
+  </button>
+  <button class="nav-btn" id="nav-metas" onclick="showPage('metas')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Metas
+  </button>
+  <button class="nav-btn" id="nav-notas" onclick="showPage('notas')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Notas
+  </button>
+</nav>
+
+<script>
+// ─── CHECK ITEMS ───
+const CHECKS = [
+  'Acordou 05:00 sem snooze',
+  'Banho frio + água ✓',
+  'Oração feita',
+  'Treino na praça',
+  'Redes sociais no mínimo',
+  'Meta do dia atingida (R$110)',
+  'Questões do curso feitas',
+  'Leitura antes de dormir',
+  'Dormiu às 22:00'
+];
+
+// ─── LOCALSTORAGE KEY ───
+const today = new Date().toISOString().slice(0,10);
+const CHECK_KEY = 'checks_' + today;
+const NOTES_KEY = 'notas_' + today;
+const PROJETO_KEY = 'projeto_notas';
+
+// ─── INIT CHECKS ───
+function getChecks() {
+  try { return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; } catch { return {}; }
+}
+function saveChecks(state) {
+  localStorage.setItem(CHECK_KEY, JSON.stringify(state));
+}
+
+function renderChecks() {
+  const state = getChecks();
+  const list = document.getElementById('check-list');
+  list.innerHTML = '';
+  let done = 0;
+  CHECKS.forEach((label, i) => {
+    const checked = !!state[i];
+    if (checked) done++;
+    const el = document.createElement('div');
+    el.className = 'check-item' + (checked ? ' done' : '');
+    el.innerHTML = `
+      <div class="check-box">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>
+      </div>
+      <div class="check-label">${label}</div>
+    `;
+    el.addEventListener('click', () => toggleCheck(i));
+    list.appendChild(el);
+  });
+  const pct = Math.round((done / CHECKS.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + '/' + CHECKS.length;
+  document.getElementById('check-date').textContent = formatDate() + ' · ' + pct + '% concluído';
+}
+
+function toggleCheck(i) {
+  const state = getChecks();
+  state[i] = !state[i];
+  saveChecks(state);
+  renderChecks();
+}
+
+function resetChecks() {
+  if (confirm('Resetar o checklist de hoje?')) {
+    localStorage.removeItem(CHECK_KEY);
+    renderChecks();
+  }
+}
+
+// ─── NOTES ───
+function loadNotes() {
+  const obs = localStorage.getItem(NOTES_KEY) || '';
+  const proj = localStorage.getItem(PROJETO_KEY) || '';
+  const t1 = document.getElementById('obs-text');
+  const t2 = document.getElementById('projeto-text');
+  if (t1) t1.value = obs;
+  if (t2) t2.value = proj;
+  // auto-resize
+  [t1,t2].forEach(t => { if(t) { t.style.height='auto'; t.style.height=t.scrollHeight+'px'; t.addEventListener('input',()=>{t.style.height='auto';t.style.height=t.scrollHeight+'px';}); }});
+}
+
+function saveNotes() {
+  const val = document.getElementById('obs-text').value;
+  localStorage.setItem(NOTES_KEY, val);
+  showToast();
+}
+function saveProjectNotes() {
+  const val = document.getElementById('projeto-text').value;
+  localStorage.setItem(PROJETO_KEY, val);
+  showToast();
+}
+
+// ─── TOAST ───
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ─── DATE ───
+function formatDate() {
+  return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+}
+
+// ─── NAVIGATION ───
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ─── DAY TABS ───
+function showDay(day) {
+  ['segfex','sabado','domingo'].forEach(d => {
+    document.getElementById('day-'+d).style.display = d === day ? 'block' : 'none';
+    const tab = document.getElementById('tab-'+d);
+    tab.style.color = d === day ? 'var(--accent)' : 'var(--muted2)';
+    tab.style.borderBottomColor = d === day ? 'var(--accent)' : 'transparent';
+  });
+}
+
+// ─── SERVICE WORKER ───
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+// ─── BOOT ───
+renderChecks();
+loadNotes();
+</script>
+</body>
+</html>
