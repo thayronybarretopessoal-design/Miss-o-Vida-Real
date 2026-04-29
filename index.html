@@ -31,11 +31,8 @@
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
-
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--text);
@@ -46,8 +43,6 @@ body {
   padding-bottom: calc(60px + var(--safe-bottom));
   padding-top: var(--safe-top);
 }
-
-/* ─── NAV BAR ─── */
 .navbar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -78,12 +73,8 @@ body {
 }
 .nav-btn.active { color: var(--accent); }
 .nav-btn svg { width: 20px; height: 20px; }
-
-/* ─── PAGES ─── */
 .page { display: none; padding: 0 0 1rem; }
 .page.active { display: block; }
-
-/* ─── HEADER ─── */
 .page-header {
   padding: 1.5rem 1.25rem 1rem;
   border-bottom: 1px solid var(--border);
@@ -113,8 +104,6 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-
-/* ─── SECTION LABEL ─── */
 .section-label {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 0.8rem;
@@ -131,8 +120,6 @@ body {
   height: 1px;
   background: var(--border);
 }
-
-/* ─── TIMELINE BLOCKS ─── */
 .block {
   display: flex;
   gap: 0.75rem;
@@ -146,7 +133,6 @@ body {
 .block.blue { border-left-color: var(--accent2); background: var(--accent2-dim); }
 .block.green { border-left-color: var(--green); background: var(--green-dim); }
 .block.red { border-left-color: var(--red); background: var(--red-dim); }
-
 .block-time {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
@@ -156,7 +142,6 @@ body {
   letter-spacing: 0.04em;
   flex-shrink: 0;
 }
-.block-body {}
 .block-title {
   font-weight: 600;
   font-size: 13.5px;
@@ -168,16 +153,12 @@ body {
   color: var(--muted2);
   line-height: 1.5;
 }
-
 .divider {
   height: 1px;
   background: var(--border);
   margin: 0.5rem 1.25rem;
 }
-
-/* ─── CHECKLIST ─── */
 .check-list { padding: 0 1.25rem; }
-
 .check-item {
   display: flex;
   align-items: center;
@@ -188,7 +169,6 @@ body {
   user-select: none;
 }
 .check-item:last-child { border-bottom: none; }
-
 .check-box {
   width: 22px;
   height: 22px;
@@ -201,24 +181,16 @@ body {
   transition: all 0.2s;
   background: transparent;
 }
-.check-item.done .check-box {
-  border-color: var(--accent);
-  background: var(--accent);
-}
+.check-item.done .check-box { border-color: var(--accent); background: var(--accent); }
 .check-box svg { display: none; }
 .check-item.done .check-box svg { display: block; }
-
 .check-label {
   font-size: 13.5px;
   color: var(--text);
   flex: 1;
   transition: color 0.2s;
 }
-.check-item.done .check-label {
-  color: var(--muted2);
-  text-decoration: line-through;
-}
-
+.check-item.done .check-label { color: var(--muted2); text-decoration: line-through; }
 .check-progress {
   padding: 0.75rem 1.25rem;
   display: flex;
@@ -245,7 +217,6 @@ body {
   min-width: 32px;
   text-align: right;
 }
-
 .reset-btn {
   display: block;
   margin: 0.75rem 1.25rem;
@@ -263,8 +234,6 @@ body {
   transition: all 0.2s;
 }
 .reset-btn:active { border-color: var(--accent); color: var(--accent); }
-
-/* ─── METAS ─── */
 .metas-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -291,13 +260,7 @@ body {
   color: var(--accent);
   line-height: 1;
 }
-.meta-card-sub {
-  font-size: 10px;
-  color: var(--muted2);
-  margin-top: 2px;
-}
-
-/* ─── REGRAS ─── */
+.meta-card-sub { font-size: 10px; color: var(--muted2); margin-top: 2px; }
 .regras { padding: 0 1.25rem; }
 .regra {
   display: flex;
@@ -315,8 +278,6 @@ body {
   line-height: 1.1;
 }
 .regra-text { font-size: 12.5px; color: var(--text); line-height: 1.6; }
-
-/* ─── PROJETO ─── */
 .projeto-header {
   padding: 1.25rem;
   background: var(--surface);
@@ -347,8 +308,6 @@ body {
   line-height: 1.6;
 }
 .projeto-day strong { color: var(--accent); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; }
-
-/* ─── NOTAS ─── */
 .obs-area {
   margin: 0 1.25rem;
   background: var(--surface);
@@ -386,7 +345,6 @@ body {
   transition: all 0.2s;
 }
 .obs-save:active { background: var(--accent); color: black; }
-
 .quote-box {
   margin: 1rem 1.25rem 0;
   padding: 0.75rem 1rem;
@@ -398,8 +356,6 @@ body {
   line-height: 1.7;
   background: var(--accent-dim);
 }
-
-/* ─── SAVED TOAST ─── */
 .toast {
   position: fixed;
   top: calc(var(--safe-top) + 1rem);
@@ -420,27 +376,17 @@ body {
 </style>
 </head>
 <body>
-
-<!-- ─── TOAST ─── -->
 <div class="toast" id="toast">Salvo ✓</div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- PAGE: ROTINA -->
-<!-- ══════════════════════════════════════ -->
 <div class="page active" id="page-rotina">
   <div class="page-header">
     <div class="page-title">ROTINA <span>DIÁRIA</span></div>
-    <div class="page-sub">05:00 → 22:00 · Meta R$110/dia · Seg→Sex</div>
+    <div class="page-sub">05:00 → 22:00 · Meta R$120/dia · Seg→Sex</div>
   </div>
-
-  <!-- TABS SEG-SEX / SAB / DOM -->
   <div style="display:flex; border-bottom:1px solid var(--border); padding:0 1.25rem; gap:1rem;">
     <button class="day-tab active" onclick="showDay('segfex')" id="tab-segfex" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid var(--accent); color:var(--accent); cursor:pointer;">SEG → SEX</button>
     <button class="day-tab" onclick="showDay('sabado')" id="tab-sabado" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid transparent; color:var(--muted2); cursor:pointer;">SÁBADO</button>
     <button class="day-tab" onclick="showDay('domingo')" id="tab-domingo" style="padding:0.6rem 0; font-family:'Bebas Neue',sans-serif; font-size:0.85rem; letter-spacing:0.1em; background:transparent; border:none; border-bottom:2px solid transparent; color:var(--muted2); cursor:pointer;">DOMINGO</button>
   </div>
-
-  <!-- SEG-SEX -->
   <div id="day-segfex">
     <div class="section-label">Manhã</div>
     <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar</div><div class="block-desc">Levanta já. Banho frio. 1 copo d'água. Sem celular.</div></div></div>
@@ -453,9 +399,10 @@ body {
     <div class="block blue"><div class="block-time">09:00</div><div class="block-body"><div class="block-title">📚 Curso</div><div class="block-desc">Presença total. Absorver. Anotar. Até 12:00.</div></div></div>
     <div class="divider"></div>
     <div class="section-label">Trabalho</div>
-    <div class="block gold"><div class="block-time">12:01</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 1</div><div class="block-desc">Foco na meta. Eficiência. Até 14:00.</div></div></div>
-    <div class="block"><div class="block-time">14:00</div><div class="block-body"><div class="block-title">🍽️ Almoço + Descanso</div><div class="block-desc">Casa. Comer. Família. Recuperar.</div></div></div>
-    <div class="block gold"><div class="block-time">17:00</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 2</div><div class="block-desc">Fechar os R$110. Até 19:00. Sem extensão.</div></div></div>
+    <div class="block gold"><div class="block-time">12:00</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 1</div><div class="block-desc">Foco na meta. Eficiência. Até 14:00.</div></div></div>
+    <div class="block"><div class="block-time">14:00</div><div class="block-body"><div class="block-title">🍽️ Almoço Rápido</div><div class="block-desc">30 minutos. Come e volta pra rua.</div></div></div>
+    <div class="block gold"><div class="block-time">14:30</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 2</div><div class="block-desc">Fechar os R$120. Até 17:30. Sem extensão.</div></div></div>
+    <div class="block"><div class="block-time">17:30</div><div class="block-body"><div class="block-title">🚗 Buscar a esposa</div><div class="block-desc">Ela larga agora. Vai lá. Família em primeiro lugar.</div></div></div>
     <div class="divider"></div>
     <div class="section-label">Noite</div>
     <div class="block"><div class="block-time">19:00</div><div class="block-body"><div class="block-title">🚿 Banho</div><div class="block-desc">Lava o dia. Transição para modo estudo.</div></div></div>
@@ -463,8 +410,6 @@ body {
     <div class="block"><div class="block-time">21:30</div><div class="block-body"><div class="block-title">📖 Leitura</div><div class="block-desc">Filosofia · Estoicismo · Autodesenv. Desligar tela.</div></div></div>
     <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Sem negociação. 7h = performance máxima.</div></div></div>
   </div>
-
-  <!-- SÁBADO -->
   <div id="day-sabado" style="display:none">
     <div class="section-label">Manhã</div>
     <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">Mesma base. Disciplina não tem fim de semana.</div></div></div>
@@ -477,8 +422,6 @@ body {
     <div class="block"><div class="block-time">——</div><div class="block-body"><div class="block-title">🏠 Família</div><div class="block-desc">Presente. Filha. Coisas do lar.</div></div></div>
     <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Mesma hora. Sempre.</div></div></div>
   </div>
-
-  <!-- DOMINGO -->
   <div id="day-domingo" style="display:none">
     <div class="section-label">Manhã</div>
     <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">A base nunca muda.</div></div></div>
@@ -491,47 +434,33 @@ body {
     <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Amanhã começa de novo. Mais forte.</div></div></div>
   </div>
 </div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- PAGE: CHECKLIST -->
-<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-check">
   <div class="page-header">
     <div class="page-title">CHECK<span>LIST</span></div>
     <div class="page-sub" id="check-date">Hoje · Marcando o progresso</div>
   </div>
-
   <div class="check-progress">
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     <div class="progress-text" id="progress-text">0/9</div>
   </div>
-
   <div class="check-list" id="check-list"></div>
-
   <button class="reset-btn" onclick="resetChecks()">↺ Resetar checklist do dia</button>
-
   <div class="quote-box">"A vitória favorece aquele que tem tudo em ordem." — Polibio</div>
 </div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- PAGE: METAS -->
-<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-metas">
   <div class="page-header">
     <div class="page-title">METAS & <span>REGRAS</span></div>
     <div class="page-sub">O que mede, melhora</div>
   </div>
-
   <div class="section-label">Marcadores</div>
   <div class="metas-grid">
-    <div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$110</div><div class="meta-card-sub">seg→sex</div></div>
+    <div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$120</div><div class="meta-card-sub">seg→sex</div></div>
     <div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">7h</div><div class="meta-card-sub">22:00 → 05:00</div></div>
     <div class="meta-card"><div class="meta-card-label">Praia</div><div class="meta-card-value">1×</div><div class="meta-card-sub">por mês</div></div>
     <div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div>
     <div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">6×</div><div class="meta-card-sub">por semana</div></div>
     <div class="meta-card"><div class="meta-card-label">Redes</div><div class="meta-card-value">0</div><div class="meta-card-sub">divagação</div></div>
   </div>
-
   <div class="section-label">Regras</div>
   <div class="regras">
     <div class="regra"><div class="regra-num">I</div><div class="regra-text">Redes sociais são o inimigo do foco. Acesse só com propósito definido.</div></div>
@@ -541,7 +470,6 @@ body {
     <div class="regra"><div class="regra-num">V</div><div class="regra-text">Não viralize. Ajude. Fale o que é real. O que você viveu.</div></div>
     <div class="regra"><div class="regra-num">VI</div><div class="regra-text">22:00 é hora de dormir. Sem exceção. Amanhã começa às 05:00.</div></div>
   </div>
-
   <div class="section-label">Projeto de Vida</div>
   <div class="projeto-header">
     <div class="projeto-tags">
@@ -552,45 +480,28 @@ body {
       <span class="tag">Masculinidade</span>
       <span class="tag">Alta Performance</span>
     </div>
-    <div class="projeto-desc">
-      Conta nova. Zero conhecido. Sem performance — autenticidade.<br>
-      Voltado ao homem que quer crescer, que caiu e quer se levantar.<br>
-      Filosofia aplicada à vida real.
-    </div>
+    <div class="projeto-desc">Conta nova. Zero conhecido. Sem performance — autenticidade.<br>Voltado ao homem que quer crescer, que caiu e quer se levantar.<br>Filosofia aplicada à vida real.</div>
   </div>
   <div style="height:0.75rem"></div>
-  <div class="projeto-day">
-    <strong>🎥 DIA SAGRADO: SÁBADO</strong><br>
-    Gravar · Escrever · Planejar conteúdo.<br>
-    Sem falhar. Sem adiar. A missão não espera.
-  </div>
+  <div class="projeto-day"><strong>🎥 DIA SAGRADO: SÁBADO</strong><br>Gravar · Escrever · Planejar conteúdo.<br>Sem falhar. Sem adiar. A missão não espera.</div>
 </div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- PAGE: NOTAS -->
-<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-notas">
   <div class="page-header">
     <div class="page-title">NOTAS & <span>REFLEXÕES</span></div>
     <div class="page-sub">O que é anotado, é lembrado</div>
   </div>
-
   <div class="section-label">Observações do dia</div>
   <div class="obs-area">
-    <textarea id="obs-text" placeholder="Escreve aqui... reflexões, ajustes na rotina, conquistas, dificuldades, ideias pro projeto, o que quiser guardar..."></textarea>
+    <textarea id="obs-text" placeholder="Escreve aqui... reflexões, ajustes na rotina, conquistas, dificuldades, ideias pro projeto..."></textarea>
     <button class="obs-save" onclick="saveNotes()">Salvar anotações</button>
   </div>
-
-  <div class="section-label" style="margin-top:0.75rem">Idéias pro projeto</div>
+  <div class="section-label" style="margin-top:0.75rem">Ideias pro projeto</div>
   <div class="obs-area">
-    <textarea id="projeto-text" placeholder="Temas pra gravar, títulos, roteiros, insights... qualquer faísca que aparecer..."></textarea>
+    <textarea id="projeto-text" placeholder="Temas pra gravar, títulos, roteiros, insights..."></textarea>
     <button class="obs-save" onclick="saveProjectNotes()">Salvar ideias</button>
   </div>
-
   <div class="quote-box">"Escreve isto: que são felizes aqueles que se contentam com o que têm." — Marco Aurélio</div>
 </div>
-
-<!-- ─── NAV BAR ─── -->
 <nav class="navbar">
   <button class="nav-btn active" id="nav-rotina" onclick="showPage('rotina')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="22"/></svg>
@@ -609,35 +520,26 @@ body {
     Notas
   </button>
 </nav>
-
 <script>
-// ─── CHECK ITEMS ───
 const CHECKS = [
   'Acordou 05:00 sem snooze',
   'Banho frio + água ✓',
   'Oração feita',
   'Treino na praça',
   'Redes sociais no mínimo',
-  'Meta do dia atingida (R$110)',
+  'Meta do dia atingida (R$120)',
   'Questões do curso feitas',
   'Leitura antes de dormir',
   'Dormiu às 22:00'
 ];
-
-// ─── LOCALSTORAGE KEY ───
 const today = new Date().toISOString().slice(0,10);
 const CHECK_KEY = 'checks_' + today;
 const NOTES_KEY = 'notas_' + today;
 const PROJETO_KEY = 'projeto_notas';
-
-// ─── INIT CHECKS ───
 function getChecks() {
   try { return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; } catch { return {}; }
 }
-function saveChecks(state) {
-  localStorage.setItem(CHECK_KEY, JSON.stringify(state));
-}
-
+function saveChecks(state) { localStorage.setItem(CHECK_KEY, JSON.stringify(state)); }
 function renderChecks() {
   const state = getChecks();
   const list = document.getElementById('check-list');
@@ -648,12 +550,7 @@ function renderChecks() {
     if (checked) done++;
     const el = document.createElement('div');
     el.className = 'check-item' + (checked ? ' done' : '');
-    el.innerHTML = `
-      <div class="check-box">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>
-      </div>
-      <div class="check-label">${label}</div>
-    `;
+    el.innerHTML = `<div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div><div class="check-label">${label}</div>`;
     el.addEventListener('click', () => toggleCheck(i));
     list.appendChild(el);
   });
@@ -662,22 +559,15 @@ function renderChecks() {
   document.getElementById('progress-text').textContent = done + '/' + CHECKS.length;
   document.getElementById('check-date').textContent = formatDate() + ' · ' + pct + '% concluído';
 }
-
 function toggleCheck(i) {
   const state = getChecks();
   state[i] = !state[i];
   saveChecks(state);
   renderChecks();
 }
-
 function resetChecks() {
-  if (confirm('Resetar o checklist de hoje?')) {
-    localStorage.removeItem(CHECK_KEY);
-    renderChecks();
-  }
+  if (confirm('Resetar o checklist de hoje?')) { localStorage.removeItem(CHECK_KEY); renderChecks(); }
 }
-
-// ─── NOTES ───
 function loadNotes() {
   const obs = localStorage.getItem(NOTES_KEY) || '';
   const proj = localStorage.getItem(PROJETO_KEY) || '';
@@ -685,34 +575,18 @@ function loadNotes() {
   const t2 = document.getElementById('projeto-text');
   if (t1) t1.value = obs;
   if (t2) t2.value = proj;
-  // auto-resize
   [t1,t2].forEach(t => { if(t) { t.style.height='auto'; t.style.height=t.scrollHeight+'px'; t.addEventListener('input',()=>{t.style.height='auto';t.style.height=t.scrollHeight+'px';}); }});
 }
-
-function saveNotes() {
-  const val = document.getElementById('obs-text').value;
-  localStorage.setItem(NOTES_KEY, val);
-  showToast();
-}
-function saveProjectNotes() {
-  const val = document.getElementById('projeto-text').value;
-  localStorage.setItem(PROJETO_KEY, val);
-  showToast();
-}
-
-// ─── TOAST ───
+function saveNotes() { localStorage.setItem(NOTES_KEY, document.getElementById('obs-text').value); showToast(); }
+function saveProjectNotes() { localStorage.setItem(PROJETO_KEY, document.getElementById('projeto-text').value); showToast(); }
 function showToast() {
   const t = document.getElementById('toast');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2000);
 }
-
-// ─── DATE ───
 function formatDate() {
   return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
 }
-
-// ─── NAVIGATION ───
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -720,8 +594,6 @@ function showPage(name) {
   document.getElementById('nav-' + name).classList.add('active');
   window.scrollTo(0,0);
 }
-
-// ─── DAY TABS ───
 function showDay(day) {
   ['segfex','sabado','domingo'].forEach(d => {
     document.getElementById('day-'+d).style.display = d === day ? 'block' : 'none';
@@ -730,13 +602,7 @@ function showDay(day) {
     tab.style.borderBottomColor = d === day ? 'var(--accent)' : 'transparent';
   });
 }
-
-// ─── SERVICE WORKER ───
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
-}
-
-// ─── BOOT ───
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
 renderChecks();
 loadNotes();
 </script>
