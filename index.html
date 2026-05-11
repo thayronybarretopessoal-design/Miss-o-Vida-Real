@@ -6,52 +6,119 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Missão Real">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#080808">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Missão Real</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0a;
-  --surface: #111;
+  --bg: #080808;
+  --bg2: #0d0d0d;
+  --surface: #111111;
   --surface2: #161616;
+  --surface3: #1a1a1a;
   --border: #1e1e1e;
-  --accent: #c8a84b;
-  --accent-dim: rgba(200,168,75,0.12);
-  --accent2: #4b7ec8;
-  --accent2-dim: rgba(75,126,200,0.12);
+  --border2: #252525;
+  --gold: #c8a84b;
+  --gold-dim: rgba(200,168,75,0.10);
+  --gold-glow: rgba(200,168,75,0.20);
+  --blue: #4b7ec8;
+  --blue-dim: rgba(75,126,200,0.10);
   --green: #4bc87e;
-  --green-dim: rgba(75,200,126,0.1);
+  --green-dim: rgba(75,200,126,0.08);
   --red: #c84b4b;
-  --red-dim: rgba(200,75,75,0.1);
+  --red-dim: rgba(200,75,75,0.08);
+  --purple: #8b6fc8;
+  --purple-dim: rgba(139,111,200,0.10);
   --text: #e8e4dc;
-  --muted: #4a4a4a;
-  --muted2: #666;
+  --text2: #a09a90;
+  --muted: #3a3a3a;
+  --muted2: #5a5a5a;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --nav-h: 64px;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  min-height: 100vh;
-  padding-bottom: calc(60px + var(--safe-bottom));
+  min-height: 100dvh;
+  padding-bottom: calc(var(--nav-h) + var(--safe-bottom));
   padding-top: var(--safe-top);
+  overflow-x: hidden;
 }
+
+/* ── SPLASH ── */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  gap: 1.5rem;
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+#splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-logo {
+  animation: logoIn 0.8s cubic-bezier(.16,1,.3,1) both;
+}
+.splash-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 0.18em;
+  color: var(--text);
+  animation: fadeUp 0.8s 0.2s cubic-bezier(.16,1,.3,1) both;
+}
+.splash-name span { color: var(--gold); }
+.splash-frase {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  letter-spacing: 0.1em;
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.8;
+  animation: fadeUp 0.8s 0.4s cubic-bezier(.16,1,.3,1) both;
+}
+.splash-bar {
+  width: 120px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  animation: fadeUp 0.8s 0.5s both;
+}
+.splash-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  animation: loadBar 1.8s 0.3s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes loadBar { from { width:0 } to { width:100% } }
+@keyframes logoIn { from { opacity:0; transform:scale(0.7) rotate(-10deg) } to { opacity:1; transform:scale(1) rotate(0) } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
+
+/* ── NAVBAR ── */
 .navbar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  background: rgba(10,10,10,0.97);
+  background: rgba(8,8,8,0.98);
   border-top: 1px solid var(--border);
   display: flex;
+  align-items: stretch;
+  height: calc(var(--nav-h) + var(--safe-bottom));
   padding-bottom: var(--safe-bottom);
   z-index: 100;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .nav-btn {
   flex: 1;
@@ -59,86 +126,246 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 4px;
-  gap: 3px;
+  gap: 4px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.08em;
+  font-size: 8px;
+  letter-spacing: 0.1em;
   color: var(--muted2);
   text-transform: uppercase;
   border: none;
   background: transparent;
   cursor: pointer;
   transition: color 0.2s;
+  position: relative;
 }
-.nav-btn.active { color: var(--accent); }
-.nav-btn svg { width: 20px; height: 20px; }
-.page { display: none; padding: 0 0 1rem; }
+.nav-btn::before {
+  content:'';
+  position:absolute;
+  top:0; left:25%; right:25%;
+  height:2px;
+  background: var(--gold);
+  border-radius: 0 0 2px 2px;
+  transform: scaleX(0);
+  transition: transform 0.2s cubic-bezier(.4,0,.2,1);
+}
+.nav-btn.active { color: var(--gold); }
+.nav-btn.active::before { transform: scaleX(1); }
+.nav-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+
+/* ── PAGES ── */
+.page { display: none; animation: pageIn 0.3s cubic-bezier(.4,0,.2,1); }
 .page.active { display: block; }
+@keyframes pageIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+
+/* ── PAGE HEADER ── */
 .page-header {
-  padding: 1.5rem 1.25rem 1rem;
+  padding: 1.5rem 1.25rem 1.25rem;
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(200,168,75,0.04) 0%, transparent 100%);
 }
-.page-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(200,168,75,0.025) 40px, rgba(200,168,75,0.025) 41px);
-  pointer-events: none;
+.page-header::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:1.25rem; right:1.25rem;
+  height:1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0.3;
 }
 .page-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   letter-spacing: 0.06em;
   line-height: 1;
   color: var(--text);
 }
-.page-title span { color: var(--accent); }
+.page-title span { color: var(--gold); }
 .page-sub {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   color: var(--muted2);
-  margin-top: 4px;
+  margin-top: 6px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* ── SECTION LABEL ── */
 .section-label {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  color: var(--accent);
-  padding: 1rem 1.25rem 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  padding: 1.25rem 1.25rem 0.5rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 .section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
+  content:'';
+  flex:1;
+  height:1px;
+  background: linear-gradient(90deg, var(--border2), transparent);
 }
+
+/* ── HOME ── */
+.home-clock {
+  padding: 1.5rem 1.25rem 1rem;
+  text-align: center;
+  position: relative;
+}
+.home-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--text);
+  text-shadow: 0 0 60px rgba(200,168,75,0.15);
+}
+.home-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.home-frase {
+  margin: 0 1.25rem;
+  padding: 1rem 1.1rem;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-dim);
+  border-radius: 0 4px 4px 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text2);
+  font-style: italic;
+  line-height: 1.8;
+}
+.home-frase-autor {
+  font-size: 10px;
+  color: var(--gold);
+  margin-top: 6px;
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+.bloco-atual {
+  margin: 0 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  position: relative;
+  overflow: hidden;
+}
+.bloco-atual::before {
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:3px;
+  background: var(--gold);
+}
+.bloco-atual-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.bloco-atual-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.bloco-atual-desc {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+.bloco-atual-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted2);
+  margin-top: 6px;
+}
+
+/* Streak */
+.streak-row {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+}
+.streak-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 0.85rem 0.9rem;
+  text-align: center;
+}
+.streak-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.streak-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--muted2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* ── ROTINA ── */
+.day-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.25rem;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.day-tabs::-webkit-scrollbar { display:none; }
+.day-tab {
+  padding: 0.75rem 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted2);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.day-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
 .block {
   display: flex;
   gap: 0.75rem;
-  padding: 0.7rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-left: 3px solid transparent;
   transition: background 0.15s;
   position: relative;
 }
+.block + .block { border-top: 1px solid rgba(255,255,255,0.02); }
 .block:active { background: rgba(255,255,255,0.02); }
-.block.gold { border-left-color: var(--accent); background: var(--accent-dim); }
-.block.blue { border-left-color: var(--accent2); background: var(--accent2-dim); }
+.block.gold { border-left-color: var(--gold); background: var(--gold-dim); }
+.block.blue { border-left-color: var(--blue); background: var(--blue-dim); }
 .block.green { border-left-color: var(--green); background: var(--green-dim); }
 .block.red { border-left-color: var(--red); background: var(--red-dim); }
+.block.purple { border-left-color: var(--purple); background: var(--purple-dim); }
 .block-time {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   color: var(--muted2);
   min-width: 38px;
-  padding-top: 2px;
+  padding-top: 3px;
   letter-spacing: 0.04em;
   flex-shrink: 0;
 }
@@ -146,172 +373,426 @@ body {
   font-weight: 600;
   font-size: 13.5px;
   color: var(--text);
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 .block-desc {
   font-size: 11.5px;
   color: var(--muted2);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .divider { height: 1px; background: var(--border); margin: 0.5rem 1.25rem; }
+
+/* ── CHECKLIST ── */
+.check-progress { padding: 1rem 1.25rem 0.5rem; }
+.progress-bar-wrap { display:flex; align-items:center; gap:0.75rem; }
+.progress-bar { flex:1; height:4px; background: var(--border); border-radius:4px; overflow:hidden; }
+.progress-fill { height:100%; background: linear-gradient(90deg,var(--gold),#e6c96a); border-radius:4px; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
+.progress-text { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold); min-width:32px; text-align:right; }
+.progress-pct { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--gold); margin-top:2px; }
+
 .check-list { padding: 0 1.25rem; }
 .check-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 0;
+  display:flex; align-items:center; gap:0.75rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  user-select: none;
+  cursor:pointer; user-select:none;
+  transition: opacity 0.2s;
 }
-.check-item:last-child { border-bottom: none; }
+.check-item:last-child { border-bottom:none; }
+.check-item:active { opacity: 0.7; }
 .check-box {
-  width: 22px;
-  height: 22px;
+  width:24px; height:24px;
   border: 1.5px solid var(--muted);
-  border-radius: 3px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  border-radius: 4px;
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  transition: all 0.2s cubic-bezier(.4,0,.2,1);
   background: transparent;
 }
-.check-item.done .check-box { border-color: var(--accent); background: var(--accent); }
-.check-box svg { display: none; }
-.check-item.done .check-box svg { display: block; }
-.check-label { font-size: 13.5px; color: var(--text); flex: 1; transition: color 0.2s; }
-.check-item.done .check-label { color: var(--muted2); text-decoration: line-through; }
-.check-progress { padding: 0.75rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
-.progress-bar { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
-.progress-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); min-width: 32px; text-align: right; }
+.check-item.done .check-box { border-color:var(--gold); background:var(--gold); }
+.check-box svg { display:none; }
+.check-item.done .check-box svg { display:block; }
+.check-label { font-size:13.5px; color:var(--text); flex:1; transition:all 0.2s; }
+.check-item.done .check-label { color:var(--muted2); text-decoration:line-through; }
+
+.streak-fire {
+  display:flex; align-items:center; gap:6px;
+  padding: 0.5rem 1.25rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--gold);
+}
+
 .reset-btn {
-  display: block;
-  margin: 0.75rem 1.25rem;
-  padding: 0.6rem 1rem;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted2);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 2px;
-  width: calc(100% - 2.5rem);
-  transition: all 0.2s;
+  display:block; margin: 0.75rem 1.25rem;
+  padding: 0.65rem 1rem;
+  background:transparent; border:1px solid var(--border);
+  color:var(--muted2); font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+  cursor:pointer; border-radius:3px;
+  width:calc(100% - 2.5rem);
+  transition:all 0.2s;
 }
-.reset-btn:active { border-color: var(--accent); color: var(--accent); }
-.metas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0 1.25rem; }
-.meta-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1rem; }
-.meta-card-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 4px; }
-.meta-card-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--accent); line-height: 1; }
-.meta-card-sub { font-size: 10px; color: var(--muted2); margin-top: 2px; }
-.regras { padding: 0 1.25rem; }
-.regra { display: flex; gap: 0.75rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-.regra:last-child { border-bottom: none; }
-.regra-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--accent); min-width: 22px; line-height: 1.1; }
-.regra-text { font-size: 12.5px; color: var(--text); line-height: 1.6; }
-.projeto-header { padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); margin: 0 1.25rem; border-radius: 4px; }
-.projeto-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
-.tag { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border: 1px solid var(--accent2); color: var(--accent2); border-radius: 2px; }
-.projeto-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.7; }
-.projeto-day { margin: 0 1.25rem; padding: 0.75rem 1rem; background: var(--red-dim); border: 1px solid var(--red); border-radius: 4px; font-size: 12.5px; color: var(--text); line-height: 1.6; }
-.projeto-day strong { color: var(--accent); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; }
-.obs-area { margin: 0 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.75rem; }
-.obs-area textarea { width: 100%; background: transparent; border: none; outline: none; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--text); resize: none; line-height: 1.7; min-height: 160px; }
-.obs-area textarea::placeholder { color: var(--muted); }
-.obs-area input { width: 100%; background: transparent; border: none; outline: none; font-family: 'IBM Plex Mono', monospace; font-size: 1.2rem; color: var(--text); margin-top: 4px; }
-.obs-save { display: block; width: 100%; padding: 0.5rem; margin-top: 0.5rem; background: var(--accent-dim); border: 1px solid var(--accent); color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
-.obs-save:active { background: var(--accent); color: black; }
-.quote-box { margin: 1rem 1.25rem 0; padding: 0.75rem 1rem; border-left: 2px solid var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted2); font-style: italic; line-height: 1.7; background: var(--accent-dim); }
-.toast { position: fixed; top: calc(var(--safe-top) + 1rem); left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--accent); color: black; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border-radius: 2px; z-index: 999; transition: transform 0.3s cubic-bezier(.4,0,.2,1); }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.cfg-field { margin: 0 1.25rem 0.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.75rem; }
-.cfg-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.1em; }
-.cfg-input { width: 100%; background: transparent; border: none; outline: none; font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--accent); margin-top: 4px; }
-input[type="time"].cfg-input { font-family: 'IBM Plex Mono', monospace; font-size: 1.2rem; color: var(--text); }
+.reset-btn:active { border-color:var(--gold); color:var(--gold); }
+
+/* ── METAS ── */
+.metas-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; padding:0 1.25rem; }
+.meta-card {
+  background:var(--surface); border:1px solid var(--border2); border-radius:6px; padding:1rem;
+  transition: border-color 0.2s;
+}
+.meta-card:active { border-color: var(--gold); }
+.meta-card-label { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted2); margin-bottom:4px; }
+.meta-card-value { font-family:'Bebas Neue',sans-serif; font-size:1.9rem; color:var(--gold); line-height:1; }
+.meta-card-sub { font-size:10px; color:var(--muted2); margin-top:2px; }
+
+.regras { padding:0 1.25rem; }
+.regra { display:flex; gap:0.75rem; padding:0.9rem 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+.regra:last-child { border-bottom:none; }
+.regra-num { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--gold); min-width:22px; line-height:1.1; }
+.regra-text { font-size:12.5px; color:var(--text); line-height:1.7; }
+
+.plano-card {
+  margin: 0 1.25rem;
+  background:var(--surface); border:1px solid var(--border2); border-radius:6px; overflow:hidden;
+}
+.plano-header {
+  background:var(--gold-dim); border-bottom:1px solid var(--border2);
+  padding:0.75rem 1rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem; letter-spacing:0.15em; color:var(--gold);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.plano-item { padding:0.65rem 1rem; border-bottom:1px solid var(--border); display:flex; gap:0.75rem; align-items:flex-start; }
+.plano-item:last-child { border-bottom:none; }
+.plano-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:5px; }
+.plano-text { font-size:12.5px; color:var(--text2); line-height:1.6; }
+
+.projeto-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.75rem; }
+.tag { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; padding:3px 8px; border:1px solid var(--blue); color:var(--blue); border-radius:2px; }
+.projeto-desc { font-size:12.5px; color:var(--muted2); line-height:1.75; }
+
+/* ── DIÁRIO ── */
+.diario-input-area {
+  margin: 0 1.25rem;
+  background:var(--surface); border:1px solid var(--border2); border-radius:6px; overflow:hidden;
+}
+.diario-tabs-row {
+  display:flex; border-bottom:1px solid var(--border2);
+}
+.diario-type-btn {
+  flex:1; padding:0.6rem; font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:0.08em; text-transform:uppercase;
+  background:transparent; border:none; color:var(--muted2); cursor:pointer;
+  transition:all 0.2s; border-bottom:2px solid transparent;
+}
+.diario-type-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+.diario-textarea-wrap { padding:0.75rem; }
+.diario-textarea {
+  width:100%; background:transparent; border:none; outline:none;
+  font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--text);
+  resize:none; line-height:1.75; min-height:100px;
+}
+.diario-textarea::placeholder { color:var(--muted); }
+.diario-save-btn {
+  display:block; width:100%; padding:0.6rem;
+  background:var(--gold-dim); border:none; border-top:1px solid var(--border2);
+  color:var(--gold); font-family:'IBM Plex Mono',monospace;
+  font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  cursor:pointer; transition:all 0.2s;
+}
+.diario-save-btn:active { background:var(--gold); color:#000; }
+
+.diario-list { padding:0 1.25rem; }
+.diario-entry {
+  padding: 1rem 0;
+  border-bottom:1px solid var(--border);
+  animation: fadeUp 0.3s ease both;
+}
+.diario-entry:last-child { border-bottom:none; }
+.diario-entry-header {
+  display:flex; align-items:center; gap:0.5rem; margin-bottom:6px;
+}
+.diario-entry-type {
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.1em;
+  text-transform:uppercase; padding:2px 7px; border-radius:2px;
+}
+.diario-entry-type.pensamento { background:var(--purple-dim); color:var(--purple); border:1px solid var(--purple); }
+.diario-entry-type.lembrete { background:var(--gold-dim); color:var(--gold); border:1px solid var(--gold); }
+.diario-entry-type.ideia { background:var(--blue-dim); color:var(--blue); border:1px solid var(--blue); }
+.diario-entry-date {
+  font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted2); margin-left:auto;
+}
+.diario-entry-text { font-size:13px; color:var(--text); line-height:1.7; }
+.diario-entry-del {
+  background:transparent; border:none; color:var(--muted); cursor:pointer;
+  font-size:16px; padding:0 4px; line-height:1;
+  transition:color 0.2s;
+}
+.diario-entry-del:active { color:var(--red); }
+.diario-empty {
+  text-align:center; padding:2rem 1rem;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted2);
+  line-height:1.8;
+}
+
+/* ── CONFIG ── */
+.cfg-field {
+  margin:0 1.25rem 0.5rem;
+  background:var(--surface); border:1px solid var(--border2); border-radius:6px; padding:0.85rem;
+}
+.cfg-label { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted2); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px; }
+.cfg-input {
+  width:100%; background:transparent; border:none; outline:none;
+  font-family:'Bebas Neue',sans-serif; font-size:1.7rem; color:var(--gold); display:block;
+}
+input[type="time"].cfg-input { font-family:'IBM Plex Mono',monospace; font-size:1.1rem; color:var(--text); }
+input[type="text"].cfg-input { font-family:'IBM Plex Sans',sans-serif; font-size:1rem; color:var(--text); }
+.cfg-input::-webkit-color-swatch-wrapper { padding:0; }
+.cfg-save-btn {
+  display:block; width:calc(100% - 2.5rem); margin:1rem 1.25rem;
+  padding:0.85rem; background:var(--gold-dim); border:1px solid var(--gold);
+  color:var(--gold); font-family:'IBM Plex Mono',monospace;
+  font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+  cursor:pointer; border-radius:4px; transition:all 0.2s;
+}
+.cfg-save-btn:active { background:var(--gold); color:#000; }
+/* ── TOAST ── */
+.toast {
+  position:fixed; top:calc(var(--safe-top) + 1rem); left:50%;
+  transform:translateX(-50%) translateY(-80px);
+  background:var(--gold); color:#000;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+  padding:9px 22px; border-radius:3px; z-index:9998;
+  transition:transform 0.3s cubic-bezier(.4,0,.2,1);
+  white-space:nowrap;
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  margin:1rem 1.25rem 0;
+  padding:0.85rem 1rem;
+  border-left:2px solid var(--gold);
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted2);
+  font-style:italic; line-height:1.8; background:var(--gold-dim);
+  border-radius:0 4px 4px 0;
+}
+
+/* ── MISC ── */
+.spacer { height: 1rem; }
+.projeto-card {
+  margin:0 1.25rem;
+  background:var(--surface); border:1px solid var(--border2); border-radius:6px; overflow:hidden;
+}
+.projeto-card-header {
+  background: linear-gradient(135deg, rgba(200,168,75,0.12), rgba(75,126,200,0.08));
+  border-bottom:1px solid var(--border2); padding:1rem;
+}
+.projeto-dia {
+  margin:0 1.25rem;
+  padding:0.85rem 1rem;
+  background:var(--purple-dim); border:1px solid var(--purple); border-radius:4px;
+  font-size:12.5px; color:var(--text); line-height:1.7;
+}
+.projeto-dia strong { color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:0.1em; }
+
+/* scroll indicator ativo */
+.now-badge {
+  display:inline-block;
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px var(--gold);
+  animation:pulse 2s infinite;
+  margin-right:4px;
+  vertical-align:middle;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 </style>
 </head>
 <body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <!-- Escudo/Missão Real logo SVG -->
+      <path d="M40 6 L68 18 L68 42 Q68 60 40 74 Q12 60 12 42 L12 18 Z" fill="none" stroke="#c8a84b" stroke-width="1.5"/>
+      <path d="M40 14 L62 24 L62 42 Q62 57 40 68 Q18 57 18 42 L18 24 Z" fill="rgba(200,168,75,0.06)" stroke="#c8a84b" stroke-width="0.5"/>
+      <!-- Cruz -->
+      <line x1="40" y1="26" x2="40" y2="54" stroke="#c8a84b" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="29" y1="37" x2="51" y2="37" stroke="#c8a84b" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- Estrela / ponto central -->
+      <circle cx="40" cy="37" r="3" fill="#c8a84b" opacity="0.8"/>
+    </svg>
+  </div>
+  <div class="splash-name">MISSÃO <span>REAL</span></div>
+  <div class="splash-frase" id="splash-frase">carregando missão...</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
 <div class="toast" id="toast">Salvo ✓</div>
 
-<div class="page active" id="page-rotina">
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="page-header">
+    <div class="page-title">MISSÃO <span>REAL</span></div>
+    <div class="page-sub" id="home-sub">Hoje é o dia que importa</div>
+  </div>
+
+  <div class="home-clock">
+    <div class="home-time" id="home-clock">00:00</div>
+    <div class="home-date" id="home-date">—</div>
+  </div>
+
+  <div class="home-frase" id="home-frase-box">
+    <div id="home-frase-text">—</div>
+    <div class="home-frase-autor" id="home-frase-autor">—</div>
+  </div>
+
+  <div class="section-label">Agora</div>
+  <div class="bloco-atual" id="bloco-atual">
+    <div class="bloco-atual-label"><span class="now-badge"></span>Bloco ativo</div>
+    <div class="bloco-atual-titulo" id="bloco-titulo">—</div>
+    <div class="bloco-atual-desc" id="bloco-desc">—</div>
+    <div class="bloco-atual-time" id="bloco-time">—</div>
+  </div>
+
+  <div class="section-label">Performance</div>
+  <div class="streak-row">
+    <div class="streak-card">
+      <div class="streak-value" id="home-streak">0</div>
+      <div class="streak-label">🔥 Streak</div>
+    </div>
+    <div class="streak-card">
+      <div class="streak-value" id="home-check-pct">0%</div>
+      <div class="streak-label">Check hoje</div>
+    </div>
+    <div class="streak-card">
+      <div class="streak-value" id="home-meta">R$120</div>
+      <div class="streak-label">Meta/dia</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+<!-- ROTINA -->
+<div class="page" id="page-rotina">
   <div class="page-header">
     <div class="page-title">ROTINA <span>DIÁRIA</span></div>
-    <div class="page-sub" id="rotina-sub">05:00 → 22:00 · Meta R$120/dia · Seg→Sex</div>
-  </div>
-  <div style="display:flex; border-bottom:1px solid var(--border); padding:0 1.25rem; gap:1rem;">
-    <button class="day-tab active" onclick="showDay('segfex')" id="tab-segfex" style="padding:0.6rem 0;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;background:transparent;border:none;border-bottom:2px solid var(--accent);color:var(--accent);cursor:pointer;">SEG → SEX</button>
-    <button class="day-tab" onclick="showDay('sabado')" id="tab-sabado" style="padding:0.6rem 0;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted2);cursor:pointer;">SÁBADO</button>
-    <button class="day-tab" onclick="showDay('domingo')" id="tab-domingo" style="padding:0.6rem 0;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted2);cursor:pointer;">DOMINGO</button>
+    <div class="page-sub" id="rotina-sub">04:00 → 22:00 · Meta R$120/dia</div>
   </div>
 
+  <div class="day-tabs">
+    <button class="day-tab active" onclick="showDay('segfex')" id="tab-segfex">SEG → SEX</button>
+    <button class="day-tab" onclick="showDay('sabado')" id="tab-sabado">SÁBADO</button>
+    <button class="day-tab" onclick="showDay('domingo')" id="tab-domingo">DOMINGO</button>
+  </div>
+
+  <!-- SEG → SEX -->
   <div id="day-segfex">
-    <div class="section-label">Manhã</div>
-    <div class="block gold"><div class="block-time" id="t-acordar">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar</div><div class="block-desc">Levanta já. Banho frio. 1 copo d'água. Sem celular.</div></div></div>
-    <div class="block gold"><div class="block-time">05:15</div><div class="block-body"><div class="block-title">🙏 Oração</div><div class="block-desc">Gratidão, intenção, foco. Momento sagrado.</div></div></div>
-    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino na Praça</div><div class="block-desc">Caminhada · Flexões · Barras · Carreirinhas</div></div></div>
-    <div class="block"><div class="block-time">07:00</div><div class="block-body"><div class="block-title">🏠 Casa & Família</div><div class="block-desc">Filha. Família. Lar. Presença total.</div></div></div>
-    <div class="block"><div class="block-time">08:00</div><div class="block-body"><div class="block-title">👔 Preparar + Sair</div><div class="block-desc">Arruma. 08:30 porta fechada.</div></div></div>
+    <div class="section-label">Madrugada / Manhã</div>
+    <div class="block gold"><div class="block-time" id="t-acordar">04:00</div><div><div class="block-title">⏰ Acordar</div><div class="block-desc">Levanta já. Banho gelado. 1 copo d'água. Em jejum. Sem celular.</div></div></div>
+    <div class="block gold"><div class="block-time">04:15</div><div><div class="block-title">🙏 Oração da manhã</div><div class="block-desc">Gratidão, intenção, entrega. Momento sagrado.</div></div></div>
+    <div class="block gold"><div class="block-time" id="t-rodar1">05:00</div><div><div class="block-title">🚗 Rodar — Turno 1</div><div class="block-desc">Em jejum. Foco na meta. Eficiência máxima.</div></div></div>
+    <div class="block"><div class="block-time">07:00</div><div><div class="block-title">🏠 Libera a esposa</div><div class="block-desc">Ela sai pro trabalho. Você fica com a filha.</div></div></div>
+    <div class="block"><div class="block-time">07:00</div><div><div class="block-title">🍳 Café da manhã + filha</div><div class="block-desc">Come bem. Presença total com sua filha.</div></div></div>
+    <div class="block"><div class="block-time">~08:00</div><div><div class="block-title">👶 Cunhada chega</div><div class="block-desc">Passa a filha. Organiza e sai pro curso.</div></div></div>
     <div class="divider"></div>
     <div class="section-label">Curso</div>
-    <div class="block blue"><div class="block-time" id="t-curso">09:00</div><div class="block-body"><div class="block-title">📚 Curso</div><div class="block-desc">Presença total. Absorver. Anotar. Até 12:00.</div></div></div>
+    <div class="block blue"><div class="block-time" id="t-curso">08:20</div><div><div class="block-title">🎒 Sai pro curso</div><div class="block-desc">Pontual. Preparado. Mente focada.</div></div></div>
+    <div class="block blue"><div class="block-time">09:00</div><div><div class="block-title">📚 Curso</div><div class="block-desc">Presença total. Absorver. Anotar. Sem distrações. Até 12:00.</div></div></div>
     <div class="divider"></div>
     <div class="section-label">Trabalho</div>
-    <div class="block gold"><div class="block-time" id="t-turno1">12:00</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 1</div><div class="block-desc">Foco na meta. Eficiência.</div></div></div>
-    <div class="block"><div class="block-time" id="t-almoco">14:00</div><div class="block-body"><div class="block-title">🍽️ Almoço Rápido</div><div class="block-desc">30 minutos. Come e volta pra rua.</div></div></div>
-    <div class="block gold"><div class="block-time" id="t-turno2">14:30</div><div class="block-body"><div class="block-title">🚗 Rodando — Turno 2</div><div class="block-desc" id="desc-meta">Fechar os R$120. Sem extensão.</div></div></div>
-    <div class="block"><div class="block-time" id="t-fim">17:30</div><div class="block-body"><div class="block-title">🚗 Buscar a esposa</div><div class="block-desc">Ela larga agora. Família em primeiro lugar.</div></div></div>
+    <div class="block gold"><div class="block-time" id="t-turno2">12:00</div><div><div class="block-title">🚗 Rodar — Turno 2</div><div class="block-desc">Direto do curso. Foco na meta.</div></div></div>
+    <div class="block"><div class="block-time" id="t-almoco">14:00</div><div><div class="block-title">🍽️ Almoço</div><div class="block-desc">No trabalho da esposa. Refeição completa. 30 min.</div></div></div>
+    <div class="block gold"><div class="block-time" id="t-turno3">14:30</div><div><div class="block-title">🚗 Rodar — Turno 3</div><div class="block-desc" id="desc-meta">Fechar R$120. Eficiência. Sem extensão.</div></div></div>
+    <div class="block"><div class="block-time" id="t-fim">16:30</div><div><div class="block-title">🚗 Buscar a esposa</div><div class="block-desc">Ela larga agora. Família em primeiro lugar.</div></div></div>
     <div class="divider"></div>
     <div class="section-label">Noite</div>
-    <div class="block"><div class="block-time">19:00</div><div class="block-body"><div class="block-title">🚿 Banho</div><div class="block-desc">Lava o dia. Transição para modo estudo.</div></div></div>
-    <div class="block blue"><div class="block-time">19:30</div><div class="block-body"><div class="block-title">📝 Questões do Curso</div><div class="block-desc">Revisar o que foi visto de manhã. Fixar.</div></div></div>
-    <div class="block"><div class="block-time">21:30</div><div class="block-body"><div class="block-title">📖 Leitura</div><div class="block-desc">Filosofia · Estoicismo · Autodesenv. Desligar tela.</div></div></div>
-    <div class="block gold"><div class="block-time" id="t-dormir">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Sem negociação. 7h = performance máxima.</div></div></div>
+    <div class="block"><div class="block-time">17:00</div><div><div class="block-title">🏠 Em casa</div><div class="block-desc">Filha. Esposa. Organizar lar. Presença total.</div></div></div>
+    <div class="block green" id="treino-segfex"><div class="block-time">17:30</div><div><div class="block-title">💪 Treino</div><div class="block-desc">Ter e Qui: flexões, barras, agachamento. 25 min. Sem desculpa.</div></div></div>
+    <div class="block"><div class="block-time">18:00</div><div><div class="block-title">🚿 Banho</div><div class="block-desc">Lava o dia. Transição pra modo estudo.</div></div></div>
+    <div class="block blue"><div class="block-time">18:00</div><div><div class="block-title">📝 Estudo</div><div class="block-desc">Questões, revisão, mapa mental. Até 21:00. Foco total.</div></div></div>
+    <div class="block"><div class="block-time">21:00</div><div><div class="block-title">📖 Leitura + Oração</div><div class="block-desc">Filosofia · Estoicismo · Bíblia. Desligar telas.</div></div></div>
+    <div class="block gold"><div class="block-time" id="t-dormir">22:00</div><div><div class="block-title">💤 Dormir</div><div class="block-desc">Sem negociação. 6h = performance máxima.</div></div></div>
   </div>
 
+  <!-- SÁBADO -->
   <div id="day-sabado" style="display:none">
     <div class="section-label">Manhã</div>
-    <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">Mesma base. Disciplina não tem fim de semana.</div></div></div>
-    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino na Praça</div><div class="block-desc">1x por mês: praia + calçadão 🏖️</div></div></div>
-    <div class="block gold"><div class="block-time">07:00</div><div class="block-body"><div class="block-title">🚗 Rodando</div><div class="block-desc">Turno único. Meta parcial. Até 11:00.</div></div></div>
+    <div class="block gold"><div class="block-time">04:00</div><div><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">A base não tem fim de semana.</div></div></div>
+    <div class="block green"><div class="block-time">04:30</div><div><div class="block-title">💪 Treino</div><div class="block-desc">Sábado: treino mais completo. Praça ou calçadão. 30–40 min.</div></div></div>
+    <div class="block gold"><div class="block-time">05:30</div><div><div class="block-title">🚗 Rodar</div><div class="block-desc">Turno único. Meta parcial. Bater o que der até ~10:30.</div></div></div>
+    <div class="block"><div class="block-time">10:30</div><div><div class="block-title">🏠 Casa · Família · Café</div><div class="block-desc">Presente. Filha. Esposa. Lar.</div></div></div>
     <div class="divider"></div>
-    <div class="section-label">Tarde livre</div>
-    <div class="block blue"><div class="block-time">11:00</div><div class="block-body"><div class="block-title">📚 Revisão + Questões</div><div class="block-desc">Aprofundar o conteúdo da semana.</div></div></div>
-    <div class="block red"><div class="block-time">——</div><div class="block-body"><div class="block-title">🎥 PROJETO PESSOAL</div><div class="block-desc">Bloco sagrado. Instagram + YouTube. Gravar · Escrever · Planejar. Nunca pular.</div></div></div>
-    <div class="block"><div class="block-time">——</div><div class="block-body"><div class="block-title">🏠 Família</div><div class="block-desc">Presente. Filha. Coisas do lar.</div></div></div>
-    <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Mesma hora. Sempre.</div></div></div>
+    <div class="section-label">Tarde — Revisão + Projeto</div>
+    <div class="block blue"><div class="block-time">13:00</div><div><div class="block-title">📚 Revisão da semana</div><div class="block-desc">Rever conteúdo do curso. Fixar o que ficou frouxo.</div></div></div>
+    <div class="block purple"><div class="block-time">15:00</div><div><div class="block-title">🎥 PROJETO — Produção</div><div class="block-desc">YouTube · Roteirizar · Gravar · Planejar. Bloco sagrado. Nunca pular.</div></div></div>
+    <div class="block"><div class="block-time">18:00</div><div><div class="block-title">🏠 Família · Descanso</div><div class="block-desc">Presença plena. Recarregar.</div></div></div>
+    <div class="block gold"><div class="block-time">23:00</div><div><div class="block-title">💤 Dormir mais tarde</div><div class="block-desc">Sábado é compensação. Acorda mais tarde amanhã.</div></div></div>
   </div>
 
+  <!-- DOMINGO -->
   <div id="day-domingo" style="display:none">
-    <div class="section-label">Manhã</div>
-    <div class="block gold"><div class="block-time">05:00</div><div class="block-body"><div class="block-title">⏰ Acordar · Banho · Oração</div><div class="block-desc">A base nunca muda.</div></div></div>
-    <div class="block green"><div class="block-time">05:50</div><div class="block-body"><div class="block-title">🏃 Treino</div><div class="block-desc">Praça ou caminhada leve.</div></div></div>
-    <div class="block blue"><div class="block-time">Manhã</div><div class="block-body"><div class="block-title">🧠 Simulado</div><div class="block-desc">Treino de prova em condições reais.</div></div></div>
+    <div class="section-label">Manhã — Acordar natural</div>
+    <div class="block gold"><div class="block-time">~07:00</div><div><div class="block-title">⏰ Acordar natural</div><div class="block-desc">Compensação do sábado. Banho. Oração. Café tranquilo.</div></div></div>
+    <div class="block green"><div class="block-time">08:00</div><div><div class="block-title">🏃 Caminhada leve</div><div class="block-desc">Praça ou ao redor de casa. Cabeça arejada.</div></div></div>
+    <div class="block blue"><div class="block-time">09:00</div><div><div class="block-title">🧠 Simulado</div><div class="block-desc">Treino de prova em condições reais. Cronômetro. Sem cola.</div></div></div>
     <div class="divider"></div>
-    <div class="section-label">Tarde</div>
-    <div class="block"><div class="block-time">Tarde</div><div class="block-body"><div class="block-title">📅 Planejar a Semana</div><div class="block-desc">Organizar · Revisar metas · Próximos passos.</div></div></div>
-    <div class="block"><div class="block-time">——</div><div class="block-body"><div class="block-title">🏠 Família</div><div class="block-desc">Presença plena. Recuperar. Descanso ativo.</div></div></div>
-    <div class="block gold"><div class="block-time">22:00</div><div class="block-body"><div class="block-title">💤 Dormir</div><div class="block-desc">Amanhã começa de novo. Mais forte.</div></div></div>
+    <div class="section-label">Tarde — Descanso + Planejamento</div>
+    <div class="block purple"><div class="block-time">13:00</div><div><div class="block-title">🎥 PROJETO — Edição / Ideias</div><div class="block-desc">Continuar o que ficou pendente. Roteiro da semana. Postar.</div></div></div>
+    <div class="block"><div class="block-time">15:00</div><div><div class="block-title">📅 Planejar a semana</div><div class="block-desc">Metas, compromissos, prioridades. Preparar para segunda.</div></div></div>
+    <div class="block"><div class="block-time">17:00</div><div><div class="block-title">🏠 Família plena</div><div class="block-desc">Descanso ativo. Filha. Esposa. Lazer. Presença.</div></div></div>
+    <div class="block gold"><div class="block-time">22:00</div><div><div class="block-title">💤 Dormir</div><div class="block-desc">Amanhã a missão recomeça. Mais forte.</div></div></div>
   </div>
 </div>
 
+<!-- CHECKLIST -->
 <div class="page" id="page-check">
   <div class="page-header">
     <div class="page-title">CHECK<span>LIST</span></div>
     <div class="page-sub" id="check-date">Hoje · Marcando o progresso</div>
   </div>
   <div class="check-progress">
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-    <div class="progress-text" id="progress-text">0/9</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-text" id="progress-text">0/11</div>
+    </div>
+    <div class="progress-pct" id="progress-pct">0%</div>
   </div>
+  <div class="streak-fire" id="streak-fire">🔥 0 dias seguidos</div>
   <div class="check-list" id="check-list"></div>
   <button class="reset-btn" onclick="resetChecks()">↺ Resetar checklist do dia</button>
   <div class="quote-box">"A vitória favorece aquele que tem tudo em ordem." — Polibio</div>
+  <div class="spacer"></div>
 </div>
 
+<!-- DIÁRIO -->
+<div class="page" id="page-diario">
+  <div class="page-header">
+    <div class="page-title">DIÁRIO <span>&</span> IDEIAS</div>
+    <div class="page-sub">Tudo que você registra, fica aqui pra sempre</div>
+  </div>
+  <div class="section-label">Novo registro</div>
+  <div class="diario-input-area">
+    <div class="diario-tabs-row">
+      <button class="diario-type-btn active" onclick="setDiarioType('pensamento')" id="dtype-pensamento">💭 Pensamento</button>
+      <button class="diario-type-btn" onclick="setDiarioType('lembrete')" id="dtype-lembrete">📌 Lembrete</button>
+      <button class="diario-type-btn" onclick="setDiarioType('ideia')" id="dtype-ideia">💡 Ideia</button>
+    </div>
+    <div class="diario-textarea-wrap">
+      <textarea class="diario-textarea" id="diario-input" placeholder="Escreve aqui... o que tiver na cabeça." rows="4"></textarea>
+    </div>
+    <button class="diario-save-btn" onclick="saveDiarioEntry()">SALVAR REGISTRO</button>
+  </div>
+  <div class="section-label">Histórico</div>
+  <div class="diario-list" id="diario-list"></div>
+  <div class="spacer"></div>
+</div>
+
+<!-- METAS -->
 <div class="page" id="page-metas">
   <div class="page-header">
     <div class="page-title">METAS & <span>REGRAS</span></div>
@@ -320,54 +801,68 @@ input[type="time"].cfg-input { font-family: 'IBM Plex Mono', monospace; font-siz
   <div class="section-label">Marcadores</div>
   <div class="metas-grid">
     <div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value" id="card-meta">R$120</div><div class="meta-card-sub">seg→sex</div></div>
-    <div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">7h</div><div class="meta-card-sub">22:00 → 05:00</div></div>
-    <div class="meta-card"><div class="meta-card-label">Praia</div><div class="meta-card-value">1×</div><div class="meta-card-sub">por mês</div></div>
+    <div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">6h</div><div class="meta-card-sub">22:00 → 04:00</div></div>
+    <div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">3×</div><div class="meta-card-sub">Ter, Qui, Sáb</div></div>
     <div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div>
-    <div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">6×</div><div class="meta-card-sub">por semana</div></div>
-    <div class="meta-card"><div class="meta-card-label">Redes</div><div class="meta-card-value">0</div><div class="meta-card-sub">divagação</div></div>
+    <div class="meta-card"><div class="meta-card-label">Curso</div><div class="meta-card-value">3h</div><div class="meta-card-sub">09:00→12:00</div></div>
+    <div class="meta-card"><div class="meta-card-label">Estudo</div><div class="meta-card-value">3h</div><div class="meta-card-sub">18:00→21:00</div></div>
   </div>
+
+  <div class="section-label">Plano 3 / 6 / 12 meses</div>
+  <div class="plano-card">
+    <div class="plano-header">⚡ 3 meses</div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Zerar a procrastinação. Rotina travada e automática.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Concluir o curso com aproveitamento real.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Canal no YouTube com primeiros vídeos publicados.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Bater R$120/dia com consistência.</div></div>
+  </div>
+  <div class="spacer" style="height:0.5rem"></div>
+  <div class="plano-card">
+    <div class="plano-header">🎯 6 meses</div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Canal crescendo. Identidade de marca consolidada.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Nova fonte de renda através do projeto digital.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Psicológico equilibrado. Disciplina virou identidade.</div></div>
+  </div>
+  <div class="spacer" style="height:0.5rem"></div>
+  <div class="plano-card">
+    <div class="plano-header">🏆 12 meses</div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Certificado do curso concluído. Habilidade real.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Renda digital complementando ou superando o trabalho atual.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Ser referência no nicho. Homem que virou exemplo.</div></div>
+    <div class="plano-item"><div class="plano-dot"></div><div class="plano-text">Família com mais estabilidade. Você mudou o jogo.</div></div>
+  </div>
+
   <div class="section-label">Regras</div>
   <div class="regras">
     <div class="regra"><div class="regra-num">I</div><div class="regra-text">Redes sociais são o inimigo do foco. Acesse só com propósito definido.</div></div>
     <div class="regra"><div class="regra-num">II</div><div class="regra-text">A rotina não negocia. Nos primeiros dias é difícil — depois é identidade.</div></div>
-    <div class="regra"><div class="regra-num">III</div><div class="regra-text">O projeto do sábado é sagrado. Um dia por semana. Nunca pular.</div></div>
+    <div class="regra"><div class="regra-num">III</div><div class="regra-text">O projeto do sábado é sagrado. Um bloco por semana. Nunca pular.</div></div>
     <div class="regra"><div class="regra-num">IV</div><div class="regra-text">Família é pilar. Quando estiver em casa, esteja de verdade.</div></div>
     <div class="regra"><div class="regra-num">V</div><div class="regra-text">Não viralize. Ajude. Fale o que é real. O que você viveu.</div></div>
-    <div class="regra"><div class="regra-num">VI</div><div class="regra-text">22:00 é hora de dormir. Sem exceção. Amanhã começa às 05:00.</div></div>
+    <div class="regra"><div class="regra-num">VI</div><div class="regra-text">22:00 é hora de dormir. Sem exceção. Amanhã começa às 04:00.</div></div>
+    <div class="regra"><div class="regra-num">VII</div><div class="regra-text">Procrastinação é o inimigo. Ação imperfeita bate planejamento perfeito.</div></div>
+    <div class="regra"><div class="regra-num">VIII</div><div class="regra-text">O dinheiro do curso não foi jogado fora. Você vai honrar esse investimento.</div></div>
   </div>
+
   <div class="section-label">Projeto de Vida</div>
-  <div class="projeto-header">
-    <div class="projeto-tags">
-      <span class="tag">Instagram</span><span class="tag">YouTube</span><span class="tag">Estoicismo</span><span class="tag">Superação</span><span class="tag">Masculinidade</span><span class="tag">Alta Performance</span>
+  <div class="projeto-card">
+    <div class="projeto-card-header">
+      <div class="projeto-tags">
+        <span class="tag">YouTube</span><span class="tag">Estoicismo</span><span class="tag">Fé</span><span class="tag">Superação</span><span class="tag">Masculinidade</span><span class="tag">Alta Performance</span>
+      </div>
+      <div class="projeto-desc">Canal novo. Zero conhecido. Sem performance — autenticidade.<br>Voltado ao homem que quer crescer, que caiu e quer se levantar.<br>Filosofia cristã aplicada à vida real.</div>
     </div>
-    <div class="projeto-desc">Conta nova. Zero conhecido. Sem performance — autenticidade.<br>Voltado ao homem que quer crescer, que caiu e quer se levantar.<br>Filosofia aplicada à vida real.</div>
   </div>
-  <div style="height:0.75rem"></div>
-  <div class="projeto-day"><strong>🎥 DIA SAGRADO: SÁBADO</strong><br>Gravar · Escrever · Planejar conteúdo.<br>Sem falhar. Sem adiar. A missão não espera.</div>
+  <div class="spacer" style="height:0.5rem"></div>
+  <div class="projeto-dia"><strong>🎥 BLOCO SAGRADO: SÁBADO TARDE + DOMINGO</strong><br>Gravar · Roteirizar · Planejar · Editar · Postar.<br>Sem falhar. Sem adiar. A missão não espera.</div>
+  <div class="spacer"></div>
 </div>
 
-<div class="page" id="page-notas">
-  <div class="page-header">
-    <div class="page-title">NOTAS & <span>REFLEXÕES</span></div>
-    <div class="page-sub">O que é anotado, é lembrado</div>
-  </div>
-  <div class="section-label">Observações do dia</div>
-  <div class="obs-area">
-    <textarea id="obs-text" placeholder="Escreve aqui... reflexões, ajustes na rotina, conquistas, dificuldades..."></textarea>
-    <button class="obs-save" onclick="saveNotes()">Salvar anotações</button>
-  </div>
-  <div class="section-label" style="margin-top:0.75rem">Ideias pro projeto</div>
-  <div class="obs-area">
-    <textarea id="projeto-text" placeholder="Temas pra gravar, títulos, roteiros, insights..."></textarea>
-    <button class="obs-save" onclick="saveProjectNotes()">Salvar ideias</button>
-  </div>
-  <div class="quote-box">"Escreve isto: que são felizes aqueles que se contentam com o que têm." — Marco Aurélio</div>
-</div>
-
+<!-- CONFIG -->
 <div class="page" id="page-config">
   <div class="page-header">
     <div class="page-title">CONFIG<span>URAR</span></div>
-    <div class="page-sub">Edite sua rotina direto aqui</div>
+    <div class="page-sub">Tudo ajustável. Seu app, suas regras.</div>
   </div>
   <div class="section-label">Meta diária</div>
   <div class="cfg-field">
@@ -376,112 +871,253 @@ input[type="time"].cfg-input { font-family: 'IBM Plex Mono', monospace; font-siz
   </div>
   <div class="section-label">Horários — Seg a Sex</div>
   <div class="cfg-field"><div class="cfg-label">Acordar</div><input id="cfg-acordar" class="cfg-input" type="time"/></div>
-  <div class="cfg-field"><div class="cfg-label">Início do Curso</div><input id="cfg-curso" class="cfg-input" type="time"/></div>
-  <div class="cfg-field"><div class="cfg-label">Início Turno 1</div><input id="cfg-turno1" class="cfg-input" type="time"/></div>
+  <div class="cfg-field"><div class="cfg-label">Início do Turno 1 (rodar)</div><input id="cfg-rodar1" class="cfg-input" type="time"/></div>
+  <div class="cfg-field"><div class="cfg-label">Sair pro Curso</div><input id="cfg-curso" class="cfg-input" type="time"/></div>
+  <div class="cfg-field"><div class="cfg-label">Início Turno 2 (rodar)</div><input id="cfg-turno2" class="cfg-input" type="time"/></div>
   <div class="cfg-field"><div class="cfg-label">Almoço</div><input id="cfg-almoco" class="cfg-input" type="time"/></div>
-  <div class="cfg-field"><div class="cfg-label">Início Turno 2</div><input id="cfg-turno2" class="cfg-input" type="time"/></div>
-  <div class="cfg-field"><div class="cfg-label">Encerrar / Buscar esposa</div><input id="cfg-fim" class="cfg-input" type="time"/></div>
+  <div class="cfg-field"><div class="cfg-label">Início Turno 3 (rodar)</div><input id="cfg-turno3" class="cfg-input" type="time"/></div>
+  <div class="cfg-field"><div class="cfg-label">Buscar esposa / Encerrar</div><input id="cfg-fim" class="cfg-input" type="time"/></div>
   <div class="cfg-field"><div class="cfg-label">Dormir</div><input id="cfg-dormir" class="cfg-input" type="time"/></div>
-  <div style="padding:1rem 1.25rem;">
-    <button class="obs-save" onclick="saveConfig()" style="font-size:13px;padding:0.75rem;">💾 SALVAR CONFIGURAÇÕES</button>
-  </div>
+  <div class="section-label">Plano médio/longo prazo</div>
+  <div class="cfg-field"><div class="cfg-label">Meta 3 meses (edite livre)</div><input id="cfg-meta3" class="cfg-input" type="text" placeholder="ex: concluir o curso"/></div>
+  <div class="cfg-field"><div class="cfg-label">Meta 6 meses</div><input id="cfg-meta6" class="cfg-input" type="text" placeholder="ex: 1ª renda do canal"/></div>
+  <div class="cfg-field"><div class="cfg-label">Meta 12 meses</div><input id="cfg-meta12" class="cfg-input" type="text" placeholder="ex: renda digital consolidada"/></div>
+  <button class="cfg-save-btn" onclick="saveConfig()">💾 SALVAR CONFIGURAÇÕES</button>
   <div class="quote-box">"Conhece-te a ti mesmo." — Sócrates</div>
+  <div class="spacer"></div>
 </div>
 
+<!-- NAVBAR -->
 <nav class="navbar">
-  <button class="nav-btn active" id="nav-rotina" onclick="showPage('rotina')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="22"/></svg>
+  <button class="nav-btn active" id="nav-home" onclick="showPage('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="nav-btn" id="nav-rotina" onclick="showPage('rotina')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="22"/></svg>
     Rotina
   </button>
   <button class="nav-btn" id="nav-check" onclick="showPage('check')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
     Check
   </button>
+  <button class="nav-btn" id="nav-diario" onclick="showPage('diario')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Diário
+  </button>
   <button class="nav-btn" id="nav-metas" onclick="showPage('metas')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
     Metas
   </button>
-  <button class="nav-btn" id="nav-notas" onclick="showPage('notas')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-    Notas
-  </button>
   <button class="nav-btn" id="nav-config" onclick="showPage('config')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Config
   </button>
 </nav>
 
 <script>
-const CHECKS = [
-  'Acordou 05:00 sem snooze',
-  'Banho frio + água ✓',
-  'Oração feita',
-  'Treino na praça',
-  'Redes sociais no mínimo',
-  'Meta do dia atingida (R$120)',
-  'Questões do curso feitas',
-  'Leitura antes de dormir',
-  'Dormiu às 22:00'
+// ── FRASES ──────────────────────────────────────────────
+const FRASES = [
+  { texto: "Não reze por uma vida fácil. Reze por forças para suportar uma vida difícil.", autor: "— Bruce Lee" },
+  { texto: "A primeira e a maior vitória é conquistar-se a si mesmo.", autor: "— Platão" },
+  { texto: "O Senhor é minha força e meu escudo; meu coração confia nele.", autor: "— Salmos 28:7" },
+  { texto: "Suporta com calma o que não podes evitar.", autor: "— Epicteto" },
+  { texto: "Posso tudo naquele que me fortalece.", autor: "— Filipenses 4:13" },
+  { texto: "Não desperdice o tempo que lhe resta pensando nos outros. Olhe para dentro.", autor: "— Marco Aurélio" },
+  { texto: "A disciplina é a alma de um exército. Torna pequenos contingentes fortes.", autor: "— George Washington" },
+  { texto: "Sede fortes e corajosos. Não temais nem vos assusteis.", autor: "— Deuteronômio 31:6" },
+  { texto: "Nunca confunda movimento com ação.", autor: "— Ernest Hemingway" },
+  { texto: "A dificuldade não é impossibilidade. É apenas uma barreira para os fracos.", autor: "— Estoicismo" },
+  { texto: "Toda manhã renascemos. O que fazemos hoje é o que mais importa.", autor: "— Buda" },
+  { texto: "Tudo posso naquele que me fortalece.", autor: "— Paulo de Tarso" },
+  { texto: "O que não me mata, me fortalece.", autor: "— Nietzsche" },
+  { texto: "Não é a montanha que conquistamos, mas a nós mesmos.", autor: "— Edmund Hillary" },
+  { texto: "A coragem não é a ausência do medo, mas o julgamento de que outra coisa é mais importante.", autor: "— Ambrose Redmoon" },
+  { texto: "Porque sou eu que conheço os planos que tenho para você, planos de prosperidade e não de calamidade.", autor: "— Jeremias 29:11" },
+  { texto: "Quanto mais suor no treino, menos sangue na batalha.", autor: "— Provérbio militar" },
+  { texto: "Dois caminhos divergiram numa floresta, e eu tomei o menos percorrido.", autor: "— Robert Frost" },
+  { texto: "A glória não está em nunca cair, mas em se levantar sempre.", autor: "— Confúcio" },
+  { texto: "O homem que move montanhas começa carregando pequenas pedras.", autor: "— Confúcio" },
+  { texto: "Espera do Senhor, sê forte e corajoso, espera do Senhor.", autor: "— Salmos 27:14" },
+  { texto: "A mente governa. Treine a mente primeiro.", autor: "— Estoicismo" },
+  { texto: "Cada dia é uma nova chance de mudar sua vida.", autor: "— Anônimo" },
+  { texto: "O sofrimento de hoje é a força de amanhã.", autor: "— Arnold Schwarzenegger" },
+  { texto: "Toda grande obra começa com a decisão de tentar.", autor: "— Goethe" },
+  { texto: "Faça o que precisa ser feito. Quando? Agora.", autor: "— Estoicismo" },
+  { texto: "Porque Deus não nos deu espírito de covardia, mas de poder, de amor e de equilíbrio.", autor: "— 2 Timóteo 1:7" },
+  { texto: "A melhor preparação para amanhã é dar o melhor de si hoje.", autor: "— H. Jackson Brown Jr." },
+  { texto: "O homem forte não é o que é forte nas lutas, mas o que controla a si mesmo quando está com raiva.", autor: "— Hadith" },
+  { texto: "Concentre-se em fazer o que você pode, com o que você tem, onde você está.", autor: "— Theodore Roosevelt" },
 ];
+
+function getFraseDodia() {
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  return FRASES[dayOfYear % FRASES.length];
+}
+
+// ── STORAGE KEYS ─────────────────────────────────────────
 const today = new Date().toISOString().slice(0,10);
-const CHECK_KEY = 'checks_' + today;
-const NOTES_KEY = 'notas_' + today;
-const PROJETO_KEY = 'projeto_notas';
-const CFG_KEY = 'app_config';
-const CFG_DEFAULT = { meta:'120', acordar:'05:00', curso:'09:00', turno1:'12:00', almoco:'14:00', turno2:'14:30', fim:'17:30', dormir:'22:00' };
+const KEYS = {
+  checks: 'checks_' + today,
+  streak: 'streak_data',
+  diario: 'diario_entries',
+  config: 'app_config_v2',
+};
 
-function getConfig() { try { return JSON.parse(localStorage.getItem(CFG_KEY)) || CFG_DEFAULT; } catch { return CFG_DEFAULT; } }
-function getChecks() { try { return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; } catch { return {}; } }
-function saveChecks(state) { localStorage.setItem(CHECK_KEY, JSON.stringify(state)); }
+const CFG_DEFAULT = {
+  meta: '120',
+  acordar: '04:00',
+  rodar1: '05:00',
+  curso: '08:20',
+  turno2: '12:00',
+  almoco: '14:00',
+  turno3: '14:30',
+  fim: '16:30',
+  dormir: '22:00',
+  meta3: '',
+  meta6: '',
+  meta12: '',
+};
 
-function applyConfig(cfg) {
-  document.getElementById('t-acordar').textContent = cfg.acordar;
-  document.getElementById('t-curso').textContent = cfg.curso;
-  document.getElementById('t-turno1').textContent = cfg.turno1;
-  document.getElementById('t-almoco').textContent = cfg.almoco;
-  document.getElementById('t-turno2').textContent = cfg.turno2;
-  document.getElementById('t-fim').textContent = cfg.fim;
-  document.getElementById('t-dormir').textContent = cfg.dormir;
-  document.getElementById('card-meta').textContent = 'R$' + cfg.meta;
-  document.getElementById('desc-meta').textContent = 'Fechar os R$' + cfg.meta + '. Sem extensão.';
-  document.getElementById('rotina-sub').textContent = cfg.acordar + ' → ' + cfg.dormir + ' · Meta R$' + cfg.meta + '/dia · Seg→Sex';
+const CHECKS_LIST = [
+  'Acordou 04:00 sem snooze',
+  'Banho gelado + água ✓',
+  'Oração da manhã feita',
+  'Saiu pra rodar no horário',
+  'Chegou no curso pontual',
+  'Aula aproveitada (anotou)',
+  'Meta R$ do dia atingida',
+  'Estudou 18h→21h',
+  'Treino feito (Ter/Qui/Sáb)',
+  'Leitura + oração à noite',
+  'Dormiu às 22:00',
+];
+
+// ── UTILS ─────────────────────────────────────────────────
+function getConfig() { try { return { ...CFG_DEFAULT, ...JSON.parse(localStorage.getItem(KEYS.config)) }; } catch { return CFG_DEFAULT; } }
+function getChecks() { try { return JSON.parse(localStorage.getItem(KEYS.checks)) || {}; } catch { return {}; } }
+function saveChecksStore(s) { localStorage.setItem(KEYS.checks, JSON.stringify(s)); }
+function getDiario() { try { return JSON.parse(localStorage.getItem(KEYS.diario)) || []; } catch { return []; } }
+function saveDiario(d) { localStorage.setItem(KEYS.diario, JSON.stringify(d)); }
+
+function formatDate() {
+  return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+}
+function formatDateShort(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'2-digit' }) + ' ' +
+         d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
 }
 
-function loadConfig() {
-  const cfg = getConfig();
-  document.getElementById('cfg-meta').value = cfg.meta;
-  document.getElementById('cfg-acordar').value = cfg.acordar;
-  document.getElementById('cfg-curso').value = cfg.curso;
-  document.getElementById('cfg-turno1').value = cfg.turno1;
-  document.getElementById('cfg-almoco').value = cfg.almoco;
-  document.getElementById('cfg-turno2').value = cfg.turno2;
-  document.getElementById('cfg-fim').value = cfg.fim;
-  document.getElementById('cfg-dormir').value = cfg.dormir;
-  applyConfig(cfg);
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg || 'Salvo ✓';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-function saveConfig() {
-  const cfg = {
-    meta: document.getElementById('cfg-meta').value,
-    acordar: document.getElementById('cfg-acordar').value,
-    curso: document.getElementById('cfg-curso').value,
-    turno1: document.getElementById('cfg-turno1').value,
-    almoco: document.getElementById('cfg-almoco').value,
-    turno2: document.getElementById('cfg-turno2').value,
-    fim: document.getElementById('cfg-fim').value,
-    dormir: document.getElementById('cfg-dormir').value,
-  };
-  localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
-  applyConfig(cfg);
-  showToast();
+// ── SPLASH ───────────────────────────────────────────────
+function initSplash() {
+  const f = getFraseDodia();
+  document.getElementById('splash-frase').textContent = f.texto;
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hidden');
+  }, 2400);
 }
 
+// ── CLOCK ────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('home-clock').textContent = h + ':' + m;
+  document.getElementById('home-date').textContent = formatDate().toUpperCase();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── FRASE ────────────────────────────────────────────────
+function loadFrase() {
+  const f = getFraseDodia();
+  document.getElementById('home-frase-text').textContent = f.texto;
+  document.getElementById('home-frase-autor').textContent = f.autor;
+}
+
+// ── BLOCO ATIVO ──────────────────────────────────────────
+const SCHEDULE = [
+  { h:4, m:0,  titulo:'⏰ Acordar', desc:'Levanta já. Banho gelado. Água. Sem celular.', fim:'05:00' },
+  { h:5, m:0,  titulo:'🚗 Rodar — Turno 1', desc:'Em jejum. Foco na meta. Eficiência.', fim:'07:00' },
+  { h:7, m:0,  titulo:'🏠 Casa + Filha', desc:'Café, filha, esposa sai pro trabalho.', fim:'08:20' },
+  { h:8, m:20, titulo:'🎒 Curso', desc:'Chegar no curso. Presença total. Absorver.', fim:'12:00' },
+  { h:12, m:0, titulo:'🚗 Rodar — Turno 2', desc:'Direto do curso. Meta em andamento.', fim:'14:00' },
+  { h:14, m:0, titulo:'🍽️ Almoço', desc:'No trabalho da esposa. 30 min.', fim:'14:30' },
+  { h:14, m:30,titulo:'🚗 Rodar — Turno 3', desc:'Fechar a meta do dia. Sem extensão.', fim:'16:30' },
+  { h:16, m:30,titulo:'🚗 Buscar esposa', desc:'Família em primeiro lugar.', fim:'17:00' },
+  { h:17, m:0, titulo:'🏠 Em casa', desc:'Filha, esposa, organizar lar.', fim:'18:00' },
+  { h:18, m:0, titulo:'📝 Estudo', desc:'Questões, revisão, mapa mental. Foco total.', fim:'21:00' },
+  { h:21, m:0, titulo:'📖 Leitura + Oração', desc:'Desligar telas. Reflexão. Preparar o sono.', fim:'22:00' },
+  { h:22, m:0, titulo:'💤 Dormir', desc:'Missão cumprida. Amanhã recomeça.', fim:'04:00' },
+];
+
+function updateBlocoAtual() {
+  const now = new Date();
+  const total = now.getHours() * 60 + now.getMinutes();
+  let bloco = SCHEDULE[SCHEDULE.length - 1];
+  for (let i = 0; i < SCHEDULE.length - 1; i++) {
+    const start = SCHEDULE[i].h * 60 + SCHEDULE[i].m;
+    const next = SCHEDULE[i+1].h * 60 + SCHEDULE[i+1].m;
+    if (total >= start && total < next) { bloco = SCHEDULE[i]; break; }
+  }
+  document.getElementById('bloco-titulo').textContent = bloco.titulo;
+  document.getElementById('bloco-desc').textContent = bloco.desc;
+  document.getElementById('bloco-time').textContent = 'Vai até ' + bloco.fim;
+}
+updateBlocoAtual();
+setInterval(updateBlocoAtual, 60000);
+
+// ── STREAK ───────────────────────────────────────────────
+function getStreakData() { try { return JSON.parse(localStorage.getItem(KEYS.streak)) || { days:[], count:0 }; } catch { return { days:[], count:0 }; } }
+
+function calcStreak() {
+  const checks = getChecks();
+  const done = Object.values(checks).filter(Boolean).length;
+  const pct = done / CHECKS_LIST.length;
+  // Marca o dia se >= 80% feito
+  if (pct >= 0.8) {
+    const sd = getStreakData();
+    if (!sd.days.includes(today)) {
+      sd.days.push(today);
+      // Calcular sequência
+      let streak = 0;
+      const d = new Date();
+      for (let i = 0; i < 365; i++) {
+        const dd = new Date(d); dd.setDate(d.getDate() - i);
+        const key = dd.toISOString().slice(0,10);
+        if (sd.days.includes(key)) streak++;
+        else break;
+      }
+      sd.count = streak;
+      localStorage.setItem(KEYS.streak, JSON.stringify(sd));
+    }
+    return getStreakData().count;
+  }
+  return getStreakData().count;
+}
+
+function updateStreakUI() {
+  const sd = getStreakData();
+  const streak = sd.count || 0;
+  document.getElementById('home-streak').textContent = streak;
+  document.getElementById('streak-fire').textContent = '🔥 ' + streak + ' dia' + (streak === 1 ? '' : 's') + ' seguido' + (streak === 1 ? '' : 's');
+}
+
+// ── CHECKLIST ────────────────────────────────────────────
 function renderChecks() {
   const state = getChecks();
   const list = document.getElementById('check-list');
   list.innerHTML = '';
   let done = 0;
-  CHECKS.forEach((label, i) => {
+  CHECKS_LIST.forEach((label, i) => {
     const checked = !!state[i];
     if (checked) done++;
     const el = document.createElement('div');
@@ -490,29 +1126,131 @@ function renderChecks() {
     el.addEventListener('click', () => toggleCheck(i));
     list.appendChild(el);
   });
-  const pct = Math.round((done / CHECKS.length) * 100);
+  const pct = Math.round((done / CHECKS_LIST.length) * 100);
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = done + '/' + CHECKS.length;
+  document.getElementById('progress-text').textContent = done + '/' + CHECKS_LIST.length;
+  document.getElementById('progress-pct').textContent = pct + '%';
   document.getElementById('check-date').textContent = formatDate() + ' · ' + pct + '% concluído';
+  document.getElementById('home-check-pct').textContent = pct + '%';
+  updateStreakUI();
 }
 
-function toggleCheck(i) { const state = getChecks(); state[i] = !state[i]; saveChecks(state); renderChecks(); }
-function resetChecks() { if (confirm('Resetar o checklist de hoje?')) { localStorage.removeItem(CHECK_KEY); renderChecks(); } }
-
-function loadNotes() {
-  const t1 = document.getElementById('obs-text');
-  const t2 = document.getElementById('projeto-text');
-  if (t1) t1.value = localStorage.getItem(NOTES_KEY) || '';
-  if (t2) t2.value = localStorage.getItem(PROJETO_KEY) || '';
-  [t1,t2].forEach(t => { if(t) { t.style.height='auto'; t.style.height=t.scrollHeight+'px'; t.addEventListener('input',()=>{t.style.height='auto';t.style.height=t.scrollHeight+'px';}); }});
+function toggleCheck(i) {
+  const state = getChecks();
+  state[i] = !state[i];
+  saveChecksStore(state);
+  calcStreak();
+  renderChecks();
+}
+function resetChecks() {
+  if (confirm('Resetar o checklist de hoje?')) {
+    localStorage.removeItem(KEYS.checks);
+    renderChecks();
+  }
 }
 
-function saveNotes() { localStorage.setItem(NOTES_KEY, document.getElementById('obs-text').value); showToast(); }
-function saveProjectNotes() { localStorage.setItem(PROJETO_KEY, document.getElementById('projeto-text').value); showToast(); }
+// ── DIÁRIO ───────────────────────────────────────────────
+let diarioType = 'pensamento';
+function setDiarioType(t) {
+  diarioType = t;
+  ['pensamento','lembrete','ideia'].forEach(tt => {
+    document.getElementById('dtype-'+tt).classList.toggle('active', tt === t);
+  });
+  const placeholders = { pensamento:'Escreve aqui... o que tiver na cabeça.', lembrete:'O que precisa lembrar?', ideia:'Ideia pra gravar, título, roteiro...' };
+  document.getElementById('diario-input').placeholder = placeholders[t];
+}
 
-function showToast() { const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-function formatDate() { return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' }); }
+function saveDiarioEntry() {
+  const text = document.getElementById('diario-input').value.trim();
+  if (!text) return;
+  const entries = getDiario();
+  entries.unshift({ id: Date.now(), type: diarioType, text, date: new Date().toISOString() });
+  saveDiario(entries);
+  document.getElementById('diario-input').value = '';
+  renderDiario();
+  showToast('Registro salvo ✓');
+}
 
+function deleteDiarioEntry(id) {
+  if (!confirm('Apagar este registro?')) return;
+  const entries = getDiario().filter(e => e.id !== id);
+  saveDiario(entries);
+  renderDiario();
+}
+
+function renderDiario() {
+  const entries = getDiario();
+  const list = document.getElementById('diario-list');
+  if (!entries.length) {
+    list.innerHTML = '<div class="diario-empty">Nenhum registro ainda.<br>Escreva seus pensamentos,<br>lembretes e ideias aqui.</div>';
+    return;
+  }
+  list.innerHTML = entries.map(e => `
+    <div class="diario-entry">
+      <div class="diario-entry-header">
+        <span class="diario-entry-type ${e.type}">${e.type === 'pensamento' ? '💭 Pensamento' : e.type === 'lembrete' ? '📌 Lembrete' : '💡 Ideia'}</span>
+        <span class="diario-entry-date">${formatDateShort(e.date)}</span>
+        <button class="diario-entry-del" onclick="deleteDiarioEntry(${e.id})">×</button>
+      </div>
+      <div class="diario-entry-text">${e.text.replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+// ── CONFIG ───────────────────────────────────────────────
+function applyConfig(cfg) {
+  document.getElementById('t-acordar').textContent = cfg.acordar;
+  document.getElementById('t-rodar1').textContent = cfg.rodar1;
+  document.getElementById('t-curso').textContent = cfg.curso;
+  document.getElementById('t-turno2').textContent = cfg.turno2;
+  document.getElementById('t-almoco').textContent = cfg.almoco;
+  document.getElementById('t-turno3').textContent = cfg.turno3;
+  document.getElementById('t-fim').textContent = cfg.fim;
+  document.getElementById('t-dormir').textContent = cfg.dormir;
+  document.getElementById('card-meta').textContent = 'R$' + cfg.meta;
+  document.getElementById('desc-meta').textContent = 'Fechar R$' + cfg.meta + '. Eficiência. Sem extensão.';
+  document.getElementById('rotina-sub').textContent = cfg.acordar + ' → ' + cfg.dormir + ' · Meta R$' + cfg.meta + '/dia';
+  document.getElementById('home-meta').textContent = 'R$' + cfg.meta;
+}
+
+function loadConfig() {
+  const cfg = getConfig();
+  document.getElementById('cfg-meta').value = cfg.meta;
+  document.getElementById('cfg-acordar').value = cfg.acordar;
+  document.getElementById('cfg-rodar1').value = cfg.rodar1;
+  document.getElementById('cfg-curso').value = cfg.curso;
+  document.getElementById('cfg-turno2').value = cfg.turno2;
+  document.getElementById('cfg-almoco').value = cfg.almoco;
+  document.getElementById('cfg-turno3').value = cfg.turno3;
+  document.getElementById('cfg-fim').value = cfg.fim;
+  document.getElementById('cfg-dormir').value = cfg.dormir;
+  document.getElementById('cfg-meta3').value = cfg.meta3 || '';
+  document.getElementById('cfg-meta6').value = cfg.meta6 || '';
+  document.getElementById('cfg-meta12').value = cfg.meta12 || '';
+  applyConfig(cfg);
+}
+
+function saveConfig() {
+  const cfg = {
+    meta: document.getElementById('cfg-meta').value || '120',
+    acordar: document.getElementById('cfg-acordar').value || '04:00',
+    rodar1: document.getElementById('cfg-rodar1').value || '05:00',
+    curso: document.getElementById('cfg-curso').value || '08:20',
+    turno2: document.getElementById('cfg-turno2').value || '12:00',
+    almoco: document.getElementById('cfg-almoco').value || '14:00',
+    turno3: document.getElementById('cfg-turno3').value || '14:30',
+    fim: document.getElementById('cfg-fim').value || '16:30',
+    dormir: document.getElementById('cfg-dormir').value || '22:00',
+    meta3: document.getElementById('cfg-meta3').value,
+    meta6: document.getElementById('cfg-meta6').value,
+    meta12: document.getElementById('cfg-meta12').value,
+  };
+  localStorage.setItem(KEYS.config, JSON.stringify(cfg));
+  applyConfig(cfg);
+  showToast('Configurações salvas ✓');
+}
+
+// ── NAVEGAÇÃO ────────────────────────────────────────────
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -523,17 +1261,34 @@ function showPage(name) {
 
 function showDay(day) {
   ['segfex','sabado','domingo'].forEach(d => {
-    document.getElementById('day-'+d).style.display = d === day ? 'block' : 'none';
+    const el = document.getElementById('day-'+d);
+    if (el) el.style.display = d === day ? 'block' : 'none';
     const tab = document.getElementById('tab-'+d);
-    tab.style.color = d === day ? 'var(--accent)' : 'var(--muted2)';
-    tab.style.borderBottomColor = d === day ? 'var(--accent)' : 'transparent';
+    if (tab) tab.classList.toggle('active', d === day);
   });
 }
 
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
-renderChecks();
-loadNotes();
+// ── AUTO TAB por dia da semana ────────────────────────────
+function autoSelectDay() {
+  const dow = new Date().getDay(); // 0=dom, 6=sab
+  if (dow === 0) showDay('domingo');
+  else if (dow === 6) showDay('sabado');
+  else showDay('segfex');
+}
+
+// ── SERVICE WORKER ────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+// ── INIT ─────────────────────────────────────────────────
+initSplash();
+loadFrase();
 loadConfig();
+renderChecks();
+renderDiario();
+autoSelectDay();
+updateStreakUI();
 </script>
 </body>
 </html>
