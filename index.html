@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -207,7 +206,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 <div class="toast" id="toast">Salvo ✓</div>
 
 <!-- HOME -->
-
 <div class="page active" id="page-home">
   <div class="page-header">
     <div class="page-title">MISSÃO <span>REAL</span></div>
@@ -238,7 +236,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- ROTINA -->
-
 <div class="page" id="page-rotina">
   <div class="page-header">
     <div class="page-title">ROTINA <span>DIÁRIA</span></div>
@@ -255,7 +252,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- CHECK -->
-
 <div class="page" id="page-check">
   <div class="page-header">
     <div class="page-title">CHECK<span>LIST</span></div>
@@ -276,7 +272,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- DIÁRIO -->
-
 <div class="page" id="page-diario">
   <div class="page-header">
     <div class="page-title">DIÁRIO <span>&</span> IDEIAS</div>
@@ -300,7 +295,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- MENTOR -->
-
 <div class="page" id="page-mentor">
   <div class="page-header">
     <div class="page-title">MENTOR <span>IA</span></div>
@@ -327,7 +321,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- METAS -->
-
 <div class="page" id="page-metas">
   <div class="page-header">
     <div class="page-title">METAS & <span>REGRAS</span></div>
@@ -354,7 +347,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- CONFIG -->
-
 <div class="page" id="page-config">
   <div class="page-header">
     <div class="page-title">CONFIG<span>URAR</span></div>
@@ -403,7 +395,6 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- NAVBAR -->
-
 <nav class="navbar">
   <button class="nav-btn active" id="nav-home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
@@ -448,17 +439,13 @@ const getFrase=()=>{const d=Math.floor((Date.now()-new Date(new Date().getFullYe
 
 function showToast(m='Salvo ✓'){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-// SPLASH
 (()=>{const f=getFrase();document.getElementById('splash-frase').textContent=f.t;setTimeout(()=>document.getElementById('splash').classList.add('hidden'),2500);})();
 
-// CLOCK
 function updClock(){const n=new Date();document.getElementById('home-clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');document.getElementById('home-date').textContent=n.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();}
 setInterval(updClock,1000);updClock();
 
-// FRASE
 (()=>{const f=getFrase();document.getElementById('home-frase-text').textContent=f.t;document.getElementById('home-frase-autor').textContent=f.a;})();
 
-// BLOCO ATIVO
 function updBloco(){
   const c=getCfg();
   const SH=[
@@ -484,7 +471,6 @@ function updBloco(){
 }
 updBloco();setInterval(updBloco,60000);
 
-// STREAK
 function getStreak(){
   const sd=g(K.streak,{days:[],count:0});
   const cl=getCL(),state=g(K.checks,{});
@@ -499,7 +485,6 @@ function getStreak(){
 }
 function updStreakUI(){const sk=getStreak();document.getElementById('home-streak').textContent=sk;document.getElementById('streak-fire').textContent='🔥 '+sk+' dia'+(sk===1?'':'s')+' seguido'+(sk===1?'':'s');}
 
-// CHECKLIST
 function renderChecks(){
   const cl=getCL(),state=g(K.checks,{});
   const list=document.getElementById('check-list');
@@ -522,7 +507,6 @@ function renderChecks(){
 }
 function resetChecks(){if(confirm('Resetar checklist de hoje?')){localStorage.removeItem(K.checks);renderChecks();}}
 
-// ROTINA
 const SEC_MAP={segfex:{'04':'Madrugada / Manhã','05':'Madrugada / Manhã','07':'Madrugada / Manhã','~0':'Madrugada / Manhã','08':'Curso','09':'Curso','12':'Trabalho','14':'Trabalho','16':'Trabalho','17':'Noite','18':'Noite','21':'Noite','22':'Noite'},sabado:{'04':'Manhã','05':'Tarde','10':'Tarde','13':'Tarde','15':'Tarde','18':'Tarde','23':'Tarde'},domingo:{'~0':'Manhã','07':'Manhã','08':'Manhã','09':'Manhã','13':'Tarde','15':'Tarde','17':'Tarde','22':'Tarde'}};
 function renderRotina(){
   ['segfex','sabado','domingo'].forEach(day=>{
@@ -547,7 +531,6 @@ function showDay(day){
 }
 function autoDay(){const dow=new Date().getDay();if(dow===0)showDay('domingo');else if(dow===6)showDay('sabado');else showDay('segfex');}
 
-// DIÁRIO
 let dType='pensamento';
 function setDiarioType(t){
   dType=t;
@@ -569,7 +552,6 @@ function renderDiario(){
   list.innerHTML=entries.map(e=>`<div class="diario-entry"><div class="diario-entry-header"><span class="diario-entry-type ${e.type}">${lb[e.type]||e.type}</span><span class="diario-entry-date">${fd(e.date)}</span><button class="diario-entry-del" onclick="deleteDiarioEntry(${e.id})">×</button></div><div class="diario-entry-text">${e.text.replace(/\n/g,'<br>')}</div></div>`).join('');
 }
 
-// METAS
 function renderMetas(){
   const c=getCfg();
   document.getElementById('metas-grid').innerHTML=`<div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$${c.meta}</div><div class="meta-card-sub">seg→sex</div></div><div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">6h</div><div class="meta-card-sub">22:00→04:00</div></div><div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">3×</div><div class="meta-card-sub">Ter, Qui, Sáb</div></div><div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div><div class="meta-card"><div class="meta-card-label">Curso</div><div class="meta-card-value">3h</div><div class="meta-card-sub">09:00→12:00</div></div><div class="meta-card"><div class="meta-card-label">Estudo</div><div class="meta-card-value">3h</div><div class="meta-card-sub">18:00→21:00</div></div>`;
@@ -578,7 +560,6 @@ function renderMetas(){
   document.getElementById('regras-list').innerHTML=getRG().map((r,i)=>`<div class="regra"><div class="regra-num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][i]||i+1}</div><div class="regra-text">${r}</div></div>`).join('');
 }
 
-// MENTOR IA
 let mHistory=[],lastAI='';
 function updMentorStatus(){
   const k=getCfg().geminiKey;
@@ -610,18 +591,12 @@ async function sendMentor(){
   inp.value='';
   appMsg('user',text);
   const typing=appMsg('ai','digitando...',true);
-
   const c=getCfg(),cl=getCL(),state=g(K.checks,{}),done=Object.values(state).filter(Boolean).length,sk=g(K.streak,{count:0}).count||0;
   const systemPrompt=`Você é o Mentor do app "Missão Real". Coach de alta performance com base em estoicismo e fé cristã. Seja direto, motivador e prático. Responda sempre em português do Brasil, de forma humana e objetiva, sem enrolação.\n\nContexto do usuário:\n- Streak atual: ${sk} dia(s) consecutivo(s)\n- Checklist hoje: ${done}/${cl.length} itens concluídos\n- Meta financeira diária: R$${c.meta}\n- Rotina: acorda ${c.acordar}, dorme ${c.dormir}\n- Perfil: pai de família, casado, motorista de app, faz curso profissionalizante, tem canal no YouTube sobre estoicismo, masculinidade e fé cristã`;
-
-  // Monta histórico corretamente: alterna user/model
   const contents=[];
-  // Adiciona histórico anterior (max 6 trocas)
   const hist=mHistory.slice(-12);
   hist.forEach(m=>contents.push(m));
-  // Adiciona mensagem atual com contexto
   contents.push({role:'user',parts:[{text:systemPrompt+'\n\nMensagem do usuário: '+text}]});
-
   try{
     const res=await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${key}`,
@@ -637,20 +612,15 @@ async function sendMentor(){
     }
     const data=await res.json();
     const reply=data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if(!reply){
-      document.getElementById('typing-msg')?.remove();
-      appMsg('ai','Resposta vazia da IA. Tente novamente.');
-      return;
-    }
+    if(!reply){document.getElementById('typing-msg')?.remove();appMsg('ai','Resposta vazia. Tente novamente.');return;}
     document.getElementById('typing-msg')?.remove();
     appMsg('ai',reply);
-    // Salva no histórico de forma correta (sem o systemPrompt)
     mHistory.push({role:'user',parts:[{text}]});
     mHistory.push({role:'model',parts:[{text:reply}]});
     lastAI=reply;
   }catch(err){
     document.getElementById('typing-msg')?.remove();
-    appMsg('ai','Erro de conexão: '+err.message+'. Verifique a internet e a API key.');
+    appMsg('ai','Erro de conexão: '+err.message);
   }
 }
 function saveMentorToDiario(){
@@ -662,7 +632,6 @@ function saveMentorToDiario(){
 }
 document.getElementById('mentor-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMentor();}});
 
-// CONFIG CHECKLIST EDITOR
 function renderCfgChecks(){
   const cl=getCL();
   document.getElementById('cfg-check-list').innerHTML=cl.map((item,i)=>`<div class="cfg-check-item"><input class="cfg-check-input" value="${item.replace(/"/g,'&quot;')}" onchange="updCLItem(${i},this.value)" placeholder="Item do checklist"/><button class="cfg-check-del" onclick="delCLItem(${i})">×</button></div>`).join('');
@@ -671,50 +640,43 @@ function updCLItem(i,v){const cl=getCL();cl[i]=v;s(K.cl,cl);}
 function delCLItem(i){const cl=getCL();cl.splice(i,1);s(K.cl,cl);renderCfgChecks();}
 function addCheckItem(){const cl=getCL();cl.push('Novo item');s(K.cl,cl);renderCfgChecks();}
 
-// CONFIG BLOCKS EDITOR
 function renderCfgBlocks(){
   ['segfex','sabado','domingo'].forEach(day=>{
     const bks=(getBL()[day]||[]);
     document.getElementById('cfg-blocks-'+day).innerHTML=bks.map((b,i)=>`<div class="cfg-block-item"><div class="cfg-block-row"><input class="cfg-block-time" value="${b.time||''}" onchange="updBL('${day}',${i},'time',this.value)" placeholder="HH:MM"/><input class="cfg-block-emoji" value="${b.emoji||''}" onchange="updBL('${day}',${i},'emoji',this.value)"/><input class="cfg-block-title-input" value="${(b.title||'').replace(/"/g,'&quot;')}" onchange="updBL('${day}',${i},'title',this.value)" placeholder="Título"/><select class="cfg-block-color" onchange="updBL('${day}',${i},'color',this.value)">${['','gold','blue','green','red','purple'].map(c=>`<option value="${c}" ${b.color===c?'selected':''}>${c||'—'}</option>`).join('')}</select><button class="cfg-block-del" onclick="delBL('${day}',${i})">×</button></div><textarea class="cfg-block-desc-input" rows="2" onchange="updBL('${day}',${i},'desc',this.value)">${b.desc||''}</textarea></div>`).join('');
-
-});
+  });
 }
 function updBL(day,i,field,val){const bl=getBL();if(!bl[day])return;bl[day][i][field]=val;s(K.bl,bl);}
 function delBL(day,i){const bl=getBL();if(!bl[day])return;bl[day].splice(i,1);s(K.bl,bl);renderCfgBlocks();}
-function addBlock(day){const bl=getBL();if(!bl[day])bl[day]=[];bl[day].push({time:‘00:00’,emoji:‘🔹’,title:‘Novo bloco’,desc:’’,color:’’});s(K.bl,bl);renderCfgBlocks();}
+function addBlock(day){const bl=getBL();if(!bl[day])bl[day]=[];bl[day].push({time:'00:00',emoji:'🔹',title:'Novo bloco',desc:'',color:''});s(K.bl,bl);renderCfgBlocks();}
 
-// CONFIG LOAD/SAVE
 function loadCfgFields(){
-const c=getCfg();
-[‘appname’,‘meta’,‘acordar’,‘rodar1’,‘curso’,‘turno2’,‘almoco’,‘turno3’,‘fim’,‘dormir’,‘meta3’,‘meta6’,‘meta12’].forEach(id=>{const el=document.getElementById(‘cfg-’+id);if(el)el.value=c[id]||’’;});
-const gk=document.getElementById(‘cfg-gemini-key’);if(gk)gk.value=c.geminiKey||’’;
+  const c=getCfg();
+  ['appname','meta','acordar','rodar1','curso','turno2','almoco','turno3','fim','dormir','meta3','meta6','meta12'].forEach(id=>{const el=document.getElementById('cfg-'+id);if(el)el.value=c[id]||'';});
+  const gk=document.getElementById('cfg-gemini-key');if(gk)gk.value=c.geminiKey||'';
 }
 function saveConfig(){
-const ids=[‘appname’,‘meta’,‘acordar’,‘rodar1’,‘curso’,‘turno2’,‘almoco’,‘turno3’,‘fim’,‘dormir’,‘meta3’,‘meta6’,‘meta12’];
-const c={};ids.forEach(id=>{const el=document.getElementById(‘cfg-’+id);c[id]=el?el.value:’’;});
-const gk=document.getElementById(‘cfg-gemini-key’);c.geminiKey=gk?gk.value:’’;
-s(K.cfg,c);
-document.getElementById(‘home-meta’).textContent=‘R$’+(c.meta||‘120’);
-document.getElementById(‘rotina-sub’).textContent=(c.acordar||‘04:00’)+’ → ‘+(c.dormir||‘22:00’)+’ · Meta R$’+(c.meta||‘120’)+’/dia’;
-renderMetas();renderRotina();updMentorStatus();
-showToast(‘Tudo salvo ✓’);
+  const ids=['appname','meta','acordar','rodar1','curso','turno2','almoco','turno3','fim','dormir','meta3','meta6','meta12'];
+  const c={};ids.forEach(id=>{const el=document.getElementById('cfg-'+id);c[id]=el?el.value:'';});
+  const gk=document.getElementById('cfg-gemini-key');c.geminiKey=gk?gk.value:'';
+  s(K.cfg,c);
+  document.getElementById('home-meta').textContent='R$'+(c.meta||'120');
+  document.getElementById('rotina-sub').textContent=(c.acordar||'04:00')+' → '+(c.dormir||'22:00')+' · Meta R$'+(c.meta||'120')+'/dia';
+  renderMetas();renderRotina();updMentorStatus();
+  showToast('Tudo salvo ✓');
 }
 
-// NAV
 function showPage(name){
-document.querySelectorAll(’.page’).forEach(p=>p.classList.remove(‘active’));
-document.querySelectorAll(’.nav-btn’).forEach(b=>b.classList.remove(‘active’));
-document.getElementById(‘page-’+name).classList.add(‘active’);
-document.getElementById(‘nav-’+name).classList.add(‘active’);
-window.scrollTo(0,0);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  window.scrollTo(0,0);
 }
 
-// SW
-if(‘serviceWorker’ in navigator)navigator.serviceWorker.register(’./sw.js’).catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 
-// INIT
 loadCfgFields();renderChecks();renderDiario();renderRotina();renderMetas();renderCfgChecks();renderCfgBlocks();updMentorStatus();autoDay();updStreakUI();
 </script>
-
 </body>
 </html>
