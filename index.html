@@ -9,6 +9,8 @@
 <meta name="apple-mobile-web-app-title" content="Missão Real">
 <meta name="theme-color" content="#080808">
 <title>Missão Real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -55,7 +57,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 /* HEADER */
 .page-header{padding:1.4rem 1.25rem 1.1rem;border-bottom:1px solid var(–border);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(200,168,75,.04) 0%,transparent 100%);}
 .page-header::after{content:’’;position:absolute;bottom:0;left:1.25rem;right:1.25rem;height:1px;background:linear-gradient(90deg,var(–gold),transparent);opacity:.3;}
-.page-title{font-family:‘Bebas Neue’,sans-serif;font-size:2.5rem;letter-spacing:.06em;line-height:1;color:var(–text);}
+.page-title{font-family:‘Bebas Neue’,sans-serif;font-size:2.5rem;letter-spacing:.06em;line-height:1;color:var(–text);overflow:hidden;max-width:100%;}
 .page-title span{color:var(–gold);}
 .page-sub{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);margin-top:5px;letter-spacing:.08em;text-transform:uppercase;}
 .section-label{font-family:‘Bebas Neue’,sans-serif;font-size:.77rem;letter-spacing:.24em;color:var(–gold);padding:1.2rem 1.25rem .45rem;display:flex;align-items:center;gap:.55rem;}
@@ -64,7 +66,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 /* HOME */
 .home-top{padding:1.2rem 1.25rem .8rem;display:flex;align-items:center;justify-content:space-between;}
 .home-clock-box{text-align:left;}
-.home-time{font-family:‘Bebas Neue’,sans-serif;font-size:3.8rem;letter-spacing:.04em;line-height:1;color:var(–text);}
+.home-time{font-family:‘Bebas Neue’,Arial Narrow,sans-serif;font-size:3.8rem;letter-spacing:.04em;line-height:1;color:var(–text);}
 .home-date{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–muted2);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
 .home-logo-small svg{opacity:.4;}
 .home-frase{margin:0 1.25rem;padding:.9rem 1.1rem;border-left:2px solid var(–gold);background:var(–gold-dim);border-radius:0 4px 4px 0;}
@@ -1459,8 +1461,10 @@ const sf = document.getElementById(‘splash-frase’);
 if (sf) sf.textContent = f.t;
 } catch(e) {}
 
-// Esconde splash após a animação (2.3s da barra + margem)
-setTimeout(hideSplash, 2500);
+// Esconde splash SOMENTE após fontes carregarem (resolve bug do GitHub Pages)
+const fontTimeout = new Promise(res => setTimeout(res, 2800));
+const fontReady = document.fonts ? document.fonts.ready : Promise.resolve();
+Promise.all([fontReady, fontTimeout]).then(hideSplash);
 
 try {
 loadCfgFields();
