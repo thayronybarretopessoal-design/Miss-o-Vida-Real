@@ -2010,7 +2010,7 @@ function agendarNotif() {
     let delay=target-now; if(delay<0) delay+=86400000;
     const tid=setTimeout(()=>{
       const msg=NOTIF_MSG[(idx+Math.floor(Date.now()/86400000))%NOTIF_MSG.length];
-      try{new Notification(msg.title,{body:msg.body});}catch(e){}
+      try{new Notification("Missão Real",{body:msg.body});}catch(e){}
     },delay);
     notifIds.push(tid);
   });
