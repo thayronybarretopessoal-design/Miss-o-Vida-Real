@@ -2007,7 +2007,7 @@ function agendarNotif() {
   [{h:4,m:0},{h:9,m:0},{h:12,m:0},{h:18,m:0},{h:21,m:0}].forEach((hor,idx)=>{
     const now=new Date(), target=new Date();
     target.setHours(hor.h,hor.m,0,0);
-    let delay=target-now; if(delay<0) delay+=86400000;
+    let delay=target-now; if(delay<0) delay+=7200000;
     const tid=setTimeout(()=>{
       const msg=NOTIF_MSG[(idx+Math.floor(Date.now()/86400000))%NOTIF_MSG.length];
       try{new Notification("Missão Real",{body:msg.body});}catch(e){}
