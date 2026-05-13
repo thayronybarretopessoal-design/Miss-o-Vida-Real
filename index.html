@@ -1,5 +1,5 @@
-cat > /mnt/user-data/outputs/missao-real/index.html << 'HTMLEOF'
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,6 @@ cat > /mnt/user-data/outputs/missao-real/index.html << 'HTMLEOF'
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Missão Real">
 <meta name="theme-color" content="#080808">
-<link rel="manifest" href="manifest.json">
 <title>Missão Real</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -28,23 +27,23 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100dvh;padding-bottom:calc(var(--nav-h) + var(--safe-bottom));padding-top:var(--safe-top);overflow-x:hidden;}
 
 /* SPLASH */
-#splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:1.4rem;transition:opacity .6s,visibility .6s;}
+#splash{position:fixed;inset:0;background:var(–bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:1.4rem;transition:opacity .5s ease,visibility .5s ease;}
 #splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
 .splash-logo{animation:logoIn .8s cubic-bezier(.16,1,.3,1) both;}
-.splash-name{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.18em;color:var(--text);animation:fadeUp .8s .2s cubic-bezier(.16,1,.3,1) both;}
-.splash-name span{color:var(--gold);}
-.splash-frase{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);letter-spacing:.09em;text-align:center;max-width:270px;line-height:1.85;animation:fadeUp .8s .35s cubic-bezier(.16,1,.3,1) both;font-style:italic;}
-.splash-bar{width:110px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;animation:fadeUp .5s .5s both;}
-.splash-bar-fill{height:100%;background:var(--gold);animation:loadBar 2s .3s cubic-bezier(.4,0,.2,1) both;}
+.splash-name{font-family:‘Bebas Neue’,sans-serif;font-size:2.8rem;letter-spacing:.18em;color:var(–text);animation:fadeUp .8s .2s cubic-bezier(.16,1,.3,1) both;}
+.splash-name span{color:var(–gold);}
+.splash-frase{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);letter-spacing:.09em;text-align:center;max-width:270px;line-height:1.85;animation:fadeUp .8s .35s cubic-bezier(.16,1,.3,1) both;font-style:italic;}
+.splash-bar{width:110px;height:2px;background:var(–border);border-radius:2px;overflow:hidden;animation:fadeUp .5s .5s both;}
+.splash-bar-fill{height:100%;background:var(–gold);animation:loadBar 2s .3s cubic-bezier(.4,0,.2,1) forwards;}
 @keyframes loadBar{from{width:0}to{width:100%}}
 @keyframes logoIn{from{opacity:0;transform:scale(.7) rotate(-10deg)}to{opacity:1;transform:scale(1) rotate(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
 /* NAVBAR */
-.navbar{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.98);border-top:1px solid var(--border);display:flex;align-items:stretch;height:calc(var(--nav-h) + var(--safe-bottom));padding-bottom:var(--safe-bottom);z-index:100;backdrop-filter:blur(20px);}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:.08em;color:var(--muted2);text-transform:uppercase;border:none;background:transparent;cursor:pointer;transition:color .2s;position:relative;}
-.nav-btn::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--gold);border-radius:0 0 2px 2px;transform:scaleX(0);transition:transform .2s cubic-bezier(.4,0,.2,1);}
-.nav-btn.active{color:var(--gold);}
+.navbar{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.98);border-top:1px solid var(–border);display:flex;align-items:stretch;height:calc(var(–nav-h) + var(–safe-bottom));padding-bottom:var(–safe-bottom);z-index:100;backdrop-filter:blur(20px);}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:‘IBM Plex Mono’,monospace;font-size:7px;letter-spacing:.08em;color:var(–muted2);text-transform:uppercase;border:none;background:transparent;cursor:pointer;transition:color .2s;position:relative;}
+.nav-btn::before{content:’’;position:absolute;top:0;left:15%;right:15%;height:2px;background:var(–gold);border-radius:0 0 2px 2px;transform:scaleX(0);transition:transform .2s cubic-bezier(.4,0,.2,1);}
+.nav-btn.active{color:var(–gold);}
 .nav-btn.active::before{transform:scaleX(1);}
 .nav-btn svg{width:20px;height:20px;stroke-width:1.5;}
 
@@ -54,177 +53,177 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 @keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* HEADER */
-.page-header{padding:1.4rem 1.25rem 1.1rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(200,168,75,.04) 0%,transparent 100%);}
-.page-header::after{content:'';position:absolute;bottom:0;left:1.25rem;right:1.25rem;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.3;}
-.page-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.06em;line-height:1;color:var(--text);}
-.page-title span{color:var(--gold);}
-.page-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);margin-top:5px;letter-spacing:.08em;text-transform:uppercase;}
-.section-label{font-family:'Bebas Neue',sans-serif;font-size:.77rem;letter-spacing:.24em;color:var(--gold);padding:1.2rem 1.25rem .45rem;display:flex;align-items:center;gap:.55rem;}
-.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+.page-header{padding:1.4rem 1.25rem 1.1rem;border-bottom:1px solid var(–border);position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(200,168,75,.04) 0%,transparent 100%);}
+.page-header::after{content:’’;position:absolute;bottom:0;left:1.25rem;right:1.25rem;height:1px;background:linear-gradient(90deg,var(–gold),transparent);opacity:.3;}
+.page-title{font-family:‘Bebas Neue’,sans-serif;font-size:2.5rem;letter-spacing:.06em;line-height:1;color:var(–text);}
+.page-title span{color:var(–gold);}
+.page-sub{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);margin-top:5px;letter-spacing:.08em;text-transform:uppercase;}
+.section-label{font-family:‘Bebas Neue’,sans-serif;font-size:.77rem;letter-spacing:.24em;color:var(–gold);padding:1.2rem 1.25rem .45rem;display:flex;align-items:center;gap:.55rem;}
+.section-label::after{content:’’;flex:1;height:1px;background:linear-gradient(90deg,var(–border2),transparent);}
 
 /* HOME */
 .home-top{padding:1.2rem 1.25rem .8rem;display:flex;align-items:center;justify-content:space-between;}
 .home-clock-box{text-align:left;}
-.home-time{font-family:'Bebas Neue',sans-serif;font-size:3.8rem;letter-spacing:.04em;line-height:1;color:var(--text);}
-.home-date{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.home-time{font-family:‘Bebas Neue’,sans-serif;font-size:3.8rem;letter-spacing:.04em;line-height:1;color:var(–text);}
+.home-date{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–muted2);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
 .home-logo-small svg{opacity:.4;}
-.home-frase{margin:0 1.25rem;padding:.9rem 1.1rem;border-left:2px solid var(--gold);background:var(--gold-dim);border-radius:0 4px 4px 0;}
-.home-frase-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);font-style:italic;line-height:1.85;}
-.home-frase-autor{font-size:10px;color:var(--gold);margin-top:4px;letter-spacing:.08em;}
-.bloco-atual{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:1rem 1.1rem;position:relative;overflow:hidden;}
-.bloco-atual::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);}
-.bloco-atual-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
-.bloco-atual-titulo{font-size:15px;font-weight:700;color:var(--text);}
-.bloco-atual-desc{font-size:12px;color:var(--text2);margin-top:2px;}
-.bloco-atual-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);margin-top:6px;}
+.home-frase{margin:0 1.25rem;padding:.9rem 1.1rem;border-left:2px solid var(–gold);background:var(–gold-dim);border-radius:0 4px 4px 0;}
+.home-frase-text{font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–text2);font-style:italic;line-height:1.85;}
+.home-frase-autor{font-size:10px;color:var(–gold);margin-top:4px;letter-spacing:.08em;}
+.bloco-atual{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;padding:1rem 1.1rem;position:relative;overflow:hidden;}
+.bloco-atual::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;background:var(–gold);}
+.bloco-atual-label{font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(–gold);margin-bottom:5px;}
+.bloco-atual-titulo{font-size:15px;font-weight:700;color:var(–text);}
+.bloco-atual-desc{font-size:12px;color:var(–text2);margin-top:2px;}
+.bloco-atual-time{font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–muted2);margin-top:6px;}
 .streak-row{display:flex;gap:.7rem;padding:0 1.25rem;}
-.streak-card{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:.8rem .6rem;text-align:center;}
-.streak-value{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--gold);line-height:1;}
-.streak-label{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--muted2);letter-spacing:.09em;text-transform:uppercase;margin-top:3px;}
-.now-badge{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:pulse 2s infinite;margin-right:4px;vertical-align:middle;}
+.streak-card{flex:1;background:var(–surface);border:1px solid var(–border2);border-radius:6px;padding:.8rem .6rem;text-align:center;}
+.streak-value{font-family:‘Bebas Neue’,sans-serif;font-size:2.1rem;color:var(–gold);line-height:1;}
+.streak-label{font-family:‘IBM Plex Mono’,monospace;font-size:8px;color:var(–muted2);letter-spacing:.09em;text-transform:uppercase;margin-top:3px;}
+.now-badge{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(–gold);box-shadow:0 0 6px var(–gold);animation:pulse 2s infinite;margin-right:4px;vertical-align:middle;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.guerra-trigger{display:block;margin:0 1.25rem;padding:.9rem;background:var(--red-dim);border:1px solid var(--red);border-radius:6px;color:var(--red);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;cursor:pointer;transition:all .2s;width:calc(100% - 2.5rem);}
-.guerra-trigger:active{background:var(--red);color:#fff;}
+.guerra-trigger{display:block;margin:0 1.25rem;padding:.9rem;background:var(–red-dim);border:1px solid var(–red);border-radius:6px;color:var(–red);font-family:‘Bebas Neue’,sans-serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;cursor:pointer;transition:all .2s;width:calc(100% - 2.5rem);}
+.guerra-trigger:active{background:var(–red);color:#fff;}
 
 /* BLOCKS */
 .block{display:flex;gap:.75rem;padding:.72rem 1.25rem;border-left:3px solid transparent;transition:background .15s;}
 .block+.block{border-top:1px solid rgba(255,255,255,.02);}
-.block.gold{border-left-color:var(--gold);background:var(--gold-dim);}
-.block.blue{border-left-color:var(--blue);background:var(--blue-dim);}
-.block.green{border-left-color:var(--green);background:var(--green-dim);}
-.block.red{border-left-color:var(--red);background:var(--red-dim);}
-.block.purple{border-left-color:var(--purple);background:var(--purple-dim);}
-.block-time{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);min-width:38px;padding-top:3px;flex-shrink:0;}
-.block-title{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:2px;}
-.block-desc{font-size:11.5px;color:var(--muted2);line-height:1.55;}
-.day-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 1.25rem;overflow-x:auto;scrollbar-width:none;}
+.block.gold{border-left-color:var(–gold);background:var(–gold-dim);}
+.block.blue{border-left-color:var(–blue);background:var(–blue-dim);}
+.block.green{border-left-color:var(–green);background:var(–green-dim);}
+.block.red{border-left-color:var(–red);background:var(–red-dim);}
+.block.purple{border-left-color:var(–purple);background:var(–purple-dim);}
+.block-time{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);min-width:38px;padding-top:3px;flex-shrink:0;}
+.block-title{font-weight:600;font-size:13.5px;color:var(–text);margin-bottom:2px;}
+.block-desc{font-size:11.5px;color:var(–muted2);line-height:1.55;}
+.day-tabs{display:flex;border-bottom:1px solid var(–border);padding:0 1.25rem;overflow-x:auto;scrollbar-width:none;}
 .day-tabs::-webkit-scrollbar{display:none;}
-.day-tab{padding:.72rem 1rem;font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:.12em;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted2);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
-.day-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.day-tab{padding:.72rem 1rem;font-family:‘Bebas Neue’,sans-serif;font-size:.82rem;letter-spacing:.12em;background:transparent;border:none;border-bottom:2px solid transparent;color:var(–muted2);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.day-tab.active{color:var(–gold);border-bottom-color:var(–gold);}
 
 /* CHECK */
 .check-progress{padding:1rem 1.25rem .4rem;}
 .prog-wrap{display:flex;align-items:center;gap:.75rem;}
-.progress-bar{flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#e6c96a);border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1);}
-.progress-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);min-width:34px;text-align:right;}
-.progress-pct{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;color:var(--gold);margin-top:2px;}
-.streak-fire{display:flex;align-items:center;gap:6px;padding:.4rem 1.25rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);}
+.progress-bar{flex:1;height:4px;background:var(–border);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(–gold),#e6c96a);border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.progress-text{font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–gold);min-width:34px;text-align:right;}
+.progress-pct{font-family:‘Bebas Neue’,sans-serif;font-size:1.35rem;color:var(–gold);margin-top:2px;}
+.streak-fire{display:flex;align-items:center;gap:6px;padding:.4rem 1.25rem;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–gold);}
 .check-list{padding:0 1.25rem;}
-.check-item{display:flex;align-items:center;gap:.75rem;padding:.72rem 0;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.check-item{display:flex;align-items:center;gap:.75rem;padding:.72rem 0;border-bottom:1px solid var(–border);cursor:pointer;user-select:none;}
 .check-item:last-child{border-bottom:none;}
-.check-box{width:23px;height:23px;border:1.5px solid var(--muted);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.check-item.done .check-box{border-color:var(--gold);background:var(--gold);}
+.check-box{width:23px;height:23px;border:1.5px solid var(–muted);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.check-item.done .check-box{border-color:var(–gold);background:var(–gold);}
 .check-box svg{display:none;}
 .check-item.done .check-box svg{display:block;}
-.check-label{font-size:13.5px;color:var(--text);flex:1;transition:all .2s;}
-.check-item.done .check-label{color:var(--muted2);text-decoration:line-through;}
-.reset-btn{display:block;margin:.7rem 1.25rem;padding:.62rem 1rem;background:transparent;border:1px solid var(--border);color:var(--muted2);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;width:calc(100% - 2.5rem);transition:all .2s;}
-.reset-btn:active{border-color:var(--gold);color:var(--gold);}
+.check-label{font-size:13.5px;color:var(–text);flex:1;transition:all .2s;}
+.check-item.done .check-label{color:var(–muted2);text-decoration:line-through;}
+.reset-btn{display:block;margin:.7rem 1.25rem;padding:.62rem 1rem;background:transparent;border:1px solid var(–border);color:var(–muted2);font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;width:calc(100% - 2.5rem);transition:all .2s;}
+.reset-btn:active{border-color:var(–gold);color:var(–gold);}
 
 /* DIÁRIO */
-.diario-input-area{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.diario-tabs-row{display:flex;border-bottom:1px solid var(--border2);}
-.diario-type-btn{flex:1;padding:.58rem;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;background:transparent;border:none;color:var(--muted2);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;}
-.diario-type-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.diario-input-area{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;overflow:hidden;}
+.diario-tabs-row{display:flex;border-bottom:1px solid var(–border2);}
+.diario-type-btn{flex:1;padding:.58rem;font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;background:transparent;border:none;color:var(–muted2);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;}
+.diario-type-btn.active{color:var(–gold);border-bottom-color:var(–gold);}
 .diario-textarea-wrap{padding:.75rem;}
-.diario-textarea{width:100%;background:transparent;border:none;outline:none;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text);resize:none;line-height:1.75;min-height:90px;}
-.diario-textarea::placeholder{color:var(--muted);}
-.diario-save-btn{display:block;width:100%;padding:.62rem;background:var(--gold-dim);border:none;border-top:1px solid var(--border2);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-.diario-save-btn:active{background:var(--gold);color:#000;}
+.diario-textarea{width:100%;background:transparent;border:none;outline:none;font-family:‘IBM Plex Mono’,monospace;font-size:12.5px;color:var(–text);resize:none;line-height:1.75;min-height:90px;}
+.diario-textarea::placeholder{color:var(–muted);}
+.diario-save-btn{display:block;width:100%;padding:.62rem;background:var(–gold-dim);border:none;border-top:1px solid var(–border2);color:var(–gold);font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.diario-save-btn:active{background:var(–gold);color:#000;}
 .diario-list{padding:0 1.25rem;}
-.diario-entry{padding:.95rem 0;border-bottom:1px solid var(--border);}
+.diario-entry{padding:.95rem 0;border-bottom:1px solid var(–border);}
 .diario-entry:last-child{border-bottom:none;}
 .diario-entry-header{display:flex;align-items:center;gap:.5rem;margin-bottom:5px;}
-.diario-entry-type{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
-.diario-entry-type.pensamento{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
-.diario-entry-type.lembrete{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);}
-.diario-entry-type.ideia{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
-.diario-entry-date{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted2);margin-left:auto;}
-.diario-entry-text{font-size:13px;color:var(--text);line-height:1.7;}
-.diario-entry-del{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:17px;padding:0 4px;line-height:1;flex-shrink:0;}
-.diario-empty{text-align:center;padding:2rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);line-height:1.9;}
+.diario-entry-type{font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
+.diario-entry-type.pensamento{background:var(–purple-dim);color:var(–purple);border:1px solid var(–purple);}
+.diario-entry-type.lembrete{background:var(–gold-dim);color:var(–gold);border:1px solid var(–gold);}
+.diario-entry-type.ideia{background:var(–blue-dim);color:var(–blue);border:1px solid var(–blue);}
+.diario-entry-date{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–muted2);margin-left:auto;}
+.diario-entry-text{font-size:13px;color:var(–text);line-height:1.7;}
+.diario-entry-del{background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:17px;padding:0 4px;line-height:1;flex-shrink:0;}
+.diario-empty{text-align:center;padding:2rem 1rem;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–muted2);line-height:1.9;}
 
 /* ARENA */
-.dash-chart{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:1rem;}
+.dash-chart{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;padding:1rem;}
 .dash-bars{display:flex;align-items:flex-end;gap:.4rem;height:90px;margin-bottom:.5rem;}
 .dash-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.dash-bar{width:100%;border-radius:3px 3px 0 0;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:3px;background:var(--border2);}
-.dash-bar.filled{background:linear-gradient(180deg,var(--gold),rgba(200,168,75,.4));}
-.dash-bar.today{background:linear-gradient(180deg,#fff176,var(--gold));}
-.dash-day{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted2);}
-.dash-pct{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--gold);}
-.dash-media{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);margin-top:.5rem;text-align:center;}
+.dash-bar{width:100%;border-radius:3px 3px 0 0;transition:height .6s cubic-bezier(.4,0,.2,1);min-height:3px;background:var(–border2);}
+.dash-bar.filled{background:linear-gradient(180deg,var(–gold),rgba(200,168,75,.4));}
+.dash-bar.today{background:linear-gradient(180deg,#fff176,var(–gold));}
+.dash-day{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–muted2);}
+.dash-pct{font-family:‘IBM Plex Mono’,monospace;font-size:8px;color:var(–gold);}
+.dash-media{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);margin-top:.5rem;text-align:center;}
 .humor-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;padding:0 1.25rem;}
-.humor-btn{background:var(--surface);border:2px solid var(--border2);border-radius:8px;padding:1rem .75rem;text-align:center;cursor:pointer;transition:all .2s;user-select:none;}
-.humor-btn.selected{border-color:var(--gold);background:var(--gold-dim);}
+.humor-btn{background:var(–surface);border:2px solid var(–border2);border-radius:8px;padding:1rem .75rem;text-align:center;cursor:pointer;transition:all .2s;user-select:none;}
+.humor-btn.selected{border-color:var(–gold);background:var(–gold-dim);}
 .humor-emoji{font-size:2rem;margin-bottom:4px;}
-.humor-label{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.1em;color:var(--text2);}
+.humor-label{font-family:‘Bebas Neue’,sans-serif;font-size:.85rem;letter-spacing:.1em;color:var(–text2);}
 .humor-history{padding:0 1.25rem;}
-.humor-entry{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);}
+.humor-entry{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(–border);}
 .humor-entry:last-child{border-bottom:none;}
 .humor-entry-emoji{font-size:1.2rem;}
-.humor-entry-date{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);flex:1;}
-.humor-entry-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);}
-.frases-auto-box{margin:0 1.25rem;padding:.9rem 1.1rem;border-left:2px solid var(--gold);background:var(--gold-dim);border-radius:0 4px 4px 0;}
-.frases-auto-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);font-style:italic;line-height:1.85;}
-.frases-auto-autor{font-size:10px;color:var(--gold);margin-top:4px;}
-.frases-input-area{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.frases-input{width:100%;background:transparent;border:none;outline:none;padding:.75rem;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text);resize:none;min-height:70px;line-height:1.7;}
-.frases-input::placeholder{color:var(--muted);}
-.frases-autor-input{width:100%;background:transparent;border:none;border-top:1px solid var(--border2);outline:none;padding:.6rem .75rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);}
-.frases-autor-input::placeholder{color:var(--muted);}
-.frases-save{display:block;width:100%;padding:.6rem;background:var(--gold-dim);border:none;border-top:1px solid var(--border2);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-.frases-save:active{background:var(--gold);color:#000;}
+.humor-entry-date{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);flex:1;}
+.humor-entry-label{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–text2);}
+.frases-auto-box{margin:0 1.25rem;padding:.9rem 1.1rem;border-left:2px solid var(–gold);background:var(–gold-dim);border-radius:0 4px 4px 0;}
+.frases-auto-text{font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–text2);font-style:italic;line-height:1.85;}
+.frases-auto-autor{font-size:10px;color:var(–gold);margin-top:4px;}
+.frases-input-area{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;overflow:hidden;}
+.frases-input{width:100%;background:transparent;border:none;outline:none;padding:.75rem;font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:var(–text);resize:none;min-height:70px;line-height:1.7;}
+.frases-input::placeholder{color:var(–muted);}
+.frases-autor-input{width:100%;background:transparent;border:none;border-top:1px solid var(–border2);outline:none;padding:.6rem .75rem;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–muted2);}
+.frases-autor-input::placeholder{color:var(–muted);}
+.frases-save{display:block;width:100%;padding:.6rem;background:var(–gold-dim);border:none;border-top:1px solid var(–border2);color:var(–gold);font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.frases-save:active{background:var(–gold);color:#000;}
 .frases-list{padding:0 1.25rem;}
-.frase-entry{padding:.9rem 0;border-bottom:1px solid var(--border);position:relative;}
+.frase-entry{padding:.9rem 0;border-bottom:1px solid var(–border);position:relative;}
 .frase-entry:last-child{border-bottom:none;}
-.frase-entry-text{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text);font-style:italic;line-height:1.7;padding-right:24px;}
-.frase-entry-autor{font-size:10px;color:var(--gold);margin-top:4px;}
-.frase-del{position:absolute;top:.9rem;right:0;background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0 4px;}
-.planer-semana{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.planer-header{background:var(--gold-dim);border-bottom:1px solid var(--border2);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;}
-.planer-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.15em;color:var(--gold);}
-.planer-semana-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted2);}
-.planer-add-row{display:flex;border-bottom:1px solid var(--border2);}
-.planer-input{flex:1;background:transparent;border:none;outline:none;padding:.65rem .85rem;font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--text);}
-.planer-input::placeholder{color:var(--muted);}
-.planer-add-btn{padding:.65rem .9rem;background:transparent;border:none;border-left:1px solid var(--border2);color:var(--gold);font-size:1.2rem;cursor:pointer;flex-shrink:0;}
+.frase-entry-text{font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:var(–text);font-style:italic;line-height:1.7;padding-right:24px;}
+.frase-entry-autor{font-size:10px;color:var(–gold);margin-top:4px;}
+.frase-del{position:absolute;top:.9rem;right:0;background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:16px;padding:0 4px;}
+.planer-semana{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;overflow:hidden;}
+.planer-header{background:var(–gold-dim);border-bottom:1px solid var(–border2);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.planer-title{font-family:‘Bebas Neue’,sans-serif;font-size:1rem;letter-spacing:.15em;color:var(–gold);}
+.planer-semana-label{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–muted2);}
+.planer-add-row{display:flex;border-bottom:1px solid var(–border2);}
+.planer-input{flex:1;background:transparent;border:none;outline:none;padding:.65rem .85rem;font-family:‘IBM Plex Sans’,sans-serif;font-size:13px;color:var(–text);}
+.planer-input::placeholder{color:var(–muted);}
+.planer-add-btn{padding:.65rem .9rem;background:transparent;border:none;border-left:1px solid var(–border2);color:var(–gold);font-size:1.2rem;cursor:pointer;flex-shrink:0;}
 .planer-items{padding:.25rem 0;}
 .planer-item{display:flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;user-select:none;}
 .planer-item:last-child{border-bottom:none;}
-.planer-item-check{width:20px;height:20px;border:1.5px solid var(--muted);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.planer-item.done .planer-item-check{border-color:var(--gold);background:var(--gold);}
-.planer-item-text{flex:1;font-size:13px;color:var(--text);transition:all .2s;}
-.planer-item.done .planer-item-text{color:var(--muted2);text-decoration:line-through;}
-.planer-item-del{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:0 4px;flex-shrink:0;}
-.planer-empty{padding:1.5rem;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);}
-.planer-reset{display:block;width:calc(100% - 2.5rem);margin:.75rem 1.25rem;padding:.55rem;background:transparent;border:1px dashed var(--border2);color:var(--muted2);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;}
+.planer-item-check{width:20px;height:20px;border:1.5px solid var(–muted);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.planer-item.done .planer-item-check{border-color:var(–gold);background:var(–gold);}
+.planer-item-text{flex:1;font-size:13px;color:var(–text);transition:all .2s;}
+.planer-item.done .planer-item-text{color:var(–muted2);text-decoration:line-through;}
+.planer-item-del{background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:15px;padding:0 4px;flex-shrink:0;}
+.planer-empty{padding:1.5rem;text-align:center;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–muted2);}
+.planer-reset{display:block;width:calc(100% - 2.5rem);margin:.75rem 1.25rem;padding:.55rem;background:transparent;border:1px dashed var(–border2);color:var(–muted2);font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;}
 
 /* METAS */
 .metas-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;padding:0 1.25rem;}
-.meta-card{background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:.95rem;}
-.meta-card-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:3px;}
-.meta-card-value{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;color:var(--gold);line-height:1;}
-.meta-card-sub{font-size:10px;color:var(--muted2);margin-top:2px;}
+.meta-card{background:var(–surface);border:1px solid var(–border2);border-radius:6px;padding:.95rem;}
+.meta-card-label{font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(–muted2);margin-bottom:3px;}
+.meta-card-value{font-family:‘Bebas Neue’,sans-serif;font-size:1.85rem;color:var(–gold);line-height:1;}
+.meta-card-sub{font-size:10px;color:var(–muted2);margin-top:2px;}
 .regras{padding:0 1.25rem;}
-.regra{display:flex;gap:.75rem;padding:.88rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.regra{display:flex;gap:.75rem;padding:.88rem 0;border-bottom:1px solid var(–border);align-items:flex-start;}
 .regra:last-child{border-bottom:none;}
-.regra-num{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;color:var(--gold);min-width:22px;line-height:1.1;}
-.regra-text{font-size:12.5px;color:var(--text);line-height:1.7;}
-.plano-card{margin:0 1.25rem .5rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.plano-header{background:var(--gold-dim);border-bottom:1px solid var(--border2);padding:.7rem 1rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.15em;color:var(--gold);}
-.plano-item{padding:.6rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.7rem;align-items:flex-start;}
+.regra-num{font-family:‘Bebas Neue’,sans-serif;font-size:1.35rem;color:var(–gold);min-width:22px;line-height:1.1;}
+.regra-text{font-size:12.5px;color:var(–text);line-height:1.7;}
+.plano-card{margin:0 1.25rem .5rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;overflow:hidden;}
+.plano-header{background:var(–gold-dim);border-bottom:1px solid var(–border2);padding:.7rem 1rem;font-family:‘Bebas Neue’,sans-serif;font-size:1rem;letter-spacing:.15em;color:var(–gold);}
+.plano-item{padding:.6rem 1rem;border-bottom:1px solid var(–border);display:flex;gap:.7rem;align-items:flex-start;}
 .plano-item:last-child{border-bottom:none;}
-.plano-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
-.plano-text{font-size:12.5px;color:var(--text2);line-height:1.6;}
-.projeto-card{margin:0 1.25rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.projeto-card-header{background:linear-gradient(135deg,rgba(200,168,75,.1),rgba(75,126,200,.07));border-bottom:1px solid var(--border2);padding:1rem;}
+.plano-dot{width:6px;height:6px;border-radius:50%;background:var(–gold);flex-shrink:0;margin-top:5px;}
+.plano-text{font-size:12.5px;color:var(–text2);line-height:1.6;}
+.projeto-card{margin:0 1.25rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;overflow:hidden;}
+.projeto-card-header{background:linear-gradient(135deg,rgba(200,168,75,.1),rgba(75,126,200,.07));border-bottom:1px solid var(–border2);padding:1rem;}
 .projeto-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem;}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--blue);color:var(--blue);border-radius:2px;}
-.projeto-desc{font-size:12.5px;color:var(--muted2);line-height:1.75;}
-.projeto-dia{margin:0 1.25rem;padding:.85rem 1rem;background:var(--purple-dim);border:1px solid var(--purple);border-radius:4px;font-size:12.5px;color:var(--text);line-height:1.7;}
-.projeto-dia strong{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;}
+.tag{font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid var(–blue);color:var(–blue);border-radius:2px;}
+.projeto-desc{font-size:12.5px;color:var(–muted2);line-height:1.75;}
+.projeto-dia{margin:0 1.25rem;padding:.85rem 1rem;background:var(–purple-dim);border:1px solid var(–purple);border-radius:4px;font-size:12.5px;color:var(–text);line-height:1.7;}
+.projeto-dia strong{color:var(–gold);font-family:‘Bebas Neue’,sans-serif;font-size:1rem;letter-spacing:.1em;}
 
 /* MODO GUERRA */
 #guerra-overlay{position:fixed;inset:0;z-index:8888;display:none;flex-direction:column;align-items:center;justify-content:center;background:#000;overflow-y:auto;}
@@ -235,14 +234,14 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 .guerra-content{position:relative;z-index:1;text-align:center;padding:2rem 1.5rem 3rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem;width:100%;max-width:380px;}
 .guerra-icon{font-size:3.5rem;animation:gIcon 1s ease-in-out infinite alternate;}
 @keyframes gIcon{from{transform:scale(1)}to{transform:scale(1.08)}}
-.guerra-title{font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:.15em;color:#ff2222;text-shadow:0 0 30px rgba(255,34,34,.8);line-height:1;animation:gGlow 2s ease-in-out infinite alternate;}
+.guerra-title{font-family:‘Bebas Neue’,sans-serif;font-size:4rem;letter-spacing:.15em;color:#ff2222;text-shadow:0 0 30px rgba(255,34,34,.8);line-height:1;animation:gGlow 2s ease-in-out infinite alternate;}
 @keyframes gGlow{from{text-shadow:0 0 20px rgba(255,34,34,.8)}to{text-shadow:0 0 50px rgba(255,34,34,1),0 0 100px rgba(255,34,34,.5)}}
-.guerra-sub{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.25em;color:rgba(255,34,34,.7);}
+.guerra-sub{font-family:‘Bebas Neue’,sans-serif;font-size:1rem;letter-spacing:.25em;color:rgba(255,34,34,.7);}
 .guerra-timer-box{text-align:center;}
-.guerra-timer-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,34,34,.5);letter-spacing:.15em;margin-bottom:2px;}
-.guerra-timer{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;color:#ff2222;opacity:.9;}
+.guerra-timer-label{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:rgba(255,34,34,.5);letter-spacing:.15em;margin-bottom:2px;}
+.guerra-timer{font-family:‘Bebas Neue’,sans-serif;font-size:2.5rem;letter-spacing:.1em;color:#ff2222;opacity:.9;}
 .guerra-frase{background:rgba(255,0,0,.06);border:1px solid rgba(255,34,34,.25);border-radius:6px;padding:.85rem 1rem;width:100%;text-align:left;}
-.guerra-frase-text{font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(255,220,220,.85);font-style:italic;line-height:1.8;}
+.guerra-frase-text{font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:rgba(255,220,220,.85);font-style:italic;line-height:1.8;}
 .guerra-frase-autor{font-size:10px;color:#ff2222;margin-top:4px;font-style:normal;}
 .guerra-checklist{width:100%;background:rgba(255,0,0,.05);border:1px solid rgba(255,34,34,.25);border-radius:6px;overflow:hidden;}
 .guerra-check-item{display:flex;align-items:center;gap:.6rem;padding:.6rem .85rem;border-bottom:1px solid rgba(255,34,34,.1);cursor:pointer;user-select:none;}
@@ -251,47 +250,49 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 .guerra-check-item.done .guerra-check-box{border-color:#ff2222;background:#ff2222;}
 .guerra-check-label{font-size:12px;color:rgba(255,220,220,.8);flex:1;transition:all .2s;}
 .guerra-check-item.done .guerra-check-label{color:rgba(255,34,34,.5);text-decoration:line-through;}
-.guerra-exit{margin-top:.5rem;padding:.75rem 2rem;background:transparent;border:1px solid rgba(255,34,34,.4);color:rgba(255,34,34,.7);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;}
+.guerra-exit{margin-top:.5rem;padding:.75rem 2rem;background:transparent;border:1px solid rgba(255,34,34,.4);color:rgba(255,34,34,.7);font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;}
 .guerra-exit:active{border-color:#ff2222;color:#ff2222;}
 
 /* CONFIG */
-.cfg-field{margin:0 1.25rem .45rem;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:.82rem;}
-.cfg-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
-.cfg-input{width:100%;background:transparent;border:none;outline:none;display:block;}
-.cfg-input.big{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;color:var(--gold);}
-.cfg-input.med{font-family:'IBM Plex Mono',monospace;font-size:1.05rem;color:var(--text);}
-.cfg-input.sm{font-family:'IBM Plex Sans',sans-serif;font-size:.95rem;color:var(--text);}
-.cfg-save-btn{display:block;width:calc(100% - 2.5rem);margin:.9rem 1.25rem;padding:.82rem;background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;}
-.cfg-save-btn:active{background:var(--gold);color:#000;}
+.cfg-field{margin:0 1.25rem .45rem;background:var(–surface);border:1px solid var(–border2);border-radius:6px;padding:.82rem;}
+.cfg-label{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.cfg-input{width:100%;background:transparent;border:none;outline:none;display:block;color:var(–text);}
+.cfg-input.big{font-family:‘Bebas Neue’,sans-serif;font-size:1.65rem;color:var(–gold);}
+.cfg-input.med{font-family:‘IBM Plex Mono’,monospace;font-size:1.05rem;color:var(–text);}
+.cfg-input.sm{font-family:‘IBM Plex Sans’,sans-serif;font-size:.95rem;color:var(–text);}
+.cfg-save-btn{display:block;width:calc(100% - 2.5rem);margin:.9rem 1.25rem;padding:.82rem;background:var(–gold-dim);border:1px solid var(–gold);color:var(–gold);font-family:‘IBM Plex Mono’,monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;}
+.cfg-save-btn:active{background:var(–gold);color:#000;}
 .cfg-check-list{padding:0 1.25rem;}
-.cfg-check-item{display:flex;align-items:center;gap:.5rem;padding:.55rem 0;border-bottom:1px solid var(--border);}
+.cfg-check-item{display:flex;align-items:center;gap:.5rem;padding:.55rem 0;border-bottom:1px solid var(–border);}
 .cfg-check-item:last-child{border-bottom:none;}
-.cfg-check-input{flex:1;background:transparent;border:none;outline:none;font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--text);}
-.cfg-check-del{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:0 4px;flex-shrink:0;}
-.cfg-add-btn{display:flex;align-items:center;gap:.5rem;margin:.6rem 1.25rem 0;padding:.58rem .85rem;background:transparent;border:1px dashed var(--border2);border-radius:4px;color:var(--muted2);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;width:calc(100% - 2.5rem);}
-.cfg-add-btn:active{border-color:var(--gold);color:var(--gold);}
+.cfg-check-input{flex:1;background:transparent;border:none;outline:none;font-family:‘IBM Plex Sans’,sans-serif;font-size:13px;color:var(–text);}
+.cfg-check-del{background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:18px;line-height:1;padding:0 4px;flex-shrink:0;}
+.cfg-add-btn{display:flex;align-items:center;gap:.5rem;margin:.6rem 1.25rem 0;padding:.58rem .85rem;background:transparent;border:1px dashed var(–border2);border-radius:4px;color:var(–muted2);font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;width:calc(100% - 2.5rem);}
+.cfg-add-btn:active{border-color:var(–gold);color:var(–gold);}
 .cfg-block-list{padding:0 1.25rem;}
-.cfg-block-item{background:var(--surface);border:1px solid var(--border2);border-radius:5px;padding:.7rem .85rem;margin-bottom:.4rem;}
+.cfg-block-item{background:var(–surface);border:1px solid var(–border2);border-radius:5px;padding:.7rem .85rem;margin-bottom:.4rem;}
 .cfg-block-row{display:flex;gap:.5rem;align-items:center;margin-bottom:.35rem;}
-.cfg-block-time{font-family:'IBM Plex Mono',monospace;font-size:11px;background:transparent;border:none;outline:none;color:var(--gold);width:54px;}
-.cfg-block-emoji{font-size:14px;background:transparent;border:none;outline:none;width:30px;color:var(--text);}
-.cfg-block-title-input{flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;background:transparent;border:none;outline:none;color:var(--text);}
-.cfg-block-color{background:var(--surface2);border:1px solid var(--border2);color:var(--muted2);font-size:10px;outline:none;padding:2px 4px;border-radius:3px;}
-.cfg-block-del{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;}
-.cfg-block-desc-input{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;background:transparent;border:none;outline:none;color:var(--muted2);resize:none;line-height:1.5;}
-.notif-btn{display:block;width:calc(100% - 2.5rem);margin:.5rem 1.25rem;padding:.75rem;background:var(--blue-dim);border:1px solid var(--blue);color:var(--blue);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;}
+.cfg-block-time{font-family:‘IBM Plex Mono’,monospace;font-size:11px;background:transparent;border:none;outline:none;color:var(–gold);width:54px;}
+.cfg-block-emoji{font-size:14px;background:transparent;border:none;outline:none;width:30px;color:var(–text);}
+.cfg-block-title-input{flex:1;font-family:‘IBM Plex Sans’,sans-serif;font-size:13px;font-weight:600;background:transparent;border:none;outline:none;color:var(–text);}
+.cfg-block-color{background:var(–surface2);border:1px solid var(–border2);color:var(–muted2);font-size:10px;outline:none;padding:2px 4px;border-radius:3px;}
+.cfg-block-del{background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;}
+.cfg-block-desc-input{width:100%;font-family:‘IBM Plex Mono’,monospace;font-size:11px;background:transparent;border:none;outline:none;color:var(–muted2);resize:none;line-height:1.5;}
+.notif-btn{display:block;width:calc(100% - 2.5rem);margin:.5rem 1.25rem;padding:.75rem;background:var(–blue-dim);border:1px solid var(–blue);color:var(–blue);font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;}
 
-/* TOAST / MISC */
-.toast{position:fixed;top:calc(var(--safe-top) + 1rem);left:50%;transform:translateX(-50%) translateY(-80px);background:var(--gold);color:#000;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:9px 22px;border-radius:3px;z-index:9998;transition:transform .3s cubic-bezier(.4,0,.2,1);white-space:nowrap;}
+/* TOAST */
+.toast{position:fixed;top:calc(var(–safe-top) + 1rem);left:50%;transform:translateX(-50%) translateY(-80px);background:var(–gold);color:#000;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:9px 22px;border-radius:3px;z-index:9998;transition:transform .3s cubic-bezier(.4,0,.2,1);white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-.quote-box{margin:1rem 1.25rem 0;padding:.82rem 1rem;border-left:2px solid var(--gold);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2);font-style:italic;line-height:1.8;background:var(--gold-dim);border-radius:0 4px 4px 0;}
+.quote-box{margin:1rem 1.25rem 0;padding:.82rem 1rem;border-left:2px solid var(–gold);font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–muted2);font-style:italic;line-height:1.8;background:var(–gold-dim);border-radius:0 4px 4px 0;}
 .spacer{height:1rem;}
-.divider{height:1px;background:var(--border);margin:.45rem 1.25rem;}
+.divider{height:1px;background:var(–border);margin:.45rem 1.25rem;}
 </style>
+
 </head>
 <body>
 
 <!-- SPLASH -->
+
 <div id="splash">
   <div class="splash-logo">
     <svg width="70" height="70" viewBox="0 0 80 80" fill="none">
@@ -303,11 +304,12 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
     </svg>
   </div>
   <div class="splash-name">MISSÃO <span>REAL</span></div>
-  <div class="splash-frase" id="splash-frase">carregando missão...</div>
+  <div class="splash-frase" id="splash-frase">carregando...</div>
   <div class="splash-bar"><div class="splash-bar-fill"></div></div>
 </div>
 
 <!-- MODO GUERRA -->
+
 <div id="guerra-overlay">
   <div class="guerra-bg"></div>
   <div class="guerra-scanlines"></div>
@@ -331,6 +333,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 <div class="toast" id="toast">Salvo ✓</div>
 
 <!-- HOME -->
+
 <div class="page active" id="page-home">
   <div class="page-header">
     <div class="page-title">MISSÃO <span>REAL</span></div>
@@ -372,6 +375,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- ROTINA -->
+
 <div class="page" id="page-rotina">
   <div class="page-header">
     <div class="page-title">ROTINA <span>DIÁRIA</span></div>
@@ -388,6 +392,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- CHECK -->
+
 <div class="page" id="page-check">
   <div class="page-header">
     <div class="page-title">CHECK<span>LIST</span></div>
@@ -408,6 +413,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- DIÁRIO -->
+
 <div class="page" id="page-diario">
   <div class="page-header">
     <div class="page-title">DIÁRIO <span>&</span> IDEIAS</div>
@@ -431,6 +437,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- ARENA -->
+
 <div class="page" id="page-arena">
   <div class="page-header">
     <div class="page-title">ARENA <span>PESSOAL</span></div>
@@ -469,7 +476,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
       <div class="planer-semana-label" id="planer-semana-label">—</div>
     </div>
     <div class="planer-add-row">
-      <input class="planer-input" id="planer-input" placeholder="Adicionar tarefa ou prioridade..." onkeydown="if(event.key==='Enter')addPlanerItem()"/>
+      <input class="planer-input" id="planer-input" placeholder="Adicionar tarefa ou prioridade..."/>
       <button class="planer-add-btn" onclick="addPlanerItem()">+</button>
     </div>
     <div class="planer-items" id="planer-items"></div>
@@ -479,6 +486,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- METAS -->
+
 <div class="page" id="page-metas">
   <div class="page-header">
     <div class="page-title">METAS & <span>REGRAS</span></div>
@@ -505,6 +513,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- CONFIG -->
+
 <div class="page" id="page-config">
   <div class="page-header">
     <div class="page-title">CONFIG<span>URAR</span></div>
@@ -546,6 +555,7 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </div>
 
 <!-- NAVBAR -->
+
 <nav class="navbar">
   <button class="nav-btn active" id="nav-home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
@@ -571,246 +581,925 @@ body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-ser
 </nav>
 
 <script>
-const FRASES_AUTO=[{t:"A ignorância é a raiz e o caule de todo mal.",a:"— Platão"},{t:"Uma vida não examinada não vale a pena ser vivida.",a:"— Sócrates"},{t:"Conhece-te a ti mesmo.",a:"— Sócrates"},{t:"Somos o que repetidamente fazemos. Excelência não é um ato, mas um hábito.",a:"— Aristóteles"},{t:"Suporta e renuncia.",a:"— Epicteto"},{t:"Não é o que acontece com você, mas como você reage que importa.",a:"— Epicteto"},{t:"Não busques que as coisas aconteçam como desejas. Deseja que aconteçam como são.",a:"— Epicteto"},{t:"Perdemos mais tempo por indecisão do que por decisão errada.",a:"— Marco Aurélio"},{t:"Você tem poder sobre sua mente, não sobre eventos externos.",a:"— Marco Aurélio"},{t:"O obstáculo é o caminho.",a:"— Marco Aurélio"},{t:"Se não é certo, não o faças; se não é verdadeiro, não o digas.",a:"— Marco Aurélio"},{t:"Atrasa a raiva e o arrependimento virá depois.",a:"— Sêneca"},{t:"Não é pobre quem tem pouco, mas quem deseja mais.",a:"— Sêneca"},{t:"Enquanto adiamos, a vida passa.",a:"— Sêneca"},{t:"O mais poderoso é aquele que tem poder sobre si mesmo.",a:"— Sêneca"},{t:"A vitória é de quem persevera.",a:"— Heráclito"},{t:"O caráter é o destino.",a:"— Heráclito"},{t:"O Senhor é minha força e meu escudo; meu coração confia nele.",a:"— Salmos 28:7"},{t:"Posso tudo naquele que me fortalece.",a:"— Filipenses 4:13"},{t:"Porque Deus não nos deu espírito de covardia, mas de poder e de amor.",a:"— 2 Timóteo 1:7"},{t:"Sede fortes e corajosos. Não temais.",a:"— Deuteronômio 31:6"},{t:"Espera do Senhor, sê forte, e ele fortalecerá o teu coração.",a:"— Salmos 27:14"},{t:"Porque sou eu que conheço os planos que tenho para você, planos de prosperidade.",a:"— Jeremias 29:11"},{t:"Seja corajoso. Não há lugar mais seguro do que aquele onde você deveria estar.",a:"— Tucídides"},{t:"A glória está em ter caído e se levantado.",a:"— Sófocles"},{t:"Quanto mais suor no treino, menos sangue na batalha.",a:"— Provérbio espartano"},{t:"A dor é temporária. O arrependimento dura para sempre.",a:"— Estoicismo"},{t:"Agora. Não amanhã. Agora.",a:"— Marco Aurélio"},{t:"O homem fraco foge da dificuldade. O forte a atravessa.",a:"— Sêneca"},{t:"Trabalha em silêncio. Deixa o sucesso fazer barulho.",a:"— Estoicismo"}];
+// ─── DADOS ESTÁTICOS ──────────────────────────────────────────────────────────
+const FRASES_AUTO=[
+  {t:"A ignorância é a raiz e o caule de todo mal.",a:"— Platão"},
+  {t:"Uma vida não examinada não vale a pena ser vivida.",a:"— Sócrates"},
+  {t:"Conhece-te a ti mesmo.",a:"— Sócrates"},
+  {t:"Somos o que repetidamente fazemos. Excelência não é um ato, mas um hábito.",a:"— Aristóteles"},
+  {t:"Suporta e renuncia.",a:"— Epicteto"},
+  {t:"Não é o que acontece com você, mas como você reage que importa.",a:"— Epicteto"},
+  {t:"Não busques que as coisas aconteçam como desejas. Deseja que aconteçam como são.",a:"— Epicteto"},
+  {t:"Perdemos mais tempo por indecisão do que por decisão errada.",a:"— Marco Aurélio"},
+  {t:"Você tem poder sobre sua mente, não sobre eventos externos.",a:"— Marco Aurélio"},
+  {t:"O obstáculo é o caminho.",a:"— Marco Aurélio"},
+  {t:"Se não é certo, não o faças; se não é verdadeiro, não o digas.",a:"— Marco Aurélio"},
+  {t:"Atrasa a raiva e o arrependimento virá depois.",a:"— Sêneca"},
+  {t:"Não é pobre quem tem pouco, mas quem deseja mais.",a:"— Sêneca"},
+  {t:"Enquanto adiamos, a vida passa.",a:"— Sêneca"},
+  {t:"O mais poderoso é aquele que tem poder sobre si mesmo.",a:"— Sêneca"},
+  {t:"A vitória é de quem persevera.",a:"— Heráclito"},
+  {t:"O caráter é o destino.",a:"— Heráclito"},
+  {t:"O Senhor é minha força e meu escudo; meu coração confia nele.",a:"— Salmos 28:7"},
+  {t:"Posso tudo naquele que me fortalece.",a:"— Filipenses 4:13"},
+  {t:"Porque Deus não nos deu espírito de covardia, mas de poder e de amor.",a:"— 2 Timóteo 1:7"},
+  {t:"Sede fortes e corajosos. Não temais.",a:"— Deuteronômio 31:6"},
+  {t:"Espera do Senhor, sê forte, e ele fortalecerá o teu coração.",a:"— Salmos 27:14"},
+  {t:"Porque sou eu que conheço os planos que tenho para você, planos de prosperidade.",a:"— Jeremias 29:11"},
+  {t:"Seja corajoso. Não há lugar mais seguro do que aquele onde você deveria estar.",a:"— Tucídides"},
+  {t:"A glória está em ter caído e se levantado.",a:"— Sófocles"},
+  {t:"Quanto mais suor no treino, menos sangue na batalha.",a:"— Provérbio espartano"},
+  {t:"A dor é temporária. O arrependimento dura para sempre.",a:"— Estoicismo"},
+  {t:"Agora. Não amanhã. Agora.",a:"— Marco Aurélio"},
+  {t:"O homem fraco foge da dificuldade. O forte a atravessa.",a:"— Sêneca"},
+  {t:"Trabalha em silêncio. Deixa o sucesso fazer barulho.",a:"— Estoicismo"}
+];
 
-const FRASES_GUERRA=[{t:"Nenhum homem é livre se não é senhor de si mesmo.",a:"— Epicteto"},{t:"Para de contemplar e começa a agir. A ação é o antídoto do desespero.",a:"— Marco Aurélio"},{t:"A dor é temporária. O arrependimento dura para sempre.",a:"— Epicteto"},{t:"Desculpas ou resultados. Escolhe um.",a:"— Estoicismo"},{t:"Quanto mais suor no treino, menos sangue na batalha.",a:"— Provérbio espartano"},{t:"O homem fraco foge. O homem forte atravessa.",a:"— Sêneca"},{t:"Agora. Não amanhã. Agora.",a:"— Marco Aurélio"},{t:"Não reclames. Trabalha mais.",a:"— Marco Aurélio"},{t:"Enquanto adiamos, a vida passa.",a:"— Sêneca"},{t:"Você tem poder sobre sua mente. Use esse poder.",a:"— Marco Aurélio"}];
+const FRASES_GUERRA=[
+  {t:"Nenhum homem é livre se não é senhor de si mesmo.",a:"— Epicteto"},
+  {t:"Para de contemplar e começa a agir. A ação é o antídoto do desespero.",a:"— Marco Aurélio"},
+  {t:"A dor é temporária. O arrependimento dura para sempre.",a:"— Epicteto"},
+  {t:"Desculpas ou resultados. Escolhe um.",a:"— Estoicismo"},
+  {t:"Quanto mais suor no treino, menos sangue na batalha.",a:"— Provérbio espartano"},
+  {t:"O homem fraco foge. O homem forte atravessa.",a:"— Sêneca"},
+  {t:"Agora. Não amanhã. Agora.",a:"— Marco Aurélio"},
+  {t:"Não reclames. Trabalha mais.",a:"— Marco Aurélio"},
+  {t:"Enquanto adiamos, a vida passa.",a:"— Sêneca"},
+  {t:"Você tem poder sobre sua mente. Use esse poder.",a:"— Marco Aurélio"}
+];
 
-const DEF_CHECKS=['Acordou 04:00 sem snooze','Banho gelado + água ✓','Oração da manhã feita','Saiu pra rodar no horário','Chegou no curso pontual','Aula aproveitada (anotou)','Meta R$ do dia atingida','Estudou 18h→21h','Treino feito (Ter/Qui/Sáb)','Leitura + oração à noite','Dormiu às 22:00'];
-const DEF_BLOCKS={segfex:[{time:'04:00',emoji:'⏰',title:'Acordar',desc:'Levanta já. Banho gelado. Água. Jejum. Sem celular.',color:'gold'},{time:'04:15',emoji:'🙏',title:'Oração da manhã',desc:'Gratidão, intenção, entrega. Momento sagrado.',color:'gold'},{time:'05:00',emoji:'🚗',title:'Rodar — Turno 1',desc:'Em jejum. Foco na meta. Eficiência máxima.',color:'gold'},{time:'07:00',emoji:'🏠',title:'Libera a esposa + filha',desc:'Ela sai pro trabalho. Café. Filha.',color:''},{time:'~08:00',emoji:'👶',title:'Cunhada chega',desc:'Passa a filha. Organiza e sai pro curso.',color:''},{time:'08:20',emoji:'🎒',title:'Sai pro curso',desc:'Pontual. Preparado. Mente focada.',color:'blue'},{time:'09:00',emoji:'📚',title:'Curso',desc:'Presença total. Absorver. Anotar. Até 12:00.',color:'blue'},{time:'12:00',emoji:'🚗',title:'Rodar — Turno 2',desc:'Direto do curso. Meta em andamento.',color:'gold'},{time:'14:00',emoji:'🍽️',title:'Almoço',desc:'No trabalho da esposa. 30 min.',color:''},{time:'14:30',emoji:'🚗',title:'Rodar — Turno 3',desc:'Fechar a meta. Eficiência. Sem extensão.',color:'gold'},{time:'16:30',emoji:'🚗',title:'Buscar esposa',desc:'Família em primeiro lugar.',color:''},{time:'17:00',emoji:'🏠',title:'Em casa',desc:'Filha, esposa, organizar lar.',color:''},{time:'17:30',emoji:'💪',title:'Treino (Ter/Qui)',desc:'Flexões, barras, agachamento. 25 min.',color:'green'},{time:'18:00',emoji:'📝',title:'Estudo',desc:'Questões, revisão, mapa mental. Até 21:00.',color:'blue'},{time:'21:00',emoji:'📖',title:'Leitura + Oração',desc:'Filosofia · Bíblia. Desligar telas.',color:''},{time:'22:00',emoji:'💤',title:'Dormir',desc:'Sem negociação. Missão cumprida.',color:'gold'}],sabado:[{time:'04:00',emoji:'⏰',title:'Acordar · Banho · Oração',desc:'A base não tem fim de semana.',color:'gold'},{time:'04:30',emoji:'💪',title:'Treino (sábado)',desc:'Mais completo. Praça ou calçadão. 30-40 min.',color:'green'},{time:'05:30',emoji:'🚗',title:'Rodar',desc:'Turno único. Meta parcial. Até ~10:30.',color:'gold'},{time:'10:30',emoji:'🏠',title:'Casa · Família',desc:'Presente. Filha. Esposa.',color:''},{time:'13:00',emoji:'📚',title:'Revisão da semana',desc:'Rever conteúdo do curso. Fixar.',color:'blue'},{time:'15:00',emoji:'🎥',title:'PROJETO — Produção',desc:'YouTube · Roteirizar · Gravar. Sagrado.',color:'purple'},{time:'18:00',emoji:'🏠',title:'Família · Descanso',desc:'Presença plena. Recarregar.',color:''},{time:'23:00',emoji:'💤',title:'Dormir mais tarde',desc:'Sábado é compensação.',color:'gold'}],domingo:[{time:'~07:00',emoji:'⏰',title:'Acordar natural',desc:'Compensação do sábado. Banho. Oração. Café.',color:'gold'},{time:'08:00',emoji:'🏃',title:'Caminhada leve',desc:'Praça ou ao redor de casa.',color:'green'},{time:'09:00',emoji:'🧠',title:'Simulado',desc:'Treino de prova em condições reais.',color:'blue'},{time:'13:00',emoji:'🎥',title:'PROJETO — Edição',desc:'Continuar pendências. Roteiro da semana.',color:'purple'},{time:'15:00',emoji:'📅',title:'Planejar a semana',desc:'Metas, compromissos, prioridades.',color:''},{time:'17:00',emoji:'🏠',title:'Família plena',desc:'Descanso ativo. Filha. Esposa. Lazer.',color:''},{time:'22:00',emoji:'💤',title:'Dormir',desc:'Amanhã a missão recomeça. Mais forte.',color:'gold'}]};
-const DEF_REGRAS=['Redes sociais são o inimigo do foco. Acesse só com propósito definido.','A rotina não negocia. Nos primeiros dias é difícil — depois é identidade.','O projeto do sábado é sagrado. Um bloco por semana. Nunca pular.','Família é pilar. Quando estiver em casa, esteja de verdade.','Não viralize. Ajude. Fale o que é real. O que você viveu.','22:00 é hora de dormir. Sem exceção. Amanhã começa às 04:00.','Procrastinação é o inimigo. Ação imperfeita bate planejamento perfeito.','O dinheiro do curso não foi jogado fora. Você vai honrar esse investimento.'];
+const DEF_CHECKS=[
+  'Acordou 04:00 sem snooze','Banho gelado + água ✓','Oração da manhã feita',
+  'Saiu pra rodar no horário','Chegou no curso pontual','Aula aproveitada (anotou)',
+  'Meta R$ do dia atingida','Estudou 18h→21h','Treino feito (Ter/Qui/Sáb)',
+  'Leitura + oração à noite','Dormiu às 22:00'
+];
+
+const DEF_BLOCKS={
+  segfex:[
+    {time:'04:00',emoji:'⏰',title:'Acordar',desc:'Levanta já. Banho gelado. Água. Jejum. Sem celular.',color:'gold'},
+    {time:'04:15',emoji:'🙏',title:'Oração da manhã',desc:'Gratidão, intenção, entrega. Momento sagrado.',color:'gold'},
+    {time:'05:00',emoji:'🚗',title:'Rodar — Turno 1',desc:'Em jejum. Foco na meta. Eficiência máxima.',color:'gold'},
+    {time:'07:00',emoji:'🏠',title:'Libera a esposa + filha',desc:'Ela sai pro trabalho. Café. Filha.',color:''},
+    {time:'~08:00',emoji:'👶',title:'Cunhada chega',desc:'Passa a filha. Organiza e sai pro curso.',color:''},
+    {time:'08:20',emoji:'🎒',title:'Sai pro curso',desc:'Pontual. Preparado. Mente focada.',color:'blue'},
+    {time:'09:00',emoji:'📚',title:'Curso',desc:'Presença total. Absorver. Anotar. Até 12:00.',color:'blue'},
+    {time:'12:00',emoji:'🚗',title:'Rodar — Turno 2',desc:'Direto do curso. Meta em andamento.',color:'gold'},
+    {time:'14:00',emoji:'🍽️',title:'Almoço',desc:'No trabalho da esposa. 30 min.',color:''},
+    {time:'14:30',emoji:'🚗',title:'Rodar — Turno 3',desc:'Fechar a meta. Eficiência. Sem extensão.',color:'gold'},
+    {time:'16:30',emoji:'🚗',title:'Buscar esposa',desc:'Família em primeiro lugar.',color:''},
+    {time:'17:00',emoji:'🏠',title:'Em casa',desc:'Filha, esposa, organizar lar.',color:''},
+    {time:'17:30',emoji:'💪',title:'Treino (Ter/Qui)',desc:'Flexões, barras, agachamento. 25 min.',color:'green'},
+    {time:'18:00',emoji:'📝',title:'Estudo',desc:'Questões, revisão, mapa mental. Até 21:00.',color:'blue'},
+    {time:'21:00',emoji:'📖',title:'Leitura + Oração',desc:'Filosofia · Bíblia. Desligar telas.',color:''},
+    {time:'22:00',emoji:'💤',title:'Dormir',desc:'Sem negociação. Missão cumprida.',color:'gold'}
+  ],
+  sabado:[
+    {time:'04:00',emoji:'⏰',title:'Acordar · Banho · Oração',desc:'A base não tem fim de semana.',color:'gold'},
+    {time:'04:30',emoji:'💪',title:'Treino (sábado)',desc:'Mais completo. Praça ou calçadão. 30-40 min.',color:'green'},
+    {time:'05:30',emoji:'🚗',title:'Rodar',desc:'Turno único. Meta parcial. Até ~10:30.',color:'gold'},
+    {time:'10:30',emoji:'🏠',title:'Casa · Família',desc:'Presente. Filha. Esposa.',color:''},
+    {time:'13:00',emoji:'📚',title:'Revisão da semana',desc:'Rever conteúdo do curso. Fixar.',color:'blue'},
+    {time:'15:00',emoji:'🎥',title:'PROJETO — Produção',desc:'YouTube · Roteirizar · Gravar. Sagrado.',color:'purple'},
+    {time:'18:00',emoji:'🏠',title:'Família · Descanso',desc:'Presença plena. Recarregar.',color:''},
+    {time:'23:00',emoji:'💤',title:'Dormir mais tarde',desc:'Sábado é compensação.',color:'gold'}
+  ],
+  domingo:[
+    {time:'~07:00',emoji:'⏰',title:'Acordar natural',desc:'Compensação do sábado. Banho. Oração. Café.',color:'gold'},
+    {time:'08:00',emoji:'🏃',title:'Caminhada leve',desc:'Praça ou ao redor de casa.',color:'green'},
+    {time:'09:00',emoji:'🧠',title:'Simulado',desc:'Treino de prova em condições reais.',color:'blue'},
+    {time:'13:00',emoji:'🎥',title:'PROJETO — Edição',desc:'Continuar pendências. Roteiro da semana.',color:'purple'},
+    {time:'15:00',emoji:'📅',title:'Planejar a semana',desc:'Metas, compromissos, prioridades.',color:''},
+    {time:'17:00',emoji:'🏠',title:'Família plena',desc:'Descanso ativo. Filha. Esposa. Lazer.',color:''},
+    {time:'22:00',emoji:'💤',title:'Dormir',desc:'Amanhã a missão recomeça. Mais forte.',color:'gold'}
+  ]
+};
+
+const DEF_REGRAS=[
+  'Redes sociais são o inimigo do foco. Acesse só com propósito definido.',
+  'A rotina não negocia. Nos primeiros dias é difícil — depois é identidade.',
+  'O projeto do sábado é sagrado. Um bloco por semana. Nunca pular.',
+  'Família é pilar. Quando estiver em casa, esteja de verdade.',
+  'Não viralize. Ajude. Fale o que é real. O que você viveu.',
+  '22:00 é hora de dormir. Sem exceção. Amanhã começa às 04:00.',
+  'Procrastinação é o inimigo. Ação imperfeita bate planejamento perfeito.',
+  'O dinheiro do curso não foi jogado fora. Você vai honrar esse investimento.'
+];
+
 const DEF_CFG={meta:'120',acordar:'04:00',rodar1:'05:00',curso:'08:20',turno2:'12:00',almoco:'14:00',turno3:'14:30',fim:'16:30',dormir:'22:00',meta3:'',meta6:'',meta12:''};
 
-const todayKey=new Date().toISOString().slice(0,10);
-function getWeekKey(){const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1),mon=new Date(d);mon.setDate(diff);return mon.toISOString().slice(0,10);}
-const K={checks:'ch_'+todayKey,streak:'sk2',diario:'dr2',cfg:'cf3',cl:'cl2',bl:'bl2',humor:'humor_v1',frases:'myfrases_v1',planer:'planer_'+getWeekKey(),checkHist:'chkHist_v1'};
-const g=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}};
-const s=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-const getCfg=()=>({...DEF_CFG,...g(K.cfg,{})});
-const getCL=()=>g(K.cl,DEF_CHECKS);
-const getBL=()=>g(K.bl,DEF_BLOCKS);
-const getFA=()=>{const d=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5);return FRASES_AUTO[d%FRASES_AUTO.length];};
-const getFG=()=>FRASES_GUERRA[Math.floor(Math.random()*FRASES_GUERRA.length)];
+// ─── STORAGE (com fallback seguro para modo privado/Safari) ───────────────────
+const MEM = {}; // fallback em memória se localStorage falhar
 
-function showToast(m='Salvo ✓'){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
-
-// SPLASH
-(()=>{const f=getFA();document.getElementById('splash-frase').textContent=f.t;setTimeout(()=>document.getElementById('splash').classList.add('hidden'),2500);})();
-
-// CLOCK
-function updClock(){const n=new Date();document.getElementById('home-clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');document.getElementById('home-date').textContent=n.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();}
-setInterval(updClock,1000);updClock();
-
-// FRASE HOME
-(()=>{const f=getFA();document.getElementById('home-frase-text').textContent=f.t;document.getElementById('home-frase-autor').textContent=f.a;})();
-
-// BLOCO ATIVO
-function updBloco(){
-  const c=getCfg();
-  const SH=[{h:4,m:0,t:'⏰ Acordar',d:'Levanta já. Banho gelado. Água.',f:c.rodar1},{h:5,m:0,t:'🚗 Rodar — Turno 1',d:'Em jejum. Foco na meta.',f:'07:00'},{h:7,m:0,t:'🏠 Casa + Filha',d:'Café, filha, esposa sai.',f:c.curso},{h:8,m:20,t:'🎒 Curso',d:'Presença total. Absorver.',f:c.turno2},{h:12,m:0,t:'🚗 Rodar — Turno 2',d:'Meta em andamento.',f:c.almoco},{h:14,m:0,t:'🍽️ Almoço',d:'30 min. Come e volta.',f:c.turno3},{h:14,m:30,t:'🚗 Rodar — Turno 3',d:'Fechar a meta do dia.',f:c.fim},{h:16,m:30,t:'🚗 Buscar esposa',d:'Família em primeiro lugar.',f:'17:00'},{h:17,m:0,t:'🏠 Em casa',d:'Filha, esposa, organizar lar.',f:'18:00'},{h:18,m:0,t:'📝 Estudo',d:'Questões, revisão, mapa mental.',f:'21:00'},{h:21,m:0,t:'📖 Leitura + Oração',d:'Desligar telas. Reflexão.',f:c.dormir},{h:22,m:0,t:'💤 Dormir',d:'Missão cumprida.',f:'04:00'}];
-  const n=new Date(),tot=n.getHours()*60+n.getMinutes();
-  let b=SH[SH.length-1];
-  for(let i=0;i<SH.length-1;i++){const ss=SH[i].h*60+SH[i].m,nx=SH[i+1].h*60+SH[i+1].m;if(tot>=ss&&tot<nx){b=SH[i];break;}}
-  document.getElementById('bloco-titulo').textContent=b.t;
-  document.getElementById('bloco-desc').textContent=b.d;
-  document.getElementById('bloco-time').textContent='Vai até '+b.f;
-}
-updBloco();setInterval(updBloco,60000);
-
-// STREAK
-function getStreak(){
-  const sd=g(K.streak,{days:[],count:0});
-  const cl=getCL(),state=g(K.checks,{});
-  const done=Object.values(state).filter(Boolean).length;
-  if(cl.length&&done/cl.length>=0.8&&!sd.days.includes(todayKey)){
-    sd.days.push(todayKey);let sk=0;const d=new Date();
-    for(let i=0;i<365;i++){const dd=new Date(d);dd.setDate(d.getDate()-i);if(sd.days.includes(dd.toISOString().slice(0,10)))sk++;else break;}
-    sd.count=sk;s(K.streak,sd);
+function lsGet(k, def) {
+  try {
+    const v = localStorage.getItem(k);
+    return v !== null ? JSON.parse(v) : def;
+  } catch(e) {
+    return MEM[k] !== undefined ? MEM[k] : def;
   }
-  return g(K.streak,{count:0}).count||0;
 }
-function updStreakUI(){const sk=getStreak();document.getElementById('home-streak').textContent=sk;document.getElementById('streak-fire').textContent='🔥 '+sk+' dia'+(sk===1?'':'s')+' seguido'+(sk===1?'':'s');}
 
-// CHECK
-function renderChecks(){
-  const cl=getCL(),state=g(K.checks,{});
-  const list=document.getElementById('check-list');list.innerHTML='';let done=0;
-  cl.forEach((label,i)=>{
-    const checked=!!state[i];if(checked)done++;
-    const el=document.createElement('div');el.className='check-item'+(checked?' done':'');
-    el.innerHTML=`<div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div><div class="check-label">${label}</div>`;
-    el.onclick=()=>{const st=g(K.checks,{});st[i]=!st[i];s(K.checks,st);getStreak();renderChecks();renderDash();};
+function lsSet(k, v) {
+  try {
+    localStorage.setItem(k, JSON.stringify(v));
+  } catch(e) {
+    MEM[k] = v; // fallback se localStorage estiver bloqueado
+  }
+}
+
+// ─── CHAVES ───────────────────────────────────────────────────────────────────
+const todayKey = new Date().toISOString().slice(0,10);
+
+function getWeekKey() {
+  const d = new Date(), day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const mon = new Date(d); mon.setDate(diff);
+  return mon.toISOString().slice(0,10);
+}
+
+const K = {
+  checks: 'ch_' + todayKey,
+  streak: 'sk2',
+  diario: 'dr2',
+  cfg: 'cf3',
+  cl: 'cl2',
+  bl: 'bl2',
+  humor: 'humor_v1',
+  frases: 'myfrases_v1',
+  planer: 'planer_' + getWeekKey(),
+  checkHist: 'chkHist_v1'
+};
+
+const getCfg = () => ({ ...DEF_CFG, ...lsGet(K.cfg, {}) });
+const getCL  = () => lsGet(K.cl, DEF_CHECKS);
+const getBL  = () => {
+  const saved = lsGet(K.bl, null);
+  if (!saved) return JSON.parse(JSON.stringify(DEF_BLOCKS)); // deep clone defaults
+  return saved;
+};
+
+// ─── FRASE DO DIA (índice pelo dia do ano, sem divisão por zero) ──────────────
+function getFA() {
+  if (!FRASES_AUTO.length) return { t: '—', a: '—' };
+  const start = new Date(new Date().getFullYear(), 0, 0);
+  const diff = new Date() - start;
+  const idx = Math.floor(diff / 86400000) % FRASES_AUTO.length;
+  return FRASES_AUTO[idx];
+}
+
+function getFG() {
+  return FRASES_GUERRA[Math.floor(Math.random() * FRASES_GUERRA.length)];
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(m) {
+  const t = document.getElementById('toast');
+  t.textContent = m || 'Salvo ✓';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── SPLASH ───────────────────────────────────────────────────────────────────
+function hideSplash() {
+  const el = document.getElementById('splash');
+  if (el) el.classList.add('hidden');
+}
+
+// ─── RELÓGIO ──────────────────────────────────────────────────────────────────
+function updClock() {
+  const n = new Date();
+  const hEl = document.getElementById('home-clock');
+  const dEl = document.getElementById('home-date');
+  if (hEl) hEl.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  if (dEl) dEl.textContent = n.toLocaleDateString('pt-BR', {weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+}
+
+// ─── FRASE HOME ───────────────────────────────────────────────────────────────
+function renderFraseHome() {
+  const f = getFA();
+  const te = document.getElementById('home-frase-text');
+  const ae = document.getElementById('home-frase-autor');
+  if (te) te.textContent = f.t;
+  if (ae) ae.textContent = f.a;
+}
+
+// ─── BLOCO ATIVO ──────────────────────────────────────────────────────────────
+function updBloco() {
+  const c = getCfg();
+
+  // Converte "HH:MM" → minutos
+  function hhmm(str) {
+    if (!str || !str.includes(':')) return 0;
+    const [h, m] = str.split(':').map(Number);
+    return (h || 0) * 60 + (m || 0);
+  }
+
+  const SH = [
+    {min: hhmm(c.acordar),  t:'⏰ Acordar',          d:'Levanta já. Banho gelado. Água.',      f:c.rodar1},
+    {min: hhmm(c.rodar1),   t:'🚗 Rodar — Turno 1',  d:'Em jejum. Foco na meta.',              f:'07:00'},
+    {min: 7*60,              t:'🏠 Casa + Filha',      d:'Café, filha, esposa sai.',             f:c.curso},
+    {min: hhmm(c.curso),    t:'🎒 Sair pro Curso',    d:'Pontual. Preparado.',                  f:'09:00'},
+    {min: 9*60,              t:'📚 Curso',             d:'Presença total. Absorver.',            f:c.turno2},
+    {min: hhmm(c.turno2),   t:'🚗 Rodar — Turno 2',  d:'Meta em andamento.',                   f:c.almoco},
+    {min: hhmm(c.almoco),   t:'🍽️ Almoço',           d:'30 min. Come e volta.',                f:c.turno3},
+    {min: hhmm(c.turno3),   t:'🚗 Rodar — Turno 3',  d:'Fechar a meta do dia.',                f:c.fim},
+    {min: hhmm(c.fim),      t:'🚗 Buscar esposa',     d:'Família em primeiro lugar.',           f:'17:00'},
+    {min: 17*60,             t:'🏠 Em casa',           d:'Filha, esposa, organizar lar.',        f:'18:00'},
+    {min: 18*60,             t:'📝 Estudo',            d:'Questões, revisão, mapa mental.',      f:'21:00'},
+    {min: 21*60,             t:'📖 Leitura + Oração',  d:'Desligar telas. Reflexão.',            f:c.dormir},
+    {min: hhmm(c.dormir),   t:'💤 Dormir',            d:'Missão cumprida.',                     f:c.acordar}
+  ];
+
+  // Ordena por minuto
+  SH.sort((a, b) => a.min - b.min);
+
+  const n = new Date(), tot = n.getHours() * 60 + n.getMinutes();
+  let bloco = SH[SH.length - 1];
+  for (let i = 0; i < SH.length - 1; i++) {
+    if (tot >= SH[i].min && tot < SH[i+1].min) { bloco = SH[i]; break; }
+  }
+
+  const bt = document.getElementById('bloco-titulo');
+  const bd = document.getElementById('bloco-desc');
+  const bti = document.getElementById('bloco-time');
+  if (bt) bt.textContent = bloco.t;
+  if (bd) bd.textContent = bloco.d;
+  if (bti) bti.textContent = 'Vai até ' + (bloco.f || '—');
+}
+
+// ─── STREAK ───────────────────────────────────────────────────────────────────
+function calcStreak() {
+  const cl = getCL(), state = lsGet(K.checks, {});
+  const done = Object.values(state).filter(Boolean).length;
+
+  if (cl.length && done / cl.length >= 0.8) {
+    const sd = lsGet(K.streak, { days: [] });
+    if (!sd.days.includes(todayKey)) {
+      sd.days.push(todayKey);
+      lsSet(K.streak, sd);
+    }
+  }
+
+  const sd = lsGet(K.streak, { days: [] });
+  let sk = 0;
+  const d = new Date();
+  for (let i = 0; i < 365; i++) {
+    const dd = new Date(d); dd.setDate(d.getDate() - i);
+    if (sd.days.includes(dd.toISOString().slice(0,10))) sk++;
+    else break;
+  }
+  return sk;
+}
+
+function updStreakUI() {
+  const sk = calcStreak();
+  const hs = document.getElementById('home-streak');
+  const sf = document.getElementById('streak-fire');
+  if (hs) hs.textContent = sk;
+  if (sf) sf.textContent = '🔥 ' + sk + ' dia' + (sk === 1 ? '' : 's') + ' seguido' + (sk === 1 ? '' : 's');
+}
+
+// ─── CHECKLIST ────────────────────────────────────────────────────────────────
+function renderChecks() {
+  const cl = getCL(), state = lsGet(K.checks, {});
+  const list = document.getElementById('check-list');
+  if (!list) return;
+  list.innerHTML = '';
+  let done = 0;
+
+  cl.forEach((label, i) => {
+    const checked = !!state[i];
+    if (checked) done++;
+    const el = document.createElement('div');
+    el.className = 'check-item' + (checked ? ' done' : '');
+    el.innerHTML = `<div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div><div class="check-label">${escHTML(label)}</div>`;
+    el.onclick = () => {
+      const st = lsGet(K.checks, {});
+      st[i] = !st[i];
+      lsSet(K.checks, st);
+      renderChecks();
+      renderDash();
+    };
     list.appendChild(el);
   });
-  const pct=cl.length?Math.round(done/cl.length*100):0;
-  document.getElementById('progress-fill').style.width=pct+'%';
-  document.getElementById('progress-text').textContent=done+'/'+cl.length;
-  document.getElementById('progress-pct').textContent=pct+'%';
-  document.getElementById('check-date').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})+' · '+pct+'% concluído';
-  document.getElementById('home-check-pct').textContent=pct+'%';
-  const h=g(K.checkHist,{});h[todayKey]=pct;s(K.checkHist,h);
+
+  const total = cl.length || 1;
+  const pct = Math.round(done / total * 100);
+  const pf = document.getElementById('progress-fill');
+  const pt = document.getElementById('progress-text');
+  const pp = document.getElementById('progress-pct');
+  const cd = document.getElementById('check-date');
+  const hcp = document.getElementById('home-check-pct');
+
+  if (pf) pf.style.width = pct + '%';
+  if (pt) pt.textContent = done + '/' + cl.length;
+  if (pp) pp.textContent = pct + '%';
+  if (cd) cd.textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long',day:'numeric',month:'long'}) + ' · ' + pct + '% concluído';
+  if (hcp) hcp.textContent = pct + '%';
+
+  const hist = lsGet(K.checkHist, {});
+  hist[todayKey] = pct;
+  lsSet(K.checkHist, hist);
+
   updStreakUI();
 }
-function resetChecks(){if(confirm('Resetar checklist de hoje?')){localStorage.removeItem(K.checks);renderChecks();}}
 
-// ROTINA
-const SM={segfex:{'04':'Madrugada / Manhã','05':'Madrugada / Manhã','07':'Madrugada / Manhã','~0':'Madrugada / Manhã','08':'Curso','09':'Curso','12':'Trabalho','14':'Trabalho','16':'Trabalho','17':'Noite','18':'Noite','21':'Noite','22':'Noite'},sabado:{'04':'Manhã','05':'Manhã','10':'Tarde','13':'Tarde','15':'Tarde','18':'Tarde','23':'Tarde'},domingo:{'~0':'Manhã','07':'Manhã','08':'Manhã','09':'Manhã','13':'Tarde','15':'Tarde','17':'Tarde','22':'Tarde'}};
-function renderRotina(){
-  ['segfex','sabado','domingo'].forEach(day=>{
-    const el=document.getElementById('day-'+day);if(!el)return;
-    const bks=getBL()[day]||[];el.innerHTML='';let lastSec='';
-    bks.forEach(b=>{
-      const hk=(b.time||'').substring(0,2),sec=(SM[day]||{})[hk]||(SM[day]||{})[(b.time||'').substring(0,3)]||'';
-      if(sec&&sec!==lastSec){lastSec=sec;const sl=document.createElement('div');sl.className='section-label';sl.textContent=sec;el.appendChild(sl);}
-      const div=document.createElement('div');div.className='block'+(b.color?' '+b.color:'');
-      div.innerHTML=`<div class="block-time">${b.time||'—'}</div><div><div class="block-title">${b.emoji||''} ${b.title||''}</div><div class="block-desc">${b.desc||''}</div></div>`;
+function resetChecks() {
+  if (!confirm('Resetar checklist de hoje?')) return;
+  lsSet(K.checks, {});
+  renderChecks();
+}
+
+// ─── ROTINA ───────────────────────────────────────────────────────────────────
+function renderRotina() {
+  ['segfex','sabado','domingo'].forEach(day => {
+    const el = document.getElementById('day-' + day);
+    if (!el) return;
+    const bks = getBL()[day] || [];
+    el.innerHTML = '';
+    bks.forEach(b => {
+      const div = document.createElement('div');
+      div.className = 'block' + (b.color ? ' ' + b.color : '');
+      div.innerHTML = `<div class="block-time">${escHTML(b.time||'—')}</div><div><div class="block-title">${escHTML((b.emoji||'')+' '+(b.title||''))}</div><div class="block-desc">${escHTML(b.desc||'')}</div></div>`;
       el.appendChild(div);
     });
   });
 }
-function showDay(day){['segfex','sabado','domingo'].forEach(d=>{const el=document.getElementById('day-'+d);if(el)el.style.display=d===day?'block':'none';const tab=document.getElementById('tab-'+d);if(tab)tab.classList.toggle('active',d===day);});}
-function autoDay(){const dow=new Date().getDay();if(dow===0)showDay('domingo');else if(dow===6)showDay('sabado');else showDay('segfex');}
 
-// DIÁRIO
-let dType='pensamento';
-function setDiarioType(t){dType=t;['pensamento','lembrete','ideia'].forEach(tt=>document.getElementById('dtype-'+tt).classList.toggle('active',tt===t));document.getElementById('diario-input').placeholder={pensamento:'Escreve aqui...',lembrete:'O que precisa lembrar?',ideia:'Ideia pra gravar, título, roteiro...'}[t];}
-function saveDiarioEntry(){const text=document.getElementById('diario-input').value.trim();if(!text)return;const entries=g(K.diario,[]);entries.unshift({id:Date.now(),type:dType,text,date:new Date().toISOString()});s(K.diario,entries);document.getElementById('diario-input').value='';renderDiario();showToast('Registro salvo ✓');}
-function deleteDiarioEntry(id){if(!confirm('Apagar?'))return;s(K.diario,g(K.diario,[]).filter(e=>e.id!==id));renderDiario();}
-function renderDiario(){
-  const entries=g(K.diario,[]),list=document.getElementById('diario-list');
-  if(!entries.length){list.innerHTML='<div class="diario-empty">Nenhum registro ainda.</div>';return;}
-  const fd=iso=>{const d=new Date(iso);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});};
-  const lb={pensamento:'💭 Pensamento',lembrete:'📌 Lembrete',ideia:'💡 Ideia'};
-  list.innerHTML=entries.map(e=>`<div class="diario-entry"><div class="diario-entry-header"><span class="diario-entry-type ${e.type}">${lb[e.type]||e.type}</span><span class="diario-entry-date">${fd(e.date)}</span><button class="diario-entry-del" onclick="deleteDiarioEntry(${e.id})">×</button></div><div class="diario-entry-text">${e.text.replace(/\n/g,'<br>')}</div></div>`).join('');
-}
-
-// DASHBOARD
-function renderDash(){
-  const hist=g(K.checkHist,{});const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  const bars=document.getElementById('dash-bars');bars.innerHTML='';let tot=0,cnt=0;
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const key=d.toISOString().slice(0,10),pct=hist[key]||0,isToday=key===todayKey;
-    if(pct>0){tot+=pct;cnt++;}
-    const wrap=document.createElement('div');wrap.className='dash-bar-wrap';
-    const bar=document.createElement('div');bar.className='dash-bar'+(pct>0?' filled':'')+(isToday?' today':'');
-    bar.style.height=Math.max(pct*0.85,3)+'px';
-    const dl=document.createElement('div');dl.className='dash-day';dl.textContent=dias[d.getDay()];
-    const pl=document.createElement('div');pl.className='dash-pct';pl.textContent=pct>0?pct+'%':'';
-    wrap.appendChild(bar);wrap.appendChild(dl);wrap.appendChild(pl);bars.appendChild(wrap);
-  }
-  document.getElementById('dash-media').textContent=cnt>0?'Média: '+Math.round(tot/cnt)+'% — '+cnt+' dias registrados':'Nenhum dia registrado ainda.';
-}
-
-// HUMOR
-function setHumor(tipo){
-  const humors=g(K.humor,[]),last=humors[0];
-  if(last&&last.date===todayKey)humors[0]={date:todayKey,tipo};
-  else humors.unshift({date:todayKey,tipo});
-  s(K.humor,humors.slice(0,30));
-  ['destruindo','ritmo','sobrevivendo','pesado'].forEach(t=>document.getElementById('humor-'+t).classList.toggle('selected',t===tipo));
-  renderHumor();showToast('Humor registrado ✓');
-}
-function loadHumorToday(){const h=g(K.humor,[]).find(h=>h.date===todayKey);if(h)['destruindo','ritmo','sobrevivendo','pesado'].forEach(t=>document.getElementById('humor-'+t).classList.toggle('selected',t===h.tipo));}
-function renderHumor(){
-  const humors=g(K.humor,[]).slice(0,10),el=document.getElementById('humor-history');
-  if(!humors.length){el.innerHTML='<div class="diario-empty">Nenhum humor registrado ainda.</div>';return;}
-  const fd=iso=>{const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});};
-  const lb={destruindo:'🔥 Destruindo',ritmo:'💪 No Ritmo',sobrevivendo:'😐 Sobrevivendo',pesado:'💀 Dia Pesado'};
-  const em={destruindo:'🔥',ritmo:'💪',sobrevivendo:'😐',pesado:'💀'};
-  el.innerHTML=humors.map(h=>`<div class="humor-entry"><div class="humor-entry-emoji">${em[h.tipo]||'—'}</div><div class="humor-entry-date">${fd(h.date)}</div><div class="humor-entry-label">${lb[h.tipo]||h.tipo}</div></div>`).join('');
-}
-
-// FRASES PESSOAIS
-function saveFrase(){const text=document.getElementById('frase-input').value.trim();if(!text)return;const autor=document.getElementById('frase-autor-input').value.trim();const frases=g(K.frases,[]);frases.unshift({id:Date.now(),text,autor});s(K.frases,frases);document.getElementById('frase-input').value='';document.getElementById('frase-autor-input').value='';renderFrases();showToast('Frase salva ✓');}
-function deleteFrase(id){if(!confirm('Apagar?'))return;s(K.frases,g(K.frases,[]).filter(f=>f.id!==id));renderFrases();}
-function renderFrases(){
-  const frases=g(K.frases,[]),el=document.getElementById('frases-list');
-  if(!frases.length){el.innerHTML='<div class="diario-empty">Nenhuma frase salva ainda.</div>';return;}
-  el.innerHTML=frases.map(f=>`<div class="frase-entry"><button class="frase-del" onclick="deleteFrase(${f.id})">×</button><div class="frase-entry-text">"${f.text}"</div>${f.autor?`<div class="frase-entry-autor">${f.autor}</div>`:''}</div>`).join('');
-}
-function renderFraseAuto(){const f=getFA();document.getElementById('frases-auto-text').textContent=f.t;document.getElementById('frases-auto-autor').textContent=f.a;}
-
-// PLANEJADOR
-function renderPlanerLabel(){const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);const mon=new Date(d);mon.setDate(diff);const sun=new Date(mon);sun.setDate(mon.getDate()+6);const fmt=dt=>dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});document.getElementById('planer-semana-label').textContent=fmt(mon)+' → '+fmt(sun);}
-function addPlanerItem(){const inp=document.getElementById('planer-input'),text=inp.value.trim();if(!text)return;const items=g(K.planer,[]);items.push({id:Date.now(),text,done:false});s(K.planer,items);inp.value='';renderPlanerItems();}
-function togglePlanerItem(id){const items=g(K.planer,[]),item=items.find(i=>i.id===id);if(item)item.done=!item.done;s(K.planer,items);renderPlanerItems();}
-function deletePlanerItem(id){s(K.planer,g(K.planer,[]).filter(i=>i.id!==id));renderPlanerItems();}
-function resetPlaner(){if(!confirm('Limpar planejador?'))return;s(K.planer,[]);renderPlanerItems();}
-function renderPlanerItems(){
-  const items=g(K.planer,[]),el=document.getElementById('planer-items');
-  if(!items.length){el.innerHTML='<div class="planer-empty">Adicione suas prioridades da semana.</div>';return;}
-  el.innerHTML=items.map(item=>`<div class="planer-item${item.done?' done':''}" onclick="togglePlanerItem(${item.id})"><div class="planer-item-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div><div class="planer-item-text">${item.text}</div><button class="planer-item-del" onclick="event.stopPropagation();deletePlanerItem(${item.id})">×</button></div>`).join('');
-}
-
-// MODO GUERRA
-let gTimer=null,gSec=0;
-function ativarGuerra(){
-  const f=getFG();
-  document.getElementById('guerra-frase-text').textContent=f.t;
-  document.getElementById('guerra-frase-autor').textContent=f.a;
-  const cl=getCL(),state=g(K.checks,{});
-  document.getElementById('guerra-checklist').innerHTML=cl.map((label,i)=>`<div class="guerra-check-item${state[i]?' done':''}" onclick="toggleGCheck(${i})"><div class="guerra-check-box"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div><div class="guerra-check-label">${label}</div></div>`).join('');
-  gSec=0;document.getElementById('guerra-overlay').classList.add('active');document.body.style.overflow='hidden';
-  gTimer=setInterval(()=>{gSec++;const m=String(Math.floor(gSec/60)).padStart(2,'0'),ss=String(gSec%60).padStart(2,'0');document.getElementById('guerra-timer').textContent=m+':'+ss;},1000);
-  if(navigator.vibrate)navigator.vibrate([200,100,200,100,400]);
-}
-function toggleGCheck(i){const st=g(K.checks,{});st[i]=!st[i];s(K.checks,st);const items=document.querySelectorAll('.guerra-check-item');if(items[i])items[i].classList.toggle('done',!!st[i]);renderChecks();}
-function sairGuerra(){clearInterval(gTimer);document.getElementById('guerra-overlay').classList.remove('active');document.body.style.overflow='';}
-
-// METAS
-function renderMetas(){
-  const c=getCfg();
-  document.getElementById('metas-grid').innerHTML=`<div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$${c.meta}</div><div class="meta-card-sub">seg→sex</div></div><div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">6h</div><div class="meta-card-sub">22:00→04:00</div></div><div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">3×</div><div class="meta-card-sub">Ter, Qui, Sáb</div></div><div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div><div class="meta-card"><div class="meta-card-label">Curso</div><div class="meta-card-value">3h</div><div class="meta-card-sub">09:00→12:00</div></div><div class="meta-card"><div class="meta-card-label">Estudo</div><div class="meta-card-value">3h</div><div class="meta-card-sub">18:00→21:00</div></div>`;
-  const planos=[{icon:'⚡',lbl:'3 meses',items:c.meta3?[c.meta3]:['Zerar a procrastinação. Rotina travada.','Concluir o curso com aproveitamento real.','Canal com primeiros vídeos publicados.','Bater R$'+c.meta+'/dia com consistência.']},{icon:'🎯',lbl:'6 meses',items:c.meta6?[c.meta6]:['Canal crescendo. Identidade consolidada.','Nova fonte de renda pelo projeto digital.','Psicológico equilibrado. Disciplina = identidade.']},{icon:'🏆',lbl:'12 meses',items:c.meta12?[c.meta12]:['Certificado concluído. Habilidade real.','Renda digital complementando ou superando o atual.','Ser referência no nicho. Homem que virou exemplo.','Família com mais estabilidade. Você mudou o jogo.']}];
-  document.getElementById('plano-cards').innerHTML=planos.map(p=>`<div class="plano-card"><div class="plano-header">${p.icon} ${p.lbl}</div>${p.items.map(it=>`<div class="plano-item"><div class="plano-dot"></div><div class="plano-text">${it}</div></div>`).join('')}</div>`).join('');
-  document.getElementById('regras-list').innerHTML=DEF_REGRAS.map((r,i)=>`<div class="regra"><div class="regra-num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][i]}</div><div class="regra-text">${r}</div></div>`).join('');
-}
-
-// NOTIFICAÇÕES
-const NF=[{title:"Missão Real",body:"A ignorância é a raiz de todo mal. Estuda. — Platão"},{title:"Missão Real",body:"Somos o que repetidamente fazemos. Excelência é hábito. — Aristóteles"},{title:"Missão Real",body:"Não é o que acontece, mas como você reage. — Epicteto"},{title:"Missão Real",body:"Enquanto adiamos, a vida passa. — Sêneca"},{title:"Missão Real",body:"Você tem poder sobre sua mente. Nada mais. — Marco Aurélio"},{title:"Missão Real",body:"O obstáculo é o caminho. — Marco Aurélio"},{title:"Missão Real",body:"Posso tudo naquele que me fortalece. — Fil 4:13"},{title:"Missão Real",body:"Sede fortes e corajosos. Não temais. — Deut 31:6"},{title:"Missão Real",body:"O caráter é o destino. — Heráclito"},{title:"Missão Real",body:"O homem fraco foge. O forte atravessa. — Sêneca"}];
-async function ativarNotificacoes(){
-  if(!('Notification' in window)){showToast('Não suportado neste browser');return;}
-  const perm=await Notification.requestPermission();
-  if(perm==='granted'){s('notif_on',true);updNotifBtn();showToast('Notificações ativadas ✓');agendarNotifs();}
-  else showToast('Permissão negada');
-}
-function updNotifBtn(){if(g('notif_on',false)&&Notification.permission==='granted'){const b=document.getElementById('notif-btn');b.textContent='✅ NOTIFICAÇÕES ATIVAS';b.style.borderColor='var(--green)';b.style.color='var(--green)';}}
-function agendarNotifs(){
-  if(!g('notif_on',false))return;
-  [{h:4,m:0},{h:9,m:0},{h:12,m:0},{h:14,m:30},{h:18,m:0},{h:21,m:0}].forEach(({h,m},idx)=>{
-    const now=new Date(),target=new Date();target.setHours(h,m,0,0);
-    let delay=target-now;if(delay<0)delay+=86400000;
-    setTimeout(()=>{
-      const f=NF[(idx+Math.floor(Date.now()/86400000))%NF.length];
-      if(Notification.permission==='granted')new Notification(f.title,{body:f.body,icon:'icons/apple-touch-icon.png'});
-      setInterval(()=>{const ff=NF[(idx+Math.floor(Date.now()/86400000))%NF.length];if(Notification.permission==='granted')new Notification(ff.title,{body:ff.body,icon:'icons/apple-touch-icon.png'});},86400000);
-    },delay);
+function showDay(day) {
+  ['segfex','sabado','domingo'].forEach(d => {
+    const el = document.getElementById('day-' + d);
+    if (el) el.style.display = d === day ? 'block' : 'none';
+    const tab = document.getElementById('tab-' + d);
+    if (tab) tab.classList.toggle('active', d === day);
   });
 }
 
-// CONFIG
-function renderCfgChecks(){document.getElementById('cfg-check-list').innerHTML=getCL().map((item,i)=>`<div class="cfg-check-item"><input class="cfg-check-input" value="${item.replace(/"/g,'&quot;')}" onchange="updCLItem(${i},this.value)"/><button class="cfg-check-del" onclick="delCLItem(${i})">×</button></div>`).join('');}
-function updCLItem(i,v){const cl=getCL();cl[i]=v;s(K.cl,cl);}
-function delCLItem(i){const cl=getCL();cl.splice(i,1);s(K.cl,cl);renderCfgChecks();}
-function addCheckItem(){const cl=getCL();cl.push('Novo item');s(K.cl,cl);renderCfgChecks();}
-function renderCfgBlocks(){['segfex','sabado','domingo'].forEach(day=>{const bks=getBL()[day]||[];document.getElementById('cfg-blocks-'+day).innerHTML=bks.map((b,i)=>`<div class="cfg-block-item"><div class="cfg-block-row"><input class="cfg-block-time" value="${b.time||''}" onchange="updBL('${day}',${i},'time',this.value)"/><input class="cfg-block-emoji" value="${b.emoji||''}" onchange="updBL('${day}',${i},'emoji',this.value)"/><input class="cfg-block-title-input" value="${(b.title||'').replace(/"/g,'&quot;')}" onchange="updBL('${day}',${i},'title',this.value)"/><select class="cfg-block-color" onchange="updBL('${day}',${i},'color',this.value)">${['','gold','blue','green','red','purple'].map(c=>`<option value="${c}" ${b.color===c?'selected':''}>${c||'—'}</option>`).join('')}</select><button class="cfg-block-del" onclick="delBL('${day}',${i})">×</button></div><textarea class="cfg-block-desc-input" rows="2" onchange="updBL('${day}',${i},'desc',this.value)">${b.desc||''}</textarea></div>`).join('');});}
-function updBL(day,i,f,v){const bl=getBL();if(!bl[day])return;bl[day][i][f]=v;s(K.bl,bl);}
-function delBL(day,i){const bl=getBL();if(!bl[day])return;bl[day].splice(i,1);s(K.bl,bl);renderCfgBlocks();}
-function addBlock(day){const bl=getBL();if(!bl[day])bl[day]=[];bl[day].push({time:'00:00',emoji:'🔹',title:'Novo bloco',desc:'',color:''});s(K.bl,bl);renderCfgBlocks();}
-function loadCfgFields(){const c=getCfg();['meta','acordar','rodar1','curso','turno2','almoco','turno3','fim','dormir','meta3','meta6','meta12'].forEach(id=>{const el=document.getElementById('cfg-'+id);if(el)el.value=c[id]||'';});}
-function saveConfig(){
-  const ids=['meta','acordar','rodar1','curso','turno2','almoco','turno3','fim','dormir','meta3','meta6','meta12'];
-  const c={};ids.forEach(id=>{const el=document.getElementById('cfg-'+id);c[id]=el?el.value:'';});
-  s(K.cfg,c);
-  document.getElementById('home-meta').textContent='R$'+(c.meta||'120');
-  document.getElementById('rotina-sub').textContent=(c.acordar||'04:00')+' → '+(c.dormir||'22:00')+' · Meta R$'+(c.meta||'120')+'/dia';
-  renderMetas();renderRotina();showToast('Tudo salvo ✓');
+function autoDay() {
+  const dow = new Date().getDay();
+  if (dow === 0) showDay('domingo');
+  else if (dow === 6) showDay('sabado');
+  else showDay('segfex');
 }
 
-// NAV
-function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');document.getElementById('nav-'+name).classList.add('active');window.scrollTo(0,0);}
+// ─── DIÁRIO ───────────────────────────────────────────────────────────────────
+let dType = 'pensamento';
 
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+function setDiarioType(t) {
+  dType = t;
+  ['pensamento','lembrete','ideia'].forEach(tt => {
+    const btn = document.getElementById('dtype-' + tt);
+    if (btn) btn.classList.toggle('active', tt === t);
+  });
+  const inp = document.getElementById('diario-input');
+  if (inp) inp.placeholder = {pensamento:'Escreve aqui...',lembrete:'O que precisa lembrar?',ideia:'Ideia pra gravar, título, roteiro...'}[t] || '';
+}
 
-// INIT
-loadCfgFields();renderChecks();renderDiario();renderRotina();renderMetas();renderCfgChecks();renderCfgBlocks();renderDash();renderHumor();renderFrases
+function saveDiarioEntry() {
+  const inp = document.getElementById('diario-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  const entries = lsGet(K.diario, []);
+  entries.unshift({ id: Date.now(), type: dType, text, date: new Date().toISOString() });
+  lsSet(K.diario, entries);
+  inp.value = '';
+  renderDiario();
+  showToast('Registro salvo ✓');
+}
+
+function deleteDiarioEntry(id) {
+  if (!confirm('Apagar?')) return;
+  lsSet(K.diario, lsGet(K.diario, []).filter(e => e.id !== id));
+  renderDiario();
+}
+
+function renderDiario() {
+  const entries = lsGet(K.diario, []);
+  const list = document.getElementById('diario-list');
+  if (!list) return;
+  if (!entries.length) { list.innerHTML = '<div class="diario-empty">Nenhum registro ainda.</div>'; return; }
+  const fd = iso => {
+    const d = new Date(iso);
+    return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  };
+  const lb = { pensamento:'💭 Pensamento', lembrete:'📌 Lembrete', ideia:'💡 Ideia' };
+  list.innerHTML = entries.map(e => `
+    <div class="diario-entry">
+      <div class="diario-entry-header">
+        <span class="diario-entry-type ${escAttr(e.type)}">${lb[e.type]||escHTML(e.type)}</span>
+        <span class="diario-entry-date">${fd(e.date)}</span>
+        <button class="diario-entry-del" onclick="deleteDiarioEntry(${e.id})">×</button>
+      </div>
+      <div class="diario-entry-text">${escHTML(e.text).replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+function renderDash() {
+  const hist = lsGet(K.checkHist, {});
+  const dias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const bars = document.getElementById('dash-bars');
+  const med = document.getElementById('dash-media');
+  if (!bars) return;
+  bars.innerHTML = '';
+  let tot = 0, cnt = 0;
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0,10);
+    const pct = hist[key] || 0;
+    const isToday = key === todayKey;
+    if (pct > 0) { tot += pct; cnt++; }
+    const wrap = document.createElement('div'); wrap.className = 'dash-bar-wrap';
+    const bar = document.createElement('div');
+    bar.className = 'dash-bar' + (pct > 0 ? ' filled' : '') + (isToday ? ' today' : '');
+    bar.style.height = Math.max(pct * 0.85, 3) + 'px';
+    const dl = document.createElement('div'); dl.className = 'dash-day'; dl.textContent = dias[d.getDay()];
+    const pl = document.createElement('div'); pl.className = 'dash-pct'; pl.textContent = pct > 0 ? pct + '%' : '';
+    wrap.appendChild(bar); wrap.appendChild(dl); wrap.appendChild(pl);
+    bars.appendChild(wrap);
+  }
+  if (med) med.textContent = cnt > 0 ? 'Média: ' + Math.round(tot/cnt) + '% — ' + cnt + ' dias registrados' : 'Nenhum dia registrado ainda.';
+}
+
+// ─── HUMOR ────────────────────────────────────────────────────────────────────
+function setHumor(tipo) {
+  const humors = lsGet(K.humor, []);
+  const idx = humors.findIndex(h => h.date === todayKey);
+  if (idx >= 0) humors[idx].tipo = tipo;
+  else humors.unshift({ date: todayKey, tipo });
+  lsSet(K.humor, humors.slice(0,30));
+  ['destruindo','ritmo','sobrevivendo','pesado'].forEach(t => {
+    const btn = document.getElementById('humor-' + t);
+    if (btn) btn.classList.toggle('selected', t === tipo);
+  });
+  renderHumor();
+  showToast('Humor registrado ✓');
+}
+
+function loadHumorToday() {
+  const h = lsGet(K.humor, []).find(h => h.date === todayKey);
+  if (h) {
+    ['destruindo','ritmo','sobrevivendo','pesado'].forEach(t => {
+      const btn = document.getElementById('humor-' + t);
+      if (btn) btn.classList.toggle('selected', t === h.tipo);
+    });
+  }
+}
+
+function renderHumor() {
+  const humors = lsGet(K.humor, []).slice(0,10);
+  const el = document.getElementById('humor-history');
+  if (!el) return;
+  if (!humors.length) { el.innerHTML = '<div class="diario-empty">Nenhum humor registrado ainda.</div>'; return; }
+  const fd = iso => { const d = new Date(iso + 'T12:00:00'); return d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}); };
+  const lb = { destruindo:'🔥 Destruindo', ritmo:'💪 No Ritmo', sobrevivendo:'😐 Sobrevivendo', pesado:'💀 Dia Pesado' };
+  const em = { destruindo:'🔥', ritmo:'💪', sobrevivendo:'😐', pesado:'💀' };
+  el.innerHTML = humors.map(h => `
+    <div class="humor-entry">
+      <div class="humor-entry-emoji">${em[h.tipo]||'—'}</div>
+      <div class="humor-entry-date">${fd(h.date)}</div>
+      <div class="humor-entry-label">${lb[h.tipo]||h.tipo}</div>
+    </div>`).join('');
+}
+
+// ─── FRASES PESSOAIS ──────────────────────────────────────────────────────────
+function saveFrase() {
+  const inp = document.getElementById('frase-input');
+  const ainp = document.getElementById('frase-autor-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  const autor = ainp ? ainp.value.trim() : '';
+  const frases = lsGet(K.frases, []);
+  frases.unshift({ id: Date.now(), text, autor });
+  lsSet(K.frases, frases);
+  inp.value = '';
+  if (ainp) ainp.value = '';
+  renderFrases();
+  showToast('Frase salva ✓');
+}
+
+function deleteFrase(id) {
+  if (!confirm('Apagar?')) return;
+  lsSet(K.frases, lsGet(K.frases, []).filter(f => f.id !== id));
+  renderFrases();
+}
+
+function renderFrases() {
+  const frases = lsGet(K.frases, []);
+  const el = document.getElementById('frases-list');
+  if (!el) return;
+  if (!frases.length) { el.innerHTML = '<div class="diario-empty">Nenhuma frase salva ainda.</div>'; return; }
+  el.innerHTML = frases.map(f => `
+    <div class="frase-entry">
+      <button class="frase-del" onclick="deleteFrase(${f.id})">×</button>
+      <div class="frase-entry-text">"${escHTML(f.text)}"</div>
+      ${f.autor ? `<div class="frase-entry-autor">${escHTML(f.autor)}</div>` : ''}
+    </div>`).join('');
+}
+
+function renderFraseAuto() {
+  const f = getFA();
+  const te = document.getElementById('frases-auto-text');
+  const ae = document.getElementById('frases-auto-autor');
+  if (te) te.textContent = f.t;
+  if (ae) ae.textContent = f.a;
+}
+
+// ─── PLANEJADOR ───────────────────────────────────────────────────────────────
+function renderPlanerLabel() {
+  const d = new Date(), day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const mon = new Date(d); mon.setDate(diff);
+  const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+  const fmt = dt => dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+  const el = document.getElementById('planer-semana-label');
+  if (el) el.textContent = fmt(mon) + ' → ' + fmt(sun);
+}
+
+function addPlanerItem() {
+  const inp = document.getElementById('planer-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  const items = lsGet(K.planer, []);
+  items.push({ id: Date.now(), text, done: false });
+  lsSet(K.planer, items);
+  inp.value = '';
+  renderPlanerItems();
+}
+
+function togglePlanerItem(id) {
+  const items = lsGet(K.planer, []);
+  const item = items.find(i => i.id === id);
+  if (item) item.done = !item.done;
+  lsSet(K.planer, items);
+  renderPlanerItems();
+}
+
+function deletePlanerItem(id) {
+  lsSet(K.planer, lsGet(K.planer, []).filter(i => i.id !== id));
+  renderPlanerItems();
+}
+
+function resetPlaner() {
+  if (!confirm('Limpar planejador?')) return;
+  lsSet(K.planer, []);
+  renderPlanerItems();
+}
+
+function renderPlanerItems() {
+  const items = lsGet(K.planer, []);
+  const el = document.getElementById('planer-items');
+  if (!el) return;
+  if (!items.length) { el.innerHTML = '<div class="planer-empty">Adicione suas prioridades da semana.</div>'; return; }
+  el.innerHTML = items.map(item => `
+    <div class="planer-item${item.done?' done':''}" onclick="togglePlanerItem(${item.id})">
+      <div class="planer-item-check"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div>
+      <div class="planer-item-text">${escHTML(item.text)}</div>
+      <button class="planer-item-del" onclick="event.stopPropagation();deletePlanerItem(${item.id})">×</button>
+    </div>`).join('');
+}
+
+// Permitir Enter no input do planejador
+document.addEventListener('DOMContentLoaded', () => {
+  const pi = document.getElementById('planer-input');
+  if (pi) pi.addEventListener('keydown', e => { if (e.key === 'Enter') addPlanerItem(); });
+});
+
+// ─── MODO GUERRA ──────────────────────────────────────────────────────────────
+let gTimer = null, gSec = 0;
+
+function ativarGuerra() {
+  // Limpa timer anterior se existir
+  if (gTimer) { clearInterval(gTimer); gTimer = null; }
+  gSec = 0;
+  document.getElementById('guerra-timer').textContent = '00:00';
+
+  const f = getFG();
+  const ft = document.getElementById('guerra-frase-text');
+  const fa = document.getElementById('guerra-frase-autor');
+  if (ft) ft.textContent = f.t;
+  if (fa) fa.textContent = f.a;
+
+  const cl = getCL(), state = lsGet(K.checks, {});
+  const gcl = document.getElementById('guerra-checklist');
+  if (gcl) {
+    gcl.innerHTML = cl.map((label, i) => `
+      <div class="guerra-check-item${state[i]?' done':''}" onclick="toggleGCheck(${i})">
+        <div class="guerra-check-box"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="black" stroke-width="2.5"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></div>
+        <div class="guerra-check-label">${escHTML(label)}</div>
+      </div>`).join('');
+  }
+
+  const ov = document.getElementById('guerra-overlay');
+  if (ov) ov.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  gTimer = setInterval(() => {
+    gSec++;
+    const m = String(Math.floor(gSec / 60)).padStart(2,'0');
+    const ss = String(gSec % 60).padStart(2,'0');
+    const tel = document.getElementById('guerra-timer');
+    if (tel) tel.textContent = m + ':' + ss;
+  }, 1000);
+
+  if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+}
+
+function toggleGCheck(i) {
+  const st = lsGet(K.checks, {});
+  st[i] = !st[i];
+  lsSet(K.checks, st);
+  const items = document.querySelectorAll('.guerra-check-item');
+  if (items[i]) items[i].classList.toggle('done', !!st[i]);
+  renderChecks();
+}
+
+function sairGuerra() {
+  if (gTimer) { clearInterval(gTimer); gTimer = null; }
+  gSec = 0;
+  const ov = document.getElementById('guerra-overlay');
+  if (ov) ov.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ─── METAS ────────────────────────────────────────────────────────────────────
+function renderMetas() {
+  const c = getCfg();
+  const mg = document.getElementById('metas-grid');
+  if (mg) {
+    mg.innerHTML = `
+      <div class="meta-card"><div class="meta-card-label">Meta/dia</div><div class="meta-card-value">R$${escHTML(c.meta||'120')}</div><div class="meta-card-sub">seg→sex</div></div>
+      <div class="meta-card"><div class="meta-card-label">Sono</div><div class="meta-card-value">6h</div><div class="meta-card-sub">22:00→04:00</div></div>
+      <div class="meta-card"><div class="meta-card-label">Treino</div><div class="meta-card-value">3×</div><div class="meta-card-sub">Ter, Qui, Sáb</div></div>
+      <div class="meta-card"><div class="meta-card-label">Projeto</div><div class="meta-card-value">SAB</div><div class="meta-card-sub">sagrado</div></div>
+      <div class="meta-card"><div class="meta-card-label">Curso</div><div class="meta-card-value">3h</div><div class="meta-card-sub">09:00→12:00</div></div>
+      <div class="meta-card"><div class="meta-card-label">Estudo</div><div class="meta-card-value">3h</div><div class="meta-card-sub">18:00→21:00</div></div>`;
+  }
+
+  const planos = [
+    {icon:'⚡',lbl:'3 meses',items: c.meta3 ? [c.meta3] : ['Zerar a procrastinação. Rotina travada.','Concluir o curso com aproveitamento real.','Canal com primeiros vídeos publicados.','Bater R$'+c.meta+'/dia com consistência.']},
+    {icon:'🎯',lbl:'6 meses',items: c.meta6 ? [c.meta6] : ['Canal crescendo. Identidade consolidada.','Nova fonte de renda pelo projeto digital.','Psicológico equilibrado. Disciplina = identidade.']},
+    {icon:'🏆',lbl:'12 meses',items: c.meta12 ? [c.meta12] : ['Certificado concluído. Habilidade real.','Renda digital complementando ou superando o atual.','Ser referência no nicho. Homem que virou exemplo.','Família com mais estabilidade. Você mudou o jogo.']}
+  ];
+
+  const pc = document.getElementById('plano-cards');
+  if (pc) {
+    pc.innerHTML = planos.map(p => `
+      <div class="plano-card">
+        <div class="plano-header">${p.icon} ${p.lbl}</div>
+        ${p.items.map(it => `<div class="plano-item"><div class="plano-dot"></div><div class="plano-text">${escHTML(it)}</div></div>`).join('')}
+      </div>`).join('');
+  }
+
+  const rl = document.getElementById('regras-list');
+  if (rl) {
+    rl.innerHTML = DEF_REGRAS.map((r,i) => `
+      <div class="regra">
+        <div class="regra-num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][i]||i+1}</div>
+        <div class="regra-text">${escHTML(r)}</div>
+      </div>`).join('');
+  }
+}
+
+// ─── NOTIFICAÇÕES ─────────────────────────────────────────────────────────────
+const NF = [
+  {title:"Missão Real",body:"A ignorância é a raiz de todo mal. Estuda. — Platão"},
+  {title:"Missão Real",body:"Somos o que repetidamente fazemos. Excelência é hábito. — Aristóteles"},
+  {title:"Missão Real",body:"Não é o que acontece, mas como você reage. — Epicteto"},
+  {title:"Missão Real",body:"Enquanto adiamos, a vida passa. — Sêneca"},
+  {title:"Missão Real",body:"Você tem poder sobre sua mente. Nada mais. — Marco Aurélio"},
+  {title:"Missão Real",body:"O obstáculo é o caminho. — Marco Aurélio"},
+  {title:"Missão Real",body:"Posso tudo naquele que me fortalece. — Fil 4:13"},
+  {title:"Missão Real",body:"Sede fortes e corajosos. Não temais. — Deut 31:6"},
+  {title:"Missão Real",body:"O caráter é o destino. — Heráclito"},
+  {title:"Missão Real",body:"O homem fraco foge. O forte atravessa. — Sêneca"}
+];
+
+// Guarda os IDs dos timeouts de notificação para não duplicar
+const notifTimeouts = [];
+
+async function ativarNotificacoes() {
+  if (!('Notification' in window)) { showToast('Não suportado neste browser'); return; }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    lsSet('notif_on', true);
+    updNotifBtn();
+    showToast('Notificações ativadas ✓');
+    agendarNotifs();
+  } else {
+    showToast('Permissão negada');
+  }
+}
+
+function updNotifBtn() {
+  const b = document.getElementById('notif-btn');
+  if (!b) return;
+  if (lsGet('notif_on', false) && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    b.textContent = '✅ NOTIFICAÇÕES ATIVAS';
+    b.style.borderColor = 'var(--green)';
+    b.style.color = 'var(--green)';
+  }
+}
+
+function agendarNotifs() {
+  if (!lsGet('notif_on', false)) return;
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+
+  // Cancela agendamentos anteriores
+  notifTimeouts.forEach(id => clearTimeout(id));
+  notifTimeouts.length = 0;
+
+  const horarios = [{h:4,m:0},{h:9,m:0},{h:12,m:0},{h:14,m:30},{h:18,m:0},{h:21,m:0}];
+  horarios.forEach((hor, idx) => {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(hor.h, hor.m, 0, 0);
+    let delay = target - now;
+    if (delay < 0) delay += 86400000;
+
+    const tid = setTimeout(() => {
+      const f = NF[(idx + Math.floor(Date.now() / 86400000)) % NF.length];
+      try { new Notification(f.title, { body: f.body }); } catch(e) {}
+      // Reagenda para o dia seguinte (uma vez)
+      const next = setTimeout(() => {
+        const ff = NF[(idx + Math.floor(Date.now() / 86400000)) % NF.length];
+        try { new Notification(ff.title, { body: ff.body }); } catch(e) {}
+      }, 86400000);
+      notifTimeouts.push(next);
+    }, delay);
+    notifTimeouts.push(tid);
+  });
+}
+
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+function renderCfgChecks() {
+  const cl = getCL();
+  const el = document.getElementById('cfg-check-list');
+  if (!el) return;
+  el.innerHTML = cl.map((item, i) => `
+    <div class="cfg-check-item">
+      <input class="cfg-check-input" value="${escAttr(item)}" onchange="updCLItem(${i},this.value)"/>
+      <button class="cfg-check-del" onclick="delCLItem(${i})">×</button>
+    </div>`).join('');
+}
+
+function updCLItem(i, v) { const cl = getCL(); cl[i] = v; lsSet(K.cl, cl); }
+function delCLItem(i) { const cl = getCL(); cl.splice(i,1); lsSet(K.cl, cl); renderCfgChecks(); renderChecks(); }
+function addCheckItem() { const cl = getCL(); cl.push('Novo item'); lsSet(K.cl, cl); renderCfgChecks(); }
+
+function renderCfgBlocks() {
+  ['segfex','sabado','domingo'].forEach(day => {
+    const bks = getBL()[day] || [];
+    const el = document.getElementById('cfg-blocks-' + day);
+    if (!el) return;
+    el.innerHTML = bks.map((b,i) => `
+      <div class="cfg-block-item">
+        <div class="cfg-block-row">
+          <input class="cfg-block-time" value="${escAttr(b.time||'')}" onchange="updBL('${day}',${i},'time',this.value)"/>
+          <input class="cfg-block-emoji" value="${escAttr(b.emoji||'')}" onchange="updBL('${day}',${i},'emoji',this.value)"/>
+          <input class="cfg-block-title-input" value="${escAttr(b.title||'')}" onchange="updBL('${day}',${i},'title',this.value)"/>
+          <select class="cfg-block-color" onchange="updBL('${day}',${i},'color',this.value)">
+            ${['','gold','blue','green','red','purple'].map(c=>`<option value="${c}"${b.color===c?' selected':''}>${c||'—'}</option>`).join('')}
+          </select>
+          <button class="cfg-block-del" onclick="delBL('${day}',${i})">×</button>
+        </div>
+        <textarea class="cfg-block-desc-input" rows="2" onchange="updBL('${day}',${i},'desc',this.value)">${escHTML(b.desc||'')}</textarea>
+
+```
+  </div>`).join('');
+```
+
+});
+}
+
+function updBL(day, i, f, v) {
+const bl = getBL();
+if (!bl[day] || !bl[day][i]) return;
+bl[day][i][f] = v;
+lsSet(K.bl, bl);
+}
+
+function delBL(day, i) {
+const bl = getBL();
+if (!bl[day]) return;
+bl[day].splice(i,1);
+lsSet(K.bl, bl);
+renderCfgBlocks();
+}
+
+function addBlock(day) {
+const bl = getBL();
+if (!bl[day]) bl[day] = [];
+bl[day].push({ time:‘00:00’, emoji:‘🔹’, title:‘Novo bloco’, desc:’’, color:’’ });
+lsSet(K.bl, bl);
+renderCfgBlocks();
+}
+
+function loadCfgFields() {
+const c = getCfg();
+[‘meta’,‘acordar’,‘rodar1’,‘curso’,‘turno2’,‘almoco’,‘turno3’,‘fim’,‘dormir’,‘meta3’,‘meta6’,‘meta12’].forEach(id => {
+const el = document.getElementById(‘cfg-’ + id);
+if (el) el.value = c[id] || ‘’;
+});
+}
+
+function saveConfig() {
+const ids = [‘meta’,‘acordar’,‘rodar1’,‘curso’,‘turno2’,‘almoco’,‘turno3’,‘fim’,‘dormir’,‘meta3’,‘meta6’,‘meta12’];
+const c = {};
+ids.forEach(id => {
+const el = document.getElementById(‘cfg-’ + id);
+c[id] = el ? el.value : ‘’;
+});
+lsSet(K.cfg, c);
+
+const hm = document.getElementById(‘home-meta’);
+if (hm) hm.textContent = ‘R$’ + (c.meta || ‘120’);
+const rs = document.getElementById(‘rotina-sub’);
+if (rs) rs.textContent = (c.acordar||‘04:00’) + ’ → ’ + (c.dormir||‘22:00’) + ’ · Meta R$’ + (c.meta||‘120’) + ‘/dia’;
+
+renderMetas();
+renderRotina();
+renderCfgBlocks();
+updBloco();
+showToast(‘Tudo salvo ✓’);
+}
+
+// ─── NAVEGAÇÃO ────────────────────────────────────────────────────────────────
+function showPage(name) {
+document.querySelectorAll(’.page’).forEach(p => p.classList.remove(‘active’));
+document.querySelectorAll(’.nav-btn’).forEach(b => b.classList.remove(‘active’));
+const page = document.getElementById(‘page-’ + name);
+const btn = document.getElementById(‘nav-’ + name);
+if (page) page.classList.add(‘active’);
+if (btn) btn.classList.add(‘active’);
+window.scrollTo(0, 0);
+}
+
+// ─── HELPERS DE SEGURANÇA HTML ────────────────────────────────────────────────
+function escHTML(str) {
+return String(str || ‘’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/”/g,’"’);
+}
+function escAttr(str) {
+return String(str || ‘’).replace(/”/g,’"’).replace(/’/g,’'’);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+// Tudo dentro de try/catch global para nunca travar na splash
+function initApp() {
+try {
+// Frase da splash
+const f = getFA();
+const sf = document.getElementById(‘splash-frase’);
+if (sf) sf.textContent = f.t;
+} catch(e) {}
+
+// Esconde splash após a animação (2.3s da barra + margem)
+setTimeout(hideSplash, 2500);
+
+try {
+loadCfgFields();
+renderChecks();
+renderDiario();
+renderRotina();
+renderMetas();
+renderCfgChecks();
+renderCfgBlocks();
+renderDash();
+renderHumor();
+renderFrases();
+renderFraseAuto();
+renderFraseHome();
+renderPlanerItems();
+renderPlanerLabel();
+loadHumorToday();
+autoDay();
+updStreakUI();
+updBloco();
+updClock();
+updNotifBtn();
+agendarNotifs();
+} catch(e) {
+console.error(‘initApp error:’, e);
+}
+
+// Intervalos
+setInterval(updClock, 1000);
+setInterval(updBloco, 60000);
+}
+
+// Garante que o DOM existe antes de inicializar
+if (document.readyState === ‘loading’) {
+document.addEventListener(‘DOMContentLoaded’, initApp);
+} else {
+initApp();
+}
+</script>
+
+</body>
+</html>
