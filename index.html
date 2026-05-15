@@ -8,9 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="theme-color" content="#000000">
 <title>MISSÃO REAL</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
    RESET & TOKENS
@@ -50,10 +47,11 @@
 –safe-t: env(safe-area-inset-top,0px);
 –safe-b: env(safe-area-inset-bottom,0px);
 
-–F-HEAD: ‘Orbitron’,sans-serif;
-–F-BODY: ‘Inter’,sans-serif;
-–F-SERIF:‘Playfair Display’,serif;
-–F-MONO: ‘JetBrains Mono’,monospace;
+/* 100% system fonts — zero dependência externa */
+–F-HEAD: ‘SF Pro Display’,‘Helvetica Neue’,Arial,sans-serif;
+–F-BODY: ‘SF Pro Text’,‘Helvetica Neue’,Arial,sans-serif;
+–F-SERIF:‘Georgia’,‘Times New Roman’,serif;
+–F-MONO: ‘SF Mono’,‘Menlo’,‘Courier New’,monospace;
 }
 
 html{height:100%;background:var(–black);}
