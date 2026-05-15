@@ -8,8 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="theme-color" content="#000000">
 <title>MISSÃO REAL</title>
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=orbitron:400,700,900|inter:300,400,500,600,700|playfair-display:400i,700i|jetbrains-mono:400,600" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
    RESET & TOKENS
@@ -1336,7 +1337,7 @@ function ativarG(){
 function togGCl(i){const st=sg(K.ch,{});st[i]=!st[i];ss(K.ch,st);const items=document.querySelectorAll('.gov-item');if(items[i])items[i].classList.toggle('ck',!!st[i]);renderCL();}
 function sairG(){if(gInt){clearInterval(gInt);gInt=null;}gSec=0;const ov=document.getElementById('gov');if(ov)ov.classList.remove('on');document.body.style.overflow='';}
 
-// ── NOTIFICAÇÕES (a cada 1h — Service Worker para background real) ────────
+// ── NOTIFICAÇÕES (a cada 1h, das 5h às 22h) ──────────────────────────────
 const nIds=[];
 
 async function ativarNotif(){
@@ -1346,10 +1347,9 @@ async function ativarNotif(){
     ss(K.notif,true);
     updNotif();
     toast('Notificações ativas ✓ (1h/1h)');
-    registrarSW(); // registra SW para notificações em background
     agNotif();
   } else {
-    toast('Permissão negada. Ative nas config. do browser.');
+    toast('Permissão negada. Ative nas configurações.');
   }
 }
 
@@ -1361,102 +1361,21 @@ function updNotif(){
   }
 }
 
-// Agenda notificações via setTimeout (funciona com app aberto)
-// Para notificações com app fechado, o Service Worker cuida
 function agNotif(){
   if(!sg(K.notif,false)||typeof Notification==='undefined'||Notification.permission!=='granted')return;
   nIds.forEach(id=>clearTimeout(id));nIds.length=0;
-
-  // Horários: a cada hora das 5h às 22h
-  const horasAlvo=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
   const diasPassados=Math.floor((new Date()-new Date(new Date().getFullYear(),0,1))/86400000);
-
-  horasAlvo.forEach((h,idx)=>{
-    const now=new Date(),target=new Date();
-    target.setHours(h,0,0,0);
-    let delay=target-now;
-    if(delay<0)delay+=86400000; // próximo dia se já passou
-
-    const frase=FRASES[(diasPassados+idx)%FRASES.length];
-    const tid=setTimeout(()=>{
-      try{
-        new Notification('MISSÃO REAL',{
-          body: frase.t+'\n\n'+frase.a,
-          icon: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shield/3D/shield_3d.png',
-          badge:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shield/3D/shield_3d.png',
-          tag:'missao-real-notif',
-          silent:false
-        });
-      }catch(e){}
-    },delay);
-    nIds.push(tid);
-  });
-}
-
-// Service Worker — registra para notificações em background e cache offline
-function registrarSW(){
-  if(!('serviceWorker' in navigator))return;
-  // Gera SW inline via Blob para não precisar de arquivo separado
-  const frases=JSON.stringify(FRASES);
-  const swCode=`
-const CACHE='mr-v1';
-const URLS=[self.registration.scope];
-const FRASES=${frases};
-
-self.addEventListener('install',e=>{
-  e.waitUntil(
-    caches.open(CACHE).then(c=>c.addAll(URLS)).catch(()=>{})
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
-  self.clients.claim();
-});
-
-self.addEventListener('fetch',e=>{
-  e.respondWith(
-    caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
-      const clone=res.clone();
-      caches.open(CACHE).then(c=>c.put(e.request,clone));
-      return res;
-    }).catch(()=>r))
-  );
-});
-
-// Agenda notificações horárias no SW (funciona com app fechado)
-function agendarNoSW(){
-  const diasPassados=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,1))/(86400000));
-  const horas=[5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
-  horas.forEach((h,idx)=>{
+  [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22].forEach((h,idx)=>{
     const now=new Date(),target=new Date();
     target.setHours(h,0,0,0);
     let delay=target-now;
     if(delay<0)delay+=86400000;
-    setTimeout(()=>{
-      const f=FRASES[(diasPassados+idx)%FRASES.length];
-      self.registration.showNotification('MISSÃO REAL',{
-        body:f.t+'\\n\\n'+f.a,
-        tag:'mr-h'+h,
-        silent:false
-      });
+    const frase=FRASES[(diasPassados+idx)%FRASES.length];
+    const tid=setTimeout(()=>{
+      try{new Notification('MISSÃO REAL',{body:frase.t+'\n\n'+frase.a,tag:'mr-h'+h});}catch(e){}
     },delay);
+    nIds.push(tid);
   });
-}
-
-self.addEventListener('activate',()=>agendarNoSW());
-self.addEventListener('message',e=>{if(e.data==='agendar')agendarNoSW();});
-`;
-  const blob=new Blob([swCode],{type:'application/javascript'});
-  const url=URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url,{scope:'./'}).then(reg=>{
-    reg.active&&reg.active.postMessage('agendar');
-    reg.addEventListener('updatefound',()=>{
-      const w=reg.installing;
-      w.addEventListener('statechange',()=>{if(w.state==='activated')w.postMessage('agendar');});
-    });
-  }).catch(()=>{});
 }
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
@@ -1504,14 +1423,10 @@ renderCfgCl();renderCfgBl();renderDash();renderHumor();renderMF();
 renderFA();renderPl();renderPlLbl();loadHT();autoDay();updBloco();updClock();updNotif();agNotif();
 const pi=document.getElementById(‘pl-in’);
 if(pi)pi.addEventListener(‘keydown’,e=>{if(e.key===‘Enter’)addPl();});
-// Registra SW para cache offline (mesmo sem notificações ativas)
-registrarSW();
 }catch(e){console.error(‘init:’,e);}
 
-// Splash: espera fontes + mínimo 2.5s
-const minWait=new Promise(r=>setTimeout(r,2500));
-const fontWait=document.fonts?document.fonts.ready:Promise.resolve();
-Promise.all([minWait,fontWait]).then(hideSplash);
+// Splash some após 2.5s fixo — não depende de fontes externas
+setTimeout(hideSplash, 2500);
 
 setInterval(updClock,1000);
 setInterval(updBloco,60000);
